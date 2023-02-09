@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="universal_margin_dx_sx">24dp</dimen>
+    <dimen name="title_HomeFragment">32sp</dimen>
+    <dimen name="text_day_HomeFragment">24sp</dimen>
+    <dimen name="num_card_HomeFragment">20sp</dimen>
+    <dimen name="text_description_card_HomeFragment">15sp</dimen>
+    <dimen name="text_next_five_days_HomeFragment">16sp</dimen>
+    <dimen name="text_city_ODFragment">15sp</dimen>
+    <dimen name="text_description_title_ODFragment">20sp</dimen>
+    <dimen name="text_hour_ODFragment">15sp</dimen>
+    <dimen name="text_gradeAndHumidity_ODFragment">20sp</dimen>
+    <dimen name="text_description_card_ODFragment">15sp</dimen>
+    <dimen name="text_values_description_card_ODFragmnt">16sp</dimen>
+    <dimen name="text_recent_research_SearchFragment">15sp</dimen>
+    <dimen name="text_name_cityAndGrade_SearchFragment">18sp</dimen>
+    <dimen name="text_description_SearchFragment">10sp</dimen>
+    <dimen name="text_searchHint_SearchFragment">15sp</dimen>
+    <dimen name="text_ErrorFragment">17sp</dimen>
+</resources>
