@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">meteoapp</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_oggi">Oggi</string>
+    <string name="title_Domani">Domani</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_Search">Search</string>
 </resources>
