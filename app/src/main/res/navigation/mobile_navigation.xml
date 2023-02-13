@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="co.develhope.meteoapp.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_oggi"
+        android:name="co.develhope.meteoapp.ui.oggi.OggiFragment"
+        android:label="@string/title_oggi"
+        tools:layout="@layout/fragment_domani" />
+
+    <fragment
+        android:id="@+id/navigation_domani"
+        android:name="co.develhope.meteoapp.ui.domani.DomaniFragment"
+        android:label="@string/title_Domani"
+        tools:layout="@layout/fragment_oggi" />
+    <fragment
+        android:id="@+id/navigation_search"
+        android:name="co.develhope.meteoapp.ui.oggi.SearchFragment"
+        android:label="@string/title_Search"
+        tools:layout="@layout/fragment_search"/>
+
+</navigation>
