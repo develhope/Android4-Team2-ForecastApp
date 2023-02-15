@@ -7,4 +7,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_Search">Search</string>
+    <string name="title_home_city_region">Palermo,Sicilia</string>
+    <string name="home_card_day_of_week">Oggi</string>
+    <string name="minTempGrad">22°</string>
 </resources>
