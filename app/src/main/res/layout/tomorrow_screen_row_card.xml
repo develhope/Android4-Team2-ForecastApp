@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <TextView
+        android:id="@+id/tomorrow_hourTV"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:textSize="@dimen/text_hour_ODFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tomorrow_image1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/tomorrow_image1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/sun"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tomorrow_tempTV"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tomorrow_hourTV"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tomorrow_tempTV"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_gradeAndHumidity_ODFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tomorrow_image2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tomorrow_image1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/tomorrow_image2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/drop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tomorrow_precipitationTV"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tomorrow_tempTV"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tomorrow_precipitationTV"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:textSize="@dimen/text_gradeAndHumidity_ODFragment"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tomorrow_imageARROW"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tomorrow_image2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/tomorrow_imageARROW"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/arrow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tomorrow_precipitationTV"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="24dp"
+        android:background="#673AB7"
+        app:layout_constraintTop_toBottomOf="@id/tomorrow_hourTV"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CardViewToday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="9dp"
+        android:layout_marginTop="23dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tomorrow_hourTV">
+
+        <TextView
+            android:id="@+id/PerceivedTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:text="Perceived"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_description_card_ODFragment" />
+
+        <TextView
+            android:id="@+id/Temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20°"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_values_description_card_ODFragmnt"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="37dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/UV_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UV Index"
+            android:textSize="@dimen/text_description_card_ODFragment"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="18dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/UV_Ind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/10"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_values_description_card_ODFragmnt"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="37dp"
+            android:textColor="@color/black"/>
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:background="#6F559C"/>
+
+        <TextView
+            android:id="@+id/Humidity_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Humidity"
+            android:textSize="@dimen/text_description_card_ODFragment"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="84dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/Humidity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="80%"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_values_description_card_ODFragmnt"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="106dp"
+            android:textColor="@color/black"/>
+        
+        <TextView
+            android:id="@+id/Wind_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wind"
+            android:textSize="@dimen/text_description_card_ODFragment"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="84dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/Wind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="NNE 1km/h"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_values_description_card_ODFragmnt"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="106dp"
+            android:textColor="@color/black"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#6F559C"
+            android:layout_marginTop="140dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"/>
+
+        <TextView
+            android:id="@+id/Coverage_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Coverage"
+            android:textSize="@dimen/text_description_card_ODFragment"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="153dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/Coverage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3%"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_values_description_card_ODFragmnt"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="175dp"
+            android:layout_marginBottom="19dp"
+            android:textColor="@color/black"/>
+        
+        <TextView
+            android:id="@+id/Rain_Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rain"
+            android:textSize="@dimen/text_description_card_ODFragment"
+            android:layout_marginStart="200dp"
+            android:layout_marginTop="153dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/Rain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0cm"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_values_description_card_ODFragmnt"
+            android:layout_marginStart="198dp"
+            android:layout_marginTop="175dp"
+            android:textColor="@color/black"/>
+
+
+    </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
