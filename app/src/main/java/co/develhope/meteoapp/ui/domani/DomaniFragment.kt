@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import co.develhope.meteoapp.Weather
 import co.develhope.meteoapp.databinding.FragmentDomaniBinding
 
 class DomaniFragment : Fragment() {
@@ -24,6 +26,21 @@ class DomaniFragment : Fragment() {
         _binding = FragmentDomaniBinding.inflate(inflater, container, false)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        var listItems = mutableListOf(
+            TomorrowCardInfo("00:00", "12°", "0%"),
+            TomorrowCardInfo("01:00", "12°", "0%"),
+            TomorrowCardInfo("02:00", "13°", "5%"),
+            TomorrowCardInfo("03:00", "15°", "5%"),
+        )
+
+        val adapter = AdapterTomorrowScreen(listItems)
+        binding.rvTomorrowScreen.adapter = adapter
+        binding.rvTomorrowScreen.layoutManager = LinearLayoutManager(context)
     }
 
     override fun onDestroyView() {

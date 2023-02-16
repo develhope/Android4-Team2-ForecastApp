@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="30dp">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="61dp"
+        android:layout_marginLeft="@dimen/universal_margin_dx_sx"
+        android:text="Palermo, Sicilia"
+        android:textColor="@color/purple_700"
+        android:textSize="@dimen/text_min_dimensions_card_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Domani"
+        android:layout_marginLeft="@dimen/universal_margin_dx_sx"
+        android:textColor="@color/purple_700"
+        android:textSize="@dimen/text_norm_dimensions_card_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lunedì 11 settembre"
+        android:layout_marginLeft="@dimen/universal_margin_dx_sx"
+        android:textColor="@color/purple_700"
+        android:textSize="@dimen/text_min_dimensions_card_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
