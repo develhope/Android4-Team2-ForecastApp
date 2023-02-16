@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="num_Card_Home">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_norm_dimensions_card_info</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="descr_Card_Home">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_min_dimensions_card_info</item>
+    </style>
+</resources>
