@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="home_frag_corner_radius">10dp</dimen>
+    <dimen name="text_dimens_home_day_card">24sp</dimen>
+    <dimen name="margin_stringNextDays_card_home">45dp</dimen>
+    <dimen name="padding_Bottom_Home_Screen">60dp</dimen>
 </resources>

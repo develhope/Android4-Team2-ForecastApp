@@ -7,7 +7,29 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_Search">Search</string>
-    <string name="title_home_city_region">Palermo,Sicilia</string>
+    <string name="title_home_city_region">${city},${region}</string>
     <string name="home_card_day_of_week">Oggi</string>
     <string name="minTempGrad">22°</string>
+    <string name="maxTempGrad">31°</string>
+    <string name="date_home_screen_card">10/09</string>
+    <string name="minTemp">min</string>
+    <string name="maxTemp">max</string>
+    <string name="rainfallNum_homeCard">0%</string>
+    <string name="windNum_homeCard">12kmh</string>
+    <string name="precep_descr_Home">precep.</string>
+    <string name="test_space" />
+    <string name="wind_descr_Home">vento</string>
+    <string name="next_days_home_fragment">prossimi 5 giorni</string>
+
+    //DAY OF THE WEEK
+    <string name="lunedi">Lunedi</string>
+    <string name="martedi">Martedi</string>
+    <string name="mercoledi">Mercoledi</string>
+    <string name="giovedi">Giovedi</string>
+    <string name="venerdi">Venerdi</string>
+    <string name="sabato">Sabato</string>
+    <string name="domenica">Domenica</string>
+
+    // CITY AND REGION
+    <string name="city_region_home">Palermo,Sicilia</string>
 </resources>
