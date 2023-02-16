@@ -15,7 +15,7 @@
         android:layout_marginLeft="@dimen/universal_margin_dx_sx"
         android:text="Palermo, Sicilia"
         android:textColor="@color/purple_700"
-        android:textSize="@dimen/text_city_ODFragment"
+        android:textSize="@dimen/text_min_dimensions_card_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -26,7 +26,7 @@
         android:text="Domani"
         android:layout_marginLeft="@dimen/universal_margin_dx_sx"
         android:textColor="@color/purple_700"
-        android:textSize="@dimen/text_description_title_ODFragment"
+        android:textSize="@dimen/text_norm_dimensions_card_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -37,7 +37,7 @@
         android:text="Lunedì 11 settembre"
         android:layout_marginLeft="@dimen/universal_margin_dx_sx"
         android:textColor="@color/purple_700"
-        android:textSize="@dimen/text_hour_ODFragment"
+        android:textSize="@dimen/text_min_dimensions_card_info"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
