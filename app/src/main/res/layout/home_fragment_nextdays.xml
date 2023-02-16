@@ -3,18 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/titleHomeFrag"
+        android:id="@+id/tvNextDays"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/title_HomeFragment"
+        android:text="@string/next_days_home_fragment"
+        android:textAllCaps="true"
         android:textColor="@color/white"
-        android:textStyle="bold"
-        android:layout_marginTop="@dimen/home_fragment_marginTop"
-        android:text="@string/title_home_city_region"
+        android:layout_marginTop="@dimen/margin_stringNextDays_card_home"
+        android:textSize="@dimen/text_min_dimensions_card_info"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

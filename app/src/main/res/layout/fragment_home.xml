@@ -8,11 +8,14 @@
     tools:context=".ui.oggi.OggiFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewHomeFrag"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/universal_margin_dx_sx"
         android:layout_marginEnd="@dimen/universal_margin_dx_sx"
+        android:paddingBottom="@dimen/padding_Bottom_Home_Screen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:listitem="@layout/home_fragment_card"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

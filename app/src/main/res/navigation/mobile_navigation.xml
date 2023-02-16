@@ -15,13 +15,13 @@
         android:id="@+id/navigation_oggi"
         android:name="co.develhope.meteoapp.ui.oggi.OggiFragment"
         android:label="@string/title_oggi"
-        tools:layout="@layout/fragment_domani" />
+        tools:layout="@layout/fragment_oggi" />
 
     <fragment
         android:id="@+id/navigation_domani"
         android:name="co.develhope.meteoapp.ui.domani.DomaniFragment"
         android:label="@string/title_Domani"
-        tools:layout="@layout/fragment_oggi" />
+        tools:layout="@layout/fragment_domani" />
     <fragment
         android:id="@+id/navigation_search"
         android:name="co.develhope.meteoapp.ui.oggi.SearchFragment"
