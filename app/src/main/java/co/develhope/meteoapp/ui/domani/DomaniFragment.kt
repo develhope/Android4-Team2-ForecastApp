@@ -31,7 +31,7 @@ class DomaniFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var listItems = mutableListOf(
+        /*var listItems = mutableListOf(
             TomorrowCardInfo("00:00", "12°", "0%"),
             TomorrowCardInfo("01:00", "12°", "0%"),
             TomorrowCardInfo("02:00", "13°", "5%"),
@@ -41,10 +41,13 @@ class DomaniFragment : Fragment() {
         val adapter = AdapterTomorrowScreen(listItems)
         binding.rvTomorrowScreen.adapter = adapter
         binding.rvTomorrowScreen.layoutManager = LinearLayoutManager(context)
+
+         */
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

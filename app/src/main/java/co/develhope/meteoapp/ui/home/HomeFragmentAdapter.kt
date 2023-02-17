@@ -72,8 +72,8 @@ class HomeFragmentAdapter(private val list: List<Data.HomeScreenParts>) :
         RecyclerView.ViewHolder(cardBinding.root) {
         fun bind(card: Data.HomeScreenParts.Card) {
             cardBinding.homeCardDayText.text = card.cardInfo.dateTime.dayOfWeek.name
-            cardBinding.minTempGrade.text = "${card.cardInfo.minTemp}°"
-            cardBinding.maxTempGrade.text = "${card.cardInfo.maxTemp}°"
+            "${card.cardInfo.minTemp}°".also { cardBinding.minTempGrade.text = it }
+            "${card.cardInfo.maxTemp}°".also { cardBinding.maxTempGrade.text = it }
             //FORMAT DATE TIME
             val dateTime = card.cardInfo.dateTime
             val offsetDateTime = OffsetDateTime.ofInstant(dateTime.toInstant(), ZoneOffset.UTC)
@@ -81,8 +81,8 @@ class HomeFragmentAdapter(private val list: List<Data.HomeScreenParts>) :
             cardBinding.dateHomeScreen.text = formattedDate
             //FINISH FORMAT DATE TIME
             cardBinding.weatherImgHome.setImageResource(Data.weatherIcon(card.cardInfo.weather))
-            cardBinding.rainfallNum.text = "${card.cardInfo.rainFall}%"
-            cardBinding.windNum.text = "${card.cardInfo.wind}kmh"
+            "${card.cardInfo.rainFall}%".also { cardBinding.rainfallNum.text = it }
+            "${card.cardInfo.wind}kmh".also { cardBinding.windNum.text = it }
         }
     }
 
