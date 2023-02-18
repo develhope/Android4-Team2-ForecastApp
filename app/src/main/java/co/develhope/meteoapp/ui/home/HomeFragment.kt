@@ -1,28 +1,20 @@
 package co.develhope.meteoapp.ui.home
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.Data.cardInfo1
 import co.develhope.meteoapp.Data.cardInfo2
 import co.develhope.meteoapp.Data.cardInfo3
 import co.develhope.meteoapp.Data.cardInfo4
 import co.develhope.meteoapp.Data.cardInfo5
-import co.develhope.meteoapp.Weather
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
-import java.time.OffsetDateTime
 
 class HomeFragment : Fragment() {
-    private lateinit var adapter: HomeFragmentAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var homeScreen: List<Data.HomeScreenParts>
 
 
     private var _binding: FragmentHomeBinding? = null
@@ -68,6 +60,4 @@ class HomeFragment : Fragment() {
         Data.HomeScreenParts.Card(cardInfo4),
         Data.HomeScreenParts.Card(cardInfo5)
     )
-
-
 }
