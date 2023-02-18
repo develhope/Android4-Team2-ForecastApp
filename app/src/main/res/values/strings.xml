@@ -32,4 +32,12 @@
 
     // CITY AND REGION
     <string name="city_region_home">Palermo,Sicilia</string>
+
+    // TEXT VIEW TOMORROW SCREEN
+    <string name="tv_hour_00">%d:00</string>
+    <string name="tv_temperature">%d C°</string>
+    <string name="tv_percRain">%d cm</string>
+    <string name="tv_humRainCov">%d%%</string>
+    <string name="tv_uvIndex">%d/10</string>
+    <string name="tv_kmWind">%d km/h</string>
 </resources>

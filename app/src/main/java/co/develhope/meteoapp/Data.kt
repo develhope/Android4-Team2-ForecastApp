@@ -1,6 +1,5 @@
 package co.develhope.meteoapp
 
-import co.develhope.meteoapp.ui.domani.TomorrowCardInfo
 import java.time.OffsetDateTime
 
 object Data {
@@ -32,18 +31,30 @@ object Data {
 
     //TOMORROW DATA
 
-    sealed class TomorrowScreenData {
+        data class ForecastData(
+            val date: OffsetDateTime,
+            val weather: Weather,
+            val temperature: Int,
+            val precipitation: Int,
+            val perc_temperature: Int,
+            val UV_Index: Int,
+            val humidity: Int,
+            val wind: Int,
+            val coverage: Int,
+            val rain: Int
+        )
 
         data class TomorrowTitle(
             val city: String,
             val region: String,
             val date: OffsetDateTime
-        ) : TomorrowScreenData()
+        )
 
-        data class ForecastData(
-            val tomorrowCardInfo: TomorrowCardInfo
-        ) : TomorrowScreenData()
+    sealed class TomorrowScreenData() {
+        data class TSTitle(val titleTomorrow: TomorrowTitle) : TomorrowScreenData()
+        data class TSForecast(val forecast_data: ForecastData) : TomorrowScreenData()
     }
+
 
     fun weatherIcon(weather: Weather): Int {
         return when (weather) {

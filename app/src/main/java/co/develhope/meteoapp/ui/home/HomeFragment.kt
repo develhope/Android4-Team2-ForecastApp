@@ -49,16 +49,12 @@ class HomeFragment : Fragment() {
         binding.recyclerViewHomeFrag.layoutManager = layoutManager
         binding.recyclerViewHomeFrag.setHasFixedSize(true)
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listDataHomeScreen)
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
-
-
 
     private val title = Data.HomeTitle("Catania", "Sicilia")
     private val nextDays = Data.Home5NextDays("Prossimi 5 giorni")
