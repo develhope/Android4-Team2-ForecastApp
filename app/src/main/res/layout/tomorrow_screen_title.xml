@@ -4,42 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="30dp">
+    android:layout_marginBottom="71dp">
 
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvCityName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="61dp"
-        android:layout_marginLeft="@dimen/universal_margin_dx_sx"
-        android:text="Palermo, Sicilia"
+        android:text="Palermo, "
         android:textColor="@color/purple_700"
         android:textSize="@dimen/text_min_dimensions_card_info"
+        android:layout_marginTop="61dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvRegionName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Domani"
-        android:layout_marginLeft="@dimen/universal_margin_dx_sx"
+        android:text="Sicilia"
+        android:textColor="@color/purple_700"
+        android:textSize="@dimen/text_min_dimensions_card_info"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCityName"
+        app:layout_constraintStart_toEndOf="@+id/tvCityName"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvTomorrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Domani,"
         android:textColor="@color/purple_700"
         android:textSize="@dimen/text_norm_dimensions_card_info"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvCityName" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lunedì 11 settembre"
-        android:layout_marginLeft="@dimen/universal_margin_dx_sx"
         android:textColor="@color/purple_700"
         android:textSize="@dimen/text_min_dimensions_card_info"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTomorrow" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
