@@ -14,7 +14,7 @@ import org.threeten.bp.format.DateTimeFormatter
 
 class AdapterTomorrowScreen (
 
-    private val items: List<Data.TomorrowScreenData>
+    private val items: List<TomorrowScreenData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val forecast_tomorrow_screen = 0
@@ -43,8 +43,8 @@ class AdapterTomorrowScreen (
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is Tomorrow_Row_Card_ViewHolder -> holder.bind(items[position] as Data.TomorrowScreenData.TSForecast)
-            is Tomorrow_Title_ViewHolder -> holder.bind(items[position] as Data.TomorrowScreenData.TSTitle)
+            is Tomorrow_Row_Card_ViewHolder -> holder.bind(items[position] as TomorrowScreenData.TSForecast)
+            is Tomorrow_Title_ViewHolder -> holder.bind(items[position] as TomorrowScreenData.TSTitle)
         }
 
     }
@@ -52,7 +52,7 @@ class AdapterTomorrowScreen (
     class Tomorrow_Row_Card_ViewHolder(private val rowCardBinding: TomorrowScreenRowCardBinding)
         : RecyclerView.ViewHolder(rowCardBinding.root) {
 
-            fun bind(card: Data.TomorrowScreenData.TSForecast){
+            fun bind(card: TomorrowScreenData.TSForecast){
 
                 //ROW DATA
 
@@ -73,7 +73,6 @@ class AdapterTomorrowScreen (
                 rowCardBinding.tvPercentageRain.text = itemView.context.getString(
                     R.string.tv_humRainCov, card.forecast_data.precipitation
                 )
-
 
                 //CARD DATA
 
@@ -108,7 +107,7 @@ class AdapterTomorrowScreen (
     class Tomorrow_Title_ViewHolder(private val titleBinding: TomorrowScreenTitleBinding)
         : RecyclerView.ViewHolder(titleBinding.root) {
 
-            fun bind(title: Data.TomorrowScreenData.TSTitle){
+            fun bind(title: TomorrowScreenData.TSTitle){
                 titleBinding.tvCityName.text = title.titleTomorrow.city
                 titleBinding.tvRegionName.text = title.titleTomorrow.region
                 val dateTime2 = title.titleTomorrow.date
@@ -120,8 +119,8 @@ class AdapterTomorrowScreen (
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is Data.TomorrowScreenData.TSForecast -> forecast_tomorrow_screen
-            is Data.TomorrowScreenData.TSTitle -> title_tomorrow_screen
+            is TomorrowScreenData.TSForecast -> forecast_tomorrow_screen
+            is TomorrowScreenData.TSTitle -> title_tomorrow_screen
         }
     }
 }
