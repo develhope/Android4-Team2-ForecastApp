@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.Weather
 import co.develhope.meteoapp.databinding.FragmentDomaniBinding
-import java.time.OffsetDateTime
+import org.threeten.bp.OffsetDateTime
 
 class DomaniFragment : Fragment() {
 

@@ -7,9 +7,10 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.TomorrowScreenRowCardBinding
 import co.develhope.meteoapp.databinding.TomorrowScreenTitleBinding
-import java.time.OffsetDateTime
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
+import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.ZoneOffset
+import org.threeten.bp.format.DateTimeFormatter
+
 
 class AdapterTomorrowScreen (
 
