@@ -4,35 +4,6 @@ import co.develhope.meteoapp.ui.home.ESwitchFragCard
 import co.develhope.meteoapp.ui.home.HomeCardInfo
 import org.threeten.bp.OffsetDateTime
 
-
-object Data {
-    //TOMORROW DATA
-
-        data class ForecastData(
-            val date: OffsetDateTime,
-            val weather: Weather,
-            val temperature: Int,
-            val precipitation: Int,
-            val perc_temperature: Int,
-            val UV_Index: Int,
-            val humidity: Int,
-            val wind: Int,
-            val coverage: Int,
-            val rain: Int
-        )
-
-        data class TomorrowTitle(
-            val city: String,
-            val region: String,
-            val date: OffsetDateTime
-        )
-
-    sealed class TomorrowScreenData() {
-        data class TSTitle(val titleTomorrow: TomorrowTitle) : TomorrowScreenData()
-        data class TSForecast(val forecast_data: ForecastData) : TomorrowScreenData()
-    }
-
-
     fun weatherIcon(weather: Weather): Int {
         return when (weather) {
             Weather.SUNNY -> R.drawable.sun
