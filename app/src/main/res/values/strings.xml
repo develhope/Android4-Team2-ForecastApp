@@ -8,7 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_Search">Search</string>
     <string name="title_home_city_region">${city},${region}</string>
-    <string name="home_card_day_of_week">Oggi</string>
+    <string name="home_card_day_of_week">OGGI</string>
     <string name="minTempGrad">22°</string>
     <string name="maxTempGrad">31°</string>
     <string name="date_home_screen_card">10/09</string>

@@ -31,12 +31,15 @@
 
                 <TextView
                     android:id="@+id/homeCardDayText"
+
                     style="@style/num_Card_Home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="0.8"
+                    android:paddingEnd="5dp"
                     android:text="@string/home_card_day_of_week"
-                    android:textSize="@dimen/text_norm_dimensions_card_info" />
+                    android:textSize="@dimen/text_norm_dimensions_card_info"
+                    />
 
                 <TextView
                     android:id="@+id/minTempGrade"
@@ -66,7 +69,7 @@
                     style="@style/descr_Card_Home"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1.5"
                     android:text="@string/date_home_screen_card"
                     />
 
@@ -97,7 +100,7 @@
                     android:src="@drawable/sun"
                     android:adjustViewBounds="true"
                     android:scaleType="fitStart"
-                    android:layout_weight="1"/>
+                    android:layout_weight="0.8"/>
                 <TextView
                     android:id="@+id/rainfallNum"
                     android:layout_width="match_parent"
@@ -123,7 +126,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="0.8"
                     android:text="@string/test_space"/>
                 <TextView
                     android:layout_width="match_parent"
