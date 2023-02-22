@@ -9,5 +9,13 @@
     <dimen name="text_description_SearchFragment">10sp</dimen>
     <dimen name="home_fragment_marginTop">42dp</dimen>
     <dimen name="home_frag_card_elev">20dp</dimen>
+    <dimen name="search_frag_card_elev">20dp</dimen>
+    <dimen name="search_frag_card_corner">4dp</dimen>
+    <dimen name="search_frag_margin_top_sv">80dp</dimen>
+    <dimen name="search_frag_text_size_recent_research">14sp</dimen>
+    <dimen name="search_frag_rv_padding_bottom">60dp</dimen>
+    <dimen name="search_frag_card_margin_top_cv">10dp</dimen>
+    <dimen name="search_frag_card_constraint_height">80dp</dimen>
+    <dimen name="search_frag_card_uni_margin">16dp</dimen>
 
 </resources>

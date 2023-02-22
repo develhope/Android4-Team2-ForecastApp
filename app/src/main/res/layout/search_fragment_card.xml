@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/search_frag_card_uni_margin"
+        android:elevation="@dimen/search_frag_card_elev"
+        app:cardCornerRadius="@dimen/search_frag_card_corner"
+        app:cardElevation="@dimen/search_frag_card_elev">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_frag_card_constraint_height"
+            android:background="@drawable/search_card_bg">
+
+            <TextView
+                android:id="@+id/searchedCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/search_frag_card_uni_margin"
+                android:text="@string/search_frag_card_city"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_norm_dimensions_card_info"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cityTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/search_frag_card_uni_margin"
+                android:text="@string/search_frag_card_temp"
+                style="@style/descr_Card_Search"
+                app:layout_constraintBottom_toTopOf="@id/weatherCondition"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/searchedCity" />
+
+            <TextView
+                android:id="@+id/weatherCondition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/search_frag_card_uni_margin"
+                android:text="@string/search_frag_card_weather"
+                style="@style/descr_Card_Search"
+                app:layout_constraintBottom_toBottomOf="@id/searchedCity"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cityTemperature" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</LinearLayout>
