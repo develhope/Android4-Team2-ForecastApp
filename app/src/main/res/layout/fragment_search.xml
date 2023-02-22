@@ -1,14 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search.SearchFragment">
+    android:background="@color/background_screen"
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <SearchView
+        android:id="@+id/SearchBarSearchFrag"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_margin_dx_sx"
+        android:layout_marginTop="@dimen/search_frag_margin_top_sv"
+        android:layout_marginEnd="@dimen/universal_margin_dx_sx"
+        android:autofillHints="Cerca città"
+        android:background="@drawable/searchview_background"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="@string/search_view_search_fragment"
+        android:searchIcon="@drawable/search" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_recent_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_margin_dx_sx"
+        android:layout_marginTop="@dimen/universal_margin_dx_sx"
+        android:text="@string/recent_research_search_fragment"
+        android:textColor="@color/search_fragment_recent_research"
+        android:textSize="@dimen/search_frag_text_size_recent_research"
+        android:textStyle="bold" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSearchFrag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/universal_margin_dx_sx"
+        android:layout_marginTop="@dimen/universal_margin_dx_sx"
+        android:layout_marginEnd="@dimen/universal_margin_dx_sx"
+        android:paddingBottom="@dimen/search_frag_rv_padding_bottom"
+        tools:listitem="@layout/search_fragment_card" />
+
+</LinearLayout>
