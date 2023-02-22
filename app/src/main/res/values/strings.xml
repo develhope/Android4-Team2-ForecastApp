@@ -40,4 +40,6 @@
     <string name="tv_humRainCov">%d%%</string>
     <string name="tv_uvIndex">%d/10</string>
     <string name="tv_kmWind">%d km/h</string>
+    <string name="today">TODAY</string>
+    <string name="tomorrow">TOMORROW</string>
 </resources>
