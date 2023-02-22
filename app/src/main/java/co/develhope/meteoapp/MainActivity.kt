@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import co.develhope.meteoapp.databinding.ActivityMainBinding
@@ -38,6 +39,17 @@ class MainActivity : AppCompatActivity() {
         }
         if (navController != null) {
             navView.setupWithNavController(navController)
+            navView.setOnItemSelectedListener  {
+                when (it.itemId) {
+                    R.id.navigation_home -> {
+                        if (navController.popBackStack());
+                        true
+                    }
+                    else -> {
+                        it.onNavDestinationSelected(navController)
+                    }
+                }
+            }
         }
     }
 }

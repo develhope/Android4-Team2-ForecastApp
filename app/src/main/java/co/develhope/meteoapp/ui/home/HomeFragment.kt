@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.Data.cardInfo1
 import co.develhope.meteoapp.Data.cardInfo2
 import co.develhope.meteoapp.Data.cardInfo3
@@ -41,6 +40,7 @@ class HomeFragment : Fragment() {
         binding.recyclerViewHomeFrag.layoutManager = layoutManager
         binding.recyclerViewHomeFrag.setHasFixedSize(true)
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listDataHomeScreen)
+
     }
 
     override fun onDestroyView() {
@@ -48,16 +48,17 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
-    private val title = Data.HomeTitle("Catania", "Sicilia")
-    private val nextDays = Data.Home5NextDays("Prossimi 5 giorni")
+    private val title = HomeTitle("Catania", "Sicilia")
+    private val nextDays = Home5NextDays("Prossimi 5 giorni")
 
-    private val listDataHomeScreen = listOf<Data.HomeScreenParts>(
-        Data.HomeScreenParts.Title(title),
-        Data.HomeScreenParts.Card(cardInfo1),
-        Data.HomeScreenParts.Next5DaysString(nextDays),
-        Data.HomeScreenParts.Card(cardInfo2),
-        Data.HomeScreenParts.Card(cardInfo3),
-        Data.HomeScreenParts.Card(cardInfo4),
-        Data.HomeScreenParts.Card(cardInfo5)
+    private val listDataHomeScreen = listOf<HomeScreenParts>(
+        HomeScreenParts.Title(title),
+        HomeScreenParts.Card(cardInfo1),
+        HomeScreenParts.Next5DaysString(nextDays),
+        HomeScreenParts.Card(cardInfo2),
+        HomeScreenParts.Card(cardInfo3),
+        HomeScreenParts.Card(cardInfo4),
+        HomeScreenParts.Card(cardInfo5)
     )
+
 }
