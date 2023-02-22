@@ -4,9 +4,9 @@
     <string name="title_home">Home</string>
     <string name="title_oggi">Oggi</string>
     <string name="title_Domani">Domani</string>
+    <string name="title_Search">Search</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_Search">Search</string>
     <string name="title_home_city_region">${city},${region}</string>
     <string name="home_card_day_of_week">OGGI</string>
     <string name="minTempGrad">22°</string>
@@ -40,4 +40,12 @@
     <string name="tv_humRainCov">%d%%</string>
     <string name="tv_uvIndex">%d/10</string>
     <string name="tv_kmWind">%d km/h</string>
+
+    // SEARCH FRAG CARD
+    <string name="search_frag_card_city">Palermo</string>
+    <string name="search_frag_card_temp">12°</string>
+    <string name="search_frag_card_weather">soleggiato</string>
+    // FRAGMENT SEARCH
+    <string name="search_view_search_fragment">Cerca città</string>
+    <string name="recent_research_search_fragment">Ricerche recenti</string>
 </resources>
