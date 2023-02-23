@@ -1,5 +1,6 @@
 package co.develhope.meteoapp.ui.home
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -55,7 +56,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TitleViewHolder -> holder.bind(list[position] as HomeScreenParts.Title)
-            is CardViewHolder -> holder.bind(list[position] as HomeScreenParts.Card)
+            is CardViewHolder -> holder.bind(list[position] as HomeScreenParts.Card, context = holder.itemView.context)
             is NextDaysHolder -> holder.bind(list[position] as HomeScreenParts.Next5DaysString)
         }
     }
@@ -71,8 +72,18 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
 
     class CardViewHolder(private val cardBinding: HomeFragmentCardBinding) :
         RecyclerView.ViewHolder(cardBinding.root) {
-        fun bind(card: HomeScreenParts.Card) {
-            cardBinding.homeCardDayText.text = card.cardInfo.dateTime.dayOfWeek.name
+        fun bind(card: HomeScreenParts.Card,context: Context) {
+            //TODAY OR TOMORROW DAY
+            if (card.cardInfo.dateTime.toLocalDate() == OffsetDateTime.now().toLocalDate()) {
+                cardBinding.homeCardDayText.text = context.getString(R.string.today)
+            } else if (card.cardInfo.dateTime.toLocalDate() == OffsetDateTime.now().plusDays(1)
+                    .toLocalDate()
+            ) {
+                cardBinding.homeCardDayText.text = context.getString(R.string.tomorrow)
+            } else {
+                cardBinding.homeCardDayText.text = card.cardInfo.dateTime.dayOfWeek.name
+            }
+
             "${card.cardInfo.minTemp}°".also { cardBinding.minTempGrade.text = it }
             "${card.cardInfo.maxTemp}°".also { cardBinding.maxTempGrade.text = it }
             //FORMAT DATE TIME
@@ -81,10 +92,11 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
             val formattedDate = DateTimeFormatter.ofPattern("dd/MM").format(offsetDateTime)
             cardBinding.dateHomeScreen.text = formattedDate
             //FINISH FORMAT DATE TIME
+
             cardBinding.weatherImgHome.setImageResource(Data.weatherIcon(card.cardInfo.weather))
             "${card.cardInfo.rainFall}%".also { cardBinding.rainfallNum.text = it }
             "${card.cardInfo.wind}kmh".also { cardBinding.windNum.text = it }
-
+            //CLICK TO SWITCH FRAGMENT
             cardBinding.cardId.setOnClickListener {
                 val choosenFragment =
                     when (card.cardInfo.cardSwitch) {

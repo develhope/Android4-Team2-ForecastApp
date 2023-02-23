@@ -40,4 +40,14 @@
     <string name="tv_humRainCov">%d%%</string>
     <string name="tv_uvIndex">%d/10</string>
     <string name="tv_kmWind">%d km/h</string>
+    <string name="today">TODAY</string>
+    <string name="tomorrow">TOMORROW</string>
+
+    // SEARCH FRAG CARD
+    <string name="search_frag_card_city">Palermo</string>
+    <string name="search_frag_card_temp">12°</string>
+    <string name="search_frag_card_weather">soleggiato</string>
+    // FRAGMENT SEARCH
+    <string name="search_view_search_fragment">Cerca città</string>
+    <string name="recent_research_search_fragment">Ricerche recenti</string>
 </resources>

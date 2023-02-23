@@ -4,6 +4,7 @@ import co.develhope.meteoapp.ui.home.ESwitchFragCard
 import co.develhope.meteoapp.ui.home.HomeCardInfo
 import org.threeten.bp.OffsetDateTime
 object Data{
+
     fun weatherIcon(weather: Weather): Int {
         return when (weather) {
             Weather.SUNNY -> R.drawable.sun

@@ -19,6 +19,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:paddingTop="@dimen/padd_min_value"
+            android:paddingBottom="@dimen/padd_min_value"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/activity_horizontal_vertical_margin"
             android:orientation="vertical">
@@ -36,7 +38,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.8"
-                    android:paddingEnd="5dp"
                     android:text="@string/home_card_day_of_week"
                     android:textSize="@dimen/text_norm_dimensions_card_info"
                     />
