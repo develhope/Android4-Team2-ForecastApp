@@ -37,8 +37,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dataInit()
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerViewSearchFrag.layoutManager = layoutManager
+        binding.recyclerViewSearchFrag.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(searchArrayList)
 
