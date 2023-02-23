@@ -117,7 +117,6 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
         }
     }
 
-
     override fun getItemViewType(position: Int): Int {
         return when (list[position]) {
             is HomeScreenParts.Title -> typeTitleHome
