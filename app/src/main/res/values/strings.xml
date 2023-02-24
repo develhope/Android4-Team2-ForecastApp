@@ -50,4 +50,18 @@
     // FRAGMENT SEARCH
     <string name="search_view_search_fragment">Cerca città</string>
     <string name="recent_research_search_fragment">Ricerche recenti</string>
+
+    //TODAY VIEW SCREEN
+    <string name="today_hour">%d :00</string>
+    <string name="today_temperature">%d C°</string>
+    <string name="today_rain">%d cm</string>
+    <string name="today_coverage">%d%%</string>
+    <string name="today_uv">%d/10</string>
+    <string name="today_wind">%d km/h</string>
+    <string name="today_humidity">%d%%</string>
+    <string name="today_precipitations">%d%%</string>
+    <string name="today_perceived">%d°</string>
+    <string name="today_title_city">%d,</string>
+    <string name="today_title_region">%d</string>
+    <string name="today_title_date">%d</string>
 </resources>

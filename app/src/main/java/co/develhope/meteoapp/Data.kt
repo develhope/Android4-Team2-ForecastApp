@@ -3,7 +3,7 @@ package co.develhope.meteoapp
 import co.develhope.meteoapp.ui.home.ESwitchFragCard
 import co.develhope.meteoapp.ui.home.HomeCardInfo
 import org.threeten.bp.OffsetDateTime
-object Data{
+object Data {
 
     fun weatherIcon(weather: Weather): Int {
         return when (weather) {
