@@ -13,6 +13,9 @@ import co.develhope.meteoapp.databinding.HomeFragmentTitleBinding
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.DateTimeFormatterBuilder
+import org.threeten.bp.temporal.ChronoField
+import java.util.*
 
 
 class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
@@ -81,7 +84,11 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
             ) {
                 cardBinding.homeCardDayText.text = context.getString(R.string.tomorrow)
             } else {
-                cardBinding.homeCardDayText.text = card.cardInfo.dateTime.dayOfWeek.name
+                cardBinding.homeCardDayText.text =  DateTimeFormatterBuilder()
+                    .appendText(ChronoField.DAY_OF_WEEK)
+                    .toFormatter(Locale.getDefault())
+                    .format(card.cardInfo.dateTime)
+                    .uppercase()
             }
 
             "${card.cardInfo.minTemp}°".also { cardBinding.minTempGrade.text = it }

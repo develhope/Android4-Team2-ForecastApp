@@ -42,7 +42,9 @@ class MainActivity : AppCompatActivity() {
             navView.setOnItemSelectedListener  {
                 when (it.itemId) {
                     R.id.navigation_home -> {
-                        if (navController.popBackStack());
+                        if (navController.popBackStack(R.id.navigation_home,false)){
+                            it.onNavDestinationSelected(navController)
+                        };
                         true
                     }
                     else -> {
