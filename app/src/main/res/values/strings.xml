@@ -40,8 +40,8 @@
     <string name="tv_humRainCov">%d%%</string>
     <string name="tv_uvIndex">%d/10</string>
     <string name="tv_kmWind">%d km/h</string>
-    <string name="today">TODAY</string>
-    <string name="tomorrow">TOMORROW</string>
+    <string name="today">OGGI</string>
+    <string name="tomorrow">DOMANI</string>
 
     // SEARCH FRAG CARD
     <string name="search_frag_card_city">Palermo</string>

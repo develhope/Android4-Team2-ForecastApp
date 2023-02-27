@@ -49,7 +49,7 @@ class HomeFragment : Fragment() {
     }
 
     private val title = HomeTitle("Catania", "Sicilia")
-    private val nextDays = Home5NextDays("NEXT 5 DAYS")
+    private val nextDays = Home5NextDays("PROSSIMI 5 GIORNI")
 
     private val listDataHomeScreen = listOf<HomeScreenParts>(
         HomeScreenParts.Title(title),
