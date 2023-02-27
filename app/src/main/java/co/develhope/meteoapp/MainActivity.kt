@@ -25,13 +25,17 @@ class MainActivity : AppCompatActivity() {
 
         val navView: BottomNavigationView = binding.navView
 
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)
         val navController = navHostFragment?.findNavController()
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_oggi, R.id.navigation_domani,R.id.navigation_search
+                R.id.navigation_home,
+                R.id.navigation_oggi,
+                R.id.navigation_domani,
+                R.id.navigation_search
             )
         )
         if (navController != null) {
@@ -39,12 +43,10 @@ class MainActivity : AppCompatActivity() {
         }
         if (navController != null) {
             navView.setupWithNavController(navController)
-            navView.setOnItemSelectedListener  {
+            navView.setOnItemSelectedListener {
                 when (it.itemId) {
                     R.id.navigation_home -> {
-                        if (navController.popBackStack(R.id.navigation_home,false)){
-                            it.onNavDestinationSelected(navController)
-                        };
+                        if (navController.popBackStack());
                         true
                     }
                     else -> {
