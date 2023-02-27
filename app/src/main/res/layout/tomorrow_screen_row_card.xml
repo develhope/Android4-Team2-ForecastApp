@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/text_min_dimensions_card_info"
         android:text="@string/tv_hour_00"
+        android:textColor="#230EA5"
         app:layout_constraintEnd_toStartOf="@+id/tv_weatherImage"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +35,7 @@
         android:textSize="@dimen/text_min_dimensions_card_info"
         android:textStyle="bold"
         android:text="@string/tv_temperature"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toStartOf="@+id/tv_dropRain"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_weatherImage"
@@ -41,8 +43,8 @@
 
     <ImageView
         android:id="@+id/tv_dropRain"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="15.5dp"
+        android:layout_height="22.5dp"
         android:src="@drawable/drop"
         app:layout_constraintEnd_toStartOf="@+id/tv_percentageRain"
         app:layout_constraintHorizontal_bias="0.5"
@@ -53,8 +55,9 @@
         android:id="@+id/tv_percentageRain"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/tv_humRainCov"
+        android:textColor="@color/black"
         android:textSize="@dimen/text_min_dimensions_card_info"
-        android:text="@string/tv_percRain"
         app:layout_constraintEnd_toStartOf="@+id/tv_imageArrow"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_dropRain"
@@ -69,13 +72,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tv_percentageRain"
         app:layout_constraintTop_toTopOf="@id/tv_weatherImage" />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/vector_1"
-        android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/tv_hour"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/CardViewTomorrow"
@@ -98,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="18dp"
-            android:text="Perceived"
+            android:text="Percepita"
             android:textColor="@color/black"
             android:textSize="@dimen/text_min_dimensions_card_info" />
 
@@ -120,7 +116,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="198dp"
             android:layout_marginTop="18dp"
-            android:text="UV Index"
+            android:text="Indice UV"
             android:textColor="@color/black"
             android:textSize="@dimen/text_min_dimensions_card_info" />
 
@@ -150,7 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="84dp"
-            android:text="Humidity"
+            android:text="Umidità"
             android:textColor="@color/black"
             android:textSize="@dimen/text_min_dimensions_card_info" />
 
@@ -172,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="198dp"
             android:layout_marginTop="84dp"
-            android:text="Wind"
+            android:text="Vento"
             android:textColor="@color/black"
             android:textSize="@dimen/text_min_dimensions_card_info" />
 
@@ -202,7 +198,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="18dp"
             android:layout_marginTop="153dp"
-            android:text="Coverage"
+            android:text="Copertura"
             android:textColor="@color/black"
             android:textSize="@dimen/text_min_dimensions_card_info" />
 
@@ -225,7 +221,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="200dp"
             android:layout_marginTop="153dp"
-            android:text="Rain"
+            android:text="Pioggia"
             android:textColor="@color/black"
             android:textSize="@dimen/text_min_dimensions_card_info" />
 
