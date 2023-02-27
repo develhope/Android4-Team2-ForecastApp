@@ -11,7 +11,7 @@ import co.develhope.meteoapp.databinding.FragmentDomaniBinding
 import org.threeten.bp.OffsetDateTime
 
 
-class DomaniFragment : Fragment() {
+class TomorrowFragment : Fragment() {
 
     private var _binding: FragmentDomaniBinding? = null
 
