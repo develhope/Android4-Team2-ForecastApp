@@ -13,6 +13,7 @@
         android:textAllCaps="true"
         android:textColor="@color/white"
         android:layout_marginTop="@dimen/margin_stringNextDays_card_home"
+        android:letterSpacing="0.08"
         android:textSize="@dimen/text_min_dimensions_card_info"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

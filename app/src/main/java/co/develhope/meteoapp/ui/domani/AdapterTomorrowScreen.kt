@@ -25,11 +25,11 @@ class AdapterTomorrowScreen (
         return when(viewType){
 
             forecast_tomorrow_screen ->
-                Tomorrow_Row_Card_ViewHolder(TomorrowScreenRowCardBinding.inflate
+                TomorrowRowCardViewHolder(TomorrowScreenRowCardBinding.inflate
                     (LayoutInflater.from(parent.context), parent, false))
 
             title_tomorrow_screen ->
-                Tomorrow_Title_ViewHolder(TomorrowScreenTitleBinding.inflate
+                TomorrowTitleViewHolder(TomorrowScreenTitleBinding.inflate
                     (LayoutInflater.from(parent.context), parent, false))
 
             else -> throw java.lang.IllegalArgumentException("ERROR")
@@ -43,13 +43,13 @@ class AdapterTomorrowScreen (
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is Tomorrow_Row_Card_ViewHolder -> holder.bind(items[position] as TomorrowScreenData.TSForecast)
-            is Tomorrow_Title_ViewHolder -> holder.bind(items[position] as TomorrowScreenData.TSTitle)
+            is TomorrowRowCardViewHolder -> holder.bind(items[position] as TomorrowScreenData.TSForecast)
+            is TomorrowTitleViewHolder -> holder.bind(items[position] as TomorrowScreenData.TSTitle)
         }
 
     }
 
-    class Tomorrow_Row_Card_ViewHolder(private val rowCardBinding: TomorrowScreenRowCardBinding)
+    class TomorrowRowCardViewHolder(private val rowCardBinding: TomorrowScreenRowCardBinding)
         : RecyclerView.ViewHolder(rowCardBinding.root) {
 
             fun bind(card: TomorrowScreenData.TSForecast){
@@ -104,7 +104,7 @@ class AdapterTomorrowScreen (
         }
 
 
-    class Tomorrow_Title_ViewHolder(private val titleBinding: TomorrowScreenTitleBinding)
+    class TomorrowTitleViewHolder(private val titleBinding: TomorrowScreenTitleBinding)
         : RecyclerView.ViewHolder(titleBinding.root) {
 
             fun bind(title: TomorrowScreenData.TSTitle){
