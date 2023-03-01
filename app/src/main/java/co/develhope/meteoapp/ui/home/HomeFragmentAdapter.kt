@@ -132,4 +132,3 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
         }
     }
 }
-

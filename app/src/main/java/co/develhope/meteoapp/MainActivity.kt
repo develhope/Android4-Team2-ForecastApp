@@ -1,6 +1,7 @@
 package co.develhope.meteoapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
@@ -54,6 +55,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        } else {
+            Log.d(
+                "MainActivity", "Error"
+            )
         }
     }
 }
