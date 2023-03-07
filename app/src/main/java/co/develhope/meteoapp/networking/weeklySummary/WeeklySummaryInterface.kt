@@ -8,7 +8,7 @@ import retrofit2.http.Query
 interface WeeklySummaryInterface {
     @GET("/v1/forecast")
     suspend fun getWeeklyData(
-        @Query("current_weather") currentWeather: Boolean?,
+        @Query("current_weather") currentWeather: Boolean,
         @Query("daily") daily: List<String> = listOf(
             "weathercode",
             "temperature_2m_max",
@@ -19,8 +19,8 @@ interface WeeklySummaryInterface {
             "rain_sum",
             "windspeed_10m_max"
         ),
-        @Query("latitude") latitude: Double?,
-        @Query("longitude") longitude: Double?,
+        @Query("latitude") latitude: Double,
+        @Query("longitude") longitude: Double,
         @Query("timezone") timezone: String? = "Europe/Berlin"
     ): WeatherResponse
 }

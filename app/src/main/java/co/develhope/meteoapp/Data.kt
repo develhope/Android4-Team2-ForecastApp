@@ -22,6 +22,20 @@ object Data {
             Weather.CLOUDY -> R.drawable.suncloud
         }
     }
+    fun Int.toWeather() : Weather{
+        return when(this){
+            0 -> Weather.SUNNY
+            1,2,3 -> Weather.CLOUDY
+            45,48 -> Weather.FOGGY
+            51,53,55 -> Weather.RAINY
+            56,57 ->Weather.RAINY
+            71,73,75 ->Weather.HEAVYRAIN
+            80,81,82 -> Weather.HEAVYRAIN
+            95 -> Weather.HEAVYRAIN
+            96,99 ->Weather.HEAVYRAIN
+            else -> Weather.CLOUDY
+        }
+    }
 
     //CARD DATA FOR HOMESCREEN
     val cardInfo1 = HomeCardInfo(
@@ -69,11 +83,20 @@ object Data {
         10,
         ESwitchFragCard.OGGI_FRAG
     )
+    val cardInfo6 = HomeCardInfo(
+        OffsetDateTime.now().plusDays(5),
+        0,
+        22,
+        Weather.RAINY,
+        21,
+        3,
+        ESwitchFragCard.OGGI_FRAG
+    )
 
     suspend fun getWeeklyWeather(latitude: Double, longitude: Double): WeatherResponse? {
         return try {
             withContext(Dispatchers.Main) {
-                val response = OpenMeteoRetrofitInstance.openMeteoApi.getWeeklyData(
+                val response = OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
                     true,
                     listOf(
                         "weathercode",

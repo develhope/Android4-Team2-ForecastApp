@@ -1,10 +1,8 @@
 package co.develhope.meteoapp.ui.home
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
@@ -19,9 +17,8 @@ import org.threeten.bp.temporal.ChronoField
 import java.util.*
 
 
-class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
+class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val onClick: (Int)-> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     private val typeTitleHome = 0
     private val typeCardHome = 1
     private val typeNextDaysHome = 2
@@ -60,7 +57,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is TitleViewHolder -> holder.bind(list[position] as HomeScreenParts.Title)
-            is CardViewHolder -> holder.bind(list[position] as HomeScreenParts.Card, context = holder.itemView.context)
+            is CardViewHolder -> holder.bind(list[position] as HomeScreenParts.Card, context = holder.itemView.context,onClick)
             is NextDaysHolder -> holder.bind(list[position] as HomeScreenParts.Next5DaysString)
         }
     }
@@ -76,7 +73,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
 
     class CardViewHolder(private val cardBinding: HomeFragmentCardBinding) :
         RecyclerView.ViewHolder(cardBinding.root) {
-        fun bind(card: HomeScreenParts.Card,context: Context) {
+        fun bind(card: HomeScreenParts.Card, context: Context, onClick: (Int) -> Unit) {
             //TODAY OR TOMORROW DAY
             if (card.cardInfo.dateTime.toLocalDate() == OffsetDateTime.now().toLocalDate()) {
                 cardBinding.homeCardDayText.text = context.getString(R.string.today)
@@ -102,17 +99,17 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
             //FINISH FORMAT DATE TIME
 
             cardBinding.weatherImgHome.setImageResource(Data.weatherIcon(card.cardInfo.weather))
-            "${card.cardInfo.rainFall}%".also { cardBinding.rainfallNum.text = it }
+            "${card.cardInfo.rainFall} mm".also { cardBinding.rainfallNum.text = it }
             "${card.cardInfo.wind}kmh".also { cardBinding.windNum.text = it }
-            //CLICK TO SWITCH FRAGMENT
+            //CLICK TO SWITCH FRAGMENT --- TRY SEALED CLASS(EVENTS)
             cardBinding.cardId.setOnClickListener {
                 val choosenFragment =
                     when (card.cardInfo.cardSwitch) {
                         ESwitchFragCard.OGGI_FRAG -> R.id.navigation_oggi
                         ESwitchFragCard.DOMANI_FRAG -> R.id.navigation_domani
-                        else -> Log.d("HomeAdapter","ERROR")
+                        null -> R.id.navigation_home
                     }
-                it.findNavController().navigate(choosenFragment)
+                onClick(choosenFragment)
             }
 
         }
@@ -133,4 +130,5 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
             is HomeScreenParts.Next5DaysString -> typeNextDaysHome
         }
     }
+
 }

@@ -8,6 +8,7 @@
     <dimen name="text_norm_dimensions_card_info">20sp</dimen>
     <dimen name="text_description_SearchFragment">10sp</dimen>
     <dimen name="home_fragment_marginTop">42dp</dimen>
+    <dimen name="home_fragment_marginBottom">22dp</dimen>
     <dimen name="home_frag_card_elev">20dp</dimen>
     <dimen name="search_frag_card_elev">20dp</dimen>
     <dimen name="search_frag_card_corner">4dp</dimen>
