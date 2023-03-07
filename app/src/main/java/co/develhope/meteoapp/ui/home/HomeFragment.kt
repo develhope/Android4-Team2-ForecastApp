@@ -64,26 +64,39 @@ class HomeFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val weeklyWeather: List<HomeCardInfo> =
-                    Data.getWeeklyWeather(37.7914, 15.2091) ?: emptyList() // possiam oprevedere un empty state se la lista è vuota
+                    Data.getWeeklyWeather(37.7914, 15.2091)
+                        ?: emptyList() // possiam oprevedere un empty state se la lista è vuota
 
                 if (weeklyWeather.isNotEmpty()) {
                     val listToShow = createHomeScreenItems(weeklyWeather)
                     binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
                         val choosenFragment: Int =
                             when {
-                                it.dateTime.isEqual(OffsetDateTime.now()) -> R.id.navigation_oggi
-                                it.dateTime.isEqual(OffsetDateTime.now().plusDays(1)) -> R.id.navigation_domani
+                                it.dateTime.toLocalDate().isEqual(
+                                    OffsetDateTime.now().toLocalDate()
+                                ) -> R.id.navigation_oggi
+                                it.dateTime.toLocalDate().isEqual(
+                                    OffsetDateTime.now().plusDays(1).toLocalDate()
+                                ) -> R.id.navigation_domani
                                 else -> R.id.navigation_domani //gestirà il click sulle altre card
                             }
                         findNavController().navigate(choosenFragment)
                     }
                 } else {
-                    Toast.makeText(requireContext(),"Meteo non disponibile, mi dispiace", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Meteo non disponibile, mi dispiace",
+                        Toast.LENGTH_LONG
+                    ).show()
                     //emptystate
                 }
 
             } catch (e: Exception) {
-                Toast.makeText(requireContext(),"Meteo non disponibile, mi dispiace!", Toast.LENGTH_LONG).show()
+                Toast.makeText(
+                    requireContext(),
+                    "Meteo non disponibile, mi dispiace!",
+                    Toast.LENGTH_LONG
+                ).show()
                 Log.d("HomeFragment", "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
             }
         }
