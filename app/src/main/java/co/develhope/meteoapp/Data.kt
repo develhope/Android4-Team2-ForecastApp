@@ -20,6 +20,7 @@ object Data {
             Weather.HEAVYRAIN -> R.drawable.rainsun
             Weather.WINDY -> R.drawable.suncloud
             Weather.CLOUDY -> R.drawable.suncloud
+            Weather.UNKNOWN -> R.drawable.suncloud // Da sostituire con un icona che indica che non c'è il dato
         }
     }
     fun Int.toWeather() : Weather{
@@ -37,85 +38,10 @@ object Data {
         }
     }
 
-    //CARD DATA FOR HOMESCREEN
-    val cardInfo1 = HomeCardInfo(
-        OffsetDateTime.now(),
-        15,
-        25,
-        Weather.SUNNY,
-        0,
-        10,
-        ESwitchFragCard.OGGI_FRAG
-    )
-    val cardInfo2 = HomeCardInfo(
-        OffsetDateTime.now().plusDays(1),
-        20,
-        30,
-        Weather.CLOUDY,
-        40,
-        20,
-        ESwitchFragCard.DOMANI_FRAG
-    )
-    val cardInfo3 = HomeCardInfo(
-        OffsetDateTime.now().plusDays(2),
-        24,
-        32,
-        Weather.SUNNY,
-        10,
-        20,
-        ESwitchFragCard.OGGI_FRAG
-    )
-    val cardInfo4 = HomeCardInfo(
-        OffsetDateTime.now().plusDays(3),
-        10,
-        15,
-        Weather.HEAVYRAIN,
-        90,
-        30,
-        ESwitchFragCard.OGGI_FRAG
-    )
-    val cardInfo5 = HomeCardInfo(
-        OffsetDateTime.now().plusDays(4),
-        10,
-        12,
-        Weather.RAINY,
-        70,
-        10,
-        ESwitchFragCard.OGGI_FRAG
-    )
-    val cardInfo6 = HomeCardInfo(
-        OffsetDateTime.now().plusDays(5),
-        0,
-        22,
-        Weather.RAINY,
-        21,
-        3,
-        ESwitchFragCard.OGGI_FRAG
-    )
-
-    suspend fun getWeeklyWeather(latitude: Double, longitude: Double): WeatherResponse? {
-        return try {
-            withContext(Dispatchers.Main) {
-                val response = OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
-                    true,
-                    listOf(
-                        "weathercode",
-                        "temperature_2m_max",
-                        "temperature_2m_min",
-                        "sunrise",
-                        "sunset",
-                        "precipitation_sum",
-                        "rain_sum",
-                        "windspeed_10m_max"),
-                    latitude,
-                    longitude,
-                    "Europe/Berlin"
-                )
-                response
-            }
-        } catch (e: HttpException) {
-            Log.d("HomeFragment", "Error : ${e.response()?.errorBody()?.toString()}")
-            null
-        }
+    suspend fun getWeeklyWeather(latitude: Double, longitude: Double): List<HomeCardInfo> {
+        return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
+            latitude = latitude,
+            longitude = longitude,
+        ).daily.toDomain()
     }
 }

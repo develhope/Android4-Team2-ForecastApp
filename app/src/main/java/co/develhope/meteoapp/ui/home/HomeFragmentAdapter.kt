@@ -17,7 +17,7 @@ import org.threeten.bp.temporal.ChronoField
 import java.util.*
 
 
-class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val onClick: (Int)-> Unit) :
+class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val onClick: (HomeCardInfo)-> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val typeTitleHome = 0
     private val typeCardHome = 1
@@ -73,7 +73,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val o
 
     class CardViewHolder(private val cardBinding: HomeFragmentCardBinding) :
         RecyclerView.ViewHolder(cardBinding.root) {
-        fun bind(card: HomeScreenParts.Card, context: Context, onClick: (Int) -> Unit) {
+        fun bind(card: HomeScreenParts.Card, context: Context, onClick: (HomeCardInfo) -> Unit) {
             //TODAY OR TOMORROW DAY
             if (card.cardInfo.dateTime.toLocalDate() == OffsetDateTime.now().toLocalDate()) {
                 cardBinding.homeCardDayText.text = context.getString(R.string.today)
@@ -103,13 +103,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val o
             "${card.cardInfo.wind}kmh".also { cardBinding.windNum.text = it }
             //CLICK TO SWITCH FRAGMENT --- TRY SEALED CLASS(EVENTS)
             cardBinding.cardId.setOnClickListener {
-                val choosenFragment =
-                    when (card.cardInfo.cardSwitch) {
-                        ESwitchFragCard.OGGI_FRAG -> R.id.navigation_oggi
-                        ESwitchFragCard.DOMANI_FRAG -> R.id.navigation_domani
-                        null -> R.id.navigation_home
-                    }
-                onClick(choosenFragment)
+                onClick(card.cardInfo)
             }
 
         }

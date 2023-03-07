@@ -2,5 +2,5 @@ package co.develhope.meteoapp
 
 enum class Weather {
 
-    SUNNY, CLOUDY, RAINY, HEAVYRAIN, FOGGY, WINDY
+    SUNNY, CLOUDY, RAINY, HEAVYRAIN, FOGGY, WINDY, UNKNOWN
 }
