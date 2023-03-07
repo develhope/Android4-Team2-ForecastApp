@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-object OpenMeteoRetrofitInstance {
+class OpenMeteoRetrofitInstance {
 
     fun interceptor (): Interceptor{
         val interceptor = HttpLoggingInterceptor()
