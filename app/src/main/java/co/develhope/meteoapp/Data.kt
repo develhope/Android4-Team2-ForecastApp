@@ -1,8 +1,15 @@
 package co.develhope.meteoapp
 
+import android.util.Log
+import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
+import co.develhope.meteoapp.networking.weeklySummary.WeatherResponse
 import co.develhope.meteoapp.ui.home.ESwitchFragCard
 import co.develhope.meteoapp.ui.home.HomeCardInfo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.threeten.bp.OffsetDateTime
+import retrofit2.HttpException
+
 object Data {
 
     fun weatherIcon(weather: Weather): Int {
@@ -62,4 +69,30 @@ object Data {
         10,
         ESwitchFragCard.OGGI_FRAG
     )
+
+    suspend fun getWeeklyWeather(latitude: Double, longitude: Double): WeatherResponse? {
+        return try {
+            withContext(Dispatchers.Main) {
+                val response = OpenMeteoRetrofitInstance.openMeteoApi.getWeeklyData(
+                    true,
+                    listOf(
+                        "weathercode",
+                        "temperature_2m_max",
+                        "temperature_2m_min",
+                        "sunrise",
+                        "sunset",
+                        "precipitation_sum",
+                        "rain_sum",
+                        "windspeed_10m_max"),
+                    latitude,
+                    longitude,
+                    "Europe/Berlin"
+                )
+                response
+            }
+        } catch (e: HttpException) {
+            Log.d("HomeFragment", "Error : ${e.response()?.errorBody()?.toString()}")
+            null
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package co.develhope.meteoapp.ui.home
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -109,6 +110,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
                     when (card.cardInfo.cardSwitch) {
                         ESwitchFragCard.OGGI_FRAG -> R.id.navigation_oggi
                         ESwitchFragCard.DOMANI_FRAG -> R.id.navigation_domani
+                        else -> Log.d("HomeAdapter","ERROR")
                     }
                 it.findNavController().navigate(choosenFragment)
             }
@@ -132,4 +134,3 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>) :
         }
     }
 }
-

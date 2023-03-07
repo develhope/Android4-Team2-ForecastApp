@@ -10,5 +10,5 @@ data class HomeCardInfo(
         val weather: Weather,
         val rainFall: Int,
         val wind: Int,
-        val cardSwitch: ESwitchFragCard
+        val cardSwitch: ESwitchFragCard?
     )
