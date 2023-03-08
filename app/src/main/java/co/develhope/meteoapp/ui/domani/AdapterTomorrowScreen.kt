@@ -1,6 +1,9 @@
 package co.develhope.meteoapp.ui.domani
 
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.Data
@@ -34,7 +37,6 @@ class AdapterTomorrowScreen (
 
             else -> throw java.lang.IllegalArgumentException("ERROR")
         }
-
     }
 
     override fun getItemCount(): Int {
@@ -53,12 +55,6 @@ class AdapterTomorrowScreen (
         : RecyclerView.ViewHolder(rowCardBinding.root) {
 
             fun bind(card: TomorrowScreenData.TSForecast){
-
-                //ROW DATA
-
-               // val dateTime = card.forecast_data.date
-                //val offsetDateTime = OffsetDateTime.ofInstant(dateTime.toInstant(), ZoneOffset.ofHours(1))
-               // val formattedDate = DateTimeFormatter.ofPattern("hh mm").format(offsetDateTime)
 
                 rowCardBinding.tvHour.text = itemView.context.getString(
                     R.string.tv_hour_00, card.forecast_data.date.hour
@@ -100,9 +96,22 @@ class AdapterTomorrowScreen (
                     R.string.tv_percRain, card.forecast_data.rain
                 )
 
+
+                rowCardBinding.tvImageArrow.setOnClickListener {
+                    if(rowCardBinding.CardViewTomorrow.visibility == View.GONE){
+                        TransitionManager.beginDelayedTransition(rowCardBinding.CardViewTomorrow, AutoTransition())
+                        rowCardBinding.CardViewTomorrow.visibility = View.VISIBLE
+                        rowCardBinding.tvImageArrow.rotation = 180F
+                        rowCardBinding.firstLine.visibility = View.GONE
+                    } else{
+                        TransitionManager.beginDelayedTransition(rowCardBinding.CardViewTomorrow, AutoTransition())
+                        rowCardBinding.CardViewTomorrow.visibility = View.GONE
+                        rowCardBinding.firstLine.visibility = View.VISIBLE
+                        rowCardBinding.tvImageArrow.rotation = 0F
+                    }
+                }
             }
         }
-
 
     class TomorrowTitleViewHolder(private val titleBinding: TomorrowScreenTitleBinding)
         : RecyclerView.ViewHolder(titleBinding.root) {
