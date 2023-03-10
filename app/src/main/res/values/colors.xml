@@ -6,6 +6,7 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="bg_Home">#4434F9</color>
     <color name="white">#FFFFFFFF</color>
     <color name="home_fragment_card_bg">#948CEF</color>
     <color name="search_fragment_recent_research">#230EA5</color>

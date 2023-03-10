@@ -34,7 +34,7 @@ object Data {
             80,81,82 -> Weather.HEAVYRAIN
             95 -> Weather.HEAVYRAIN
             96,99 ->Weather.HEAVYRAIN
-            else -> Weather.CLOUDY
+            else -> Weather.SUNNY
         }
     }
 
