@@ -4,12 +4,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.HomeFragmentCardBinding
 import co.develhope.meteoapp.databinding.HomeFragmentNextdaysBinding
 import co.develhope.meteoapp.databinding.HomeFragmentTitleBinding
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+import co.develhope.meteoapp.ui.utils.weatherIcon
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
@@ -99,7 +99,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val o
             cardBinding.dateHomeScreen.text = formattedDate
             //FINISH FORMAT DATE TIME
 
-            cardBinding.weatherImgHome.setImageResource(Data.weatherIcon(card.cardInfo.weather))
+            cardBinding.weatherImgHome.setImageResource(weatherIcon(card.cardInfo.weather))
             "${card.cardInfo.rainFall} mm".also { cardBinding.rainfallNum.text = it }
             "${card.cardInfo.wind}kmh".also { cardBinding.windNum.text = it }
             //CLICK TO SWITCH FRAGMENT --- TRY SEALED CLASS(EVENTS)

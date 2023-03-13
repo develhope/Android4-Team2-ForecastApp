@@ -10,6 +10,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.TomorrowScreenRowCardBinding
 import co.develhope.meteoapp.databinding.TomorrowScreenTitleBinding
+import co.develhope.meteoapp.ui.utils.weatherIcon
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
@@ -60,7 +61,7 @@ class AdapterTomorrowScreen (
                     R.string.tv_hour_00, card.forecast_data.date.hour
                 )
 
-                rowCardBinding.tvWeatherImage.setImageResource(Data.weatherIcon(card.forecast_data.weather))
+                rowCardBinding.tvWeatherImage.setImageResource(weatherIcon(card.forecast_data.weather))
 
                 rowCardBinding.tvTemperature.text = itemView.context.getString(
                     R.string.tv_temperature, card.forecast_data.temperature

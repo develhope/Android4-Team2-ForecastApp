@@ -7,6 +7,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.TodayRowCardBinding
 import co.develhope.meteoapp.databinding.TodayTitleFragmentBinding
+import co.develhope.meteoapp.ui.utils.weatherIcon
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -56,7 +57,7 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
         fun bind(card: TodayScreenData.TodayScreenCard) {
             rowCardBinding.todayHour.text =
                 itemView.context.getString(R.string.today_hour, card.todayCard.date.hour)
-            rowCardBinding.todayWeather.setImageResource(Data.weatherIcon(card.todayCard.weather))
+            rowCardBinding.todayWeather.setImageResource(weatherIcon(card.todayCard.weather))
             rowCardBinding.todayTemperature.text =
                 itemView.context.getString(R.string.today_temperature, card.todayCard.temperature)
             rowCardBinding.todayPrecipitationsView.setImageResource(R.drawable.drop)
