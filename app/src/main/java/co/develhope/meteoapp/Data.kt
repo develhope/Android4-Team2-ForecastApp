@@ -3,6 +3,7 @@ package co.develhope.meteoapp
 import android.util.Log
 import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
 import co.develhope.meteoapp.networking.weeklySummary.WeatherResponse
+import co.develhope.meteoapp.ui.domani.ForecastData
 import co.develhope.meteoapp.ui.home.ESwitchFragCard
 import co.develhope.meteoapp.ui.home.HomeCardInfo
 import kotlinx.coroutines.Dispatchers
@@ -43,5 +44,12 @@ object Data {
             latitude = latitude,
             longitude = longitude,
         ).daily.toDomain()
+    }
+
+    suspend fun getDailyWeather(latitude: Double, longitude: Double): List<ForecastData> {
+        return OpenMeteoRetrofitInstance().openMeteoApi.getDailyData(
+            latitude = latitude,
+            longitude = longitude,
+        ).hourly.toDomain()
     }
 }
