@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import co.develhope.meteoapp.MainActivity
 import co.develhope.meteoapp.R
 
 @SuppressLint("CustomSplashScreen")

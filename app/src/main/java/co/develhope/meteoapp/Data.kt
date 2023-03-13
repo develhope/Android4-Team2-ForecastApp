@@ -1,8 +1,6 @@
 package co.develhope.meteoapp
 
 import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
-import co.develhope.meteoapp.ui.domani.ForecastData
-import co.develhope.meteoapp.ui.home.HomeCardInfo
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import co.develhope.meteoapp.networking.domainmodel.Weather
