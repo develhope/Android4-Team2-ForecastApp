@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentDomaniBinding
+import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 

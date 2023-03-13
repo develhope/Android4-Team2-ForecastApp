@@ -9,6 +9,7 @@ import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.HomeFragmentCardBinding
 import co.develhope.meteoapp.databinding.HomeFragmentNextdaysBinding
 import co.develhope.meteoapp.databinding.HomeFragmentTitleBinding
+import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter

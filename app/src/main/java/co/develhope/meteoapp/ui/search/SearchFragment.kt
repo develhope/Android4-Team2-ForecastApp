@@ -10,12 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
-import co.develhope.meteoapp.ui.search.SearchCardInfo
+import co.develhope.meteoapp.networking.domainmodel.Place
 import co.develhope.meteoapp.ui.search.SearchFragmentAdapter
 
 class SearchFragment : Fragment() {
 
-    private lateinit var searchArrayList: ArrayList<SearchCardInfo>
+    private lateinit var searchArrayList: ArrayList<Place>
     private lateinit var city : Array<String>
     private lateinit var weather: Array<String>
     private lateinit var temperature: Array<Int>
@@ -61,7 +61,7 @@ class SearchFragment : Fragment() {
         temperature = arrayOf(8, 9, 8, 2, 4)
 
         for (i in city.indices) {
-            val item = SearchCardInfo(city[i] , weather[i] , temperature[i])
+            val item = Place(city[i] , weather[i] , temperature[i])
             searchArrayList.add(item)
         }
     }

@@ -1,5 +1,7 @@
 package co.develhope.meteoapp.ui.home
 
+import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+
 sealed class HomeScreenParts() {
         data class Title(val titleHome: HomeTitle) : HomeScreenParts()
         data class Card(val cardInfo: HomeCardInfo) : HomeScreenParts()

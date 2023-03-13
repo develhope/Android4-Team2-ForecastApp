@@ -1,8 +1,9 @@
 package co.develhope.meteoapp
 
 import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
-import co.develhope.meteoapp.ui.tomorrow.ForecastData
-import co.develhope.meteoapp.ui.home.HomeCardInfo
+import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+import co.develhope.meteoapp.networking.domainmodel.Weather
 
 object Data {
 
@@ -17,17 +18,17 @@ object Data {
             Weather.UNKNOWN -> R.drawable.suncloud // Da sostituire con un icona che indica che non c'è il dato
         }
     }
-    fun Int.toWeather() : Weather{
+    fun Int.toWeather() : Weather {
         return when(this){
             0 -> Weather.SUNNY
             1,2,3 -> Weather.CLOUDY
             45,48 -> Weather.FOGGY
             51,53,55 -> Weather.RAINY
-            56,57 ->Weather.RAINY
-            71,73,75 ->Weather.HEAVYRAIN
+            56,57 -> Weather.RAINY
+            71,73,75 -> Weather.HEAVYRAIN
             80,81,82 -> Weather.HEAVYRAIN
             95 -> Weather.HEAVYRAIN
-            96,99 ->Weather.HEAVYRAIN
+            96,99 -> Weather.HEAVYRAIN
             else -> Weather.SUNNY
         }
     }
