@@ -1,11 +1,13 @@
 package co.develhope.meteoapp.ui.home
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -39,7 +41,7 @@ class HomeFragment : Fragment() {
 
     private fun createHomeScreenItems(weeklyWeather: List<HomeCardInfo>): List<HomeScreenParts> {
         val list = ArrayList<HomeScreenParts>()
-        list.add(HomeScreenParts.Title(HomeTitle("Roma", "Lazio")))
+        list.add(HomeScreenParts.Title(HomeTitle("Fiumefreddo di Sicilia", "Sicilia")))
         list.add(HomeScreenParts.Card(weeklyWeather.first()))
         list.add(HomeScreenParts.Next5DaysString(Home5NextDays("PROSSIMI 5 GIORNI")))
 
@@ -50,8 +52,16 @@ class HomeFragment : Fragment() {
         return list
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val window = activity?.window
+        if (window != null) {
+            window.statusBarColor = context?.getColor(R.color.bg_Home) ?: 0
+
+            window.decorView.setSystemUiVisibility(0)
+
+        }
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewHomeFrag.layoutManager = layoutManager

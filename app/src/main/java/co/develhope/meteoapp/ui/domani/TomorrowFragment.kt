@@ -1,21 +1,21 @@
 package co.develhope.meteoapp.ui.domani
 
-import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
-import co.develhope.meteoapp.Weather
+import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentDomaniBinding
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
-import org.threeten.bp.ZoneId
 
 
 class TomorrowFragment : Fragment() {
@@ -51,8 +51,15 @@ class TomorrowFragment : Fragment() {
        return listTomorrow
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val window = activity?.window
+        if (window != null) {
+            window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
+            window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+
+        }
 
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvTomorrowScreen.layoutManager = layoutManager
