@@ -1,11 +1,7 @@
-package co.develhope.meteoapp.networking.weeklySummary
+package co.develhope.meteoapp.networking.dto
 
-import co.develhope.meteoapp.Data.toWeather
-import co.develhope.meteoapp.Weather
-import co.develhope.meteoapp.ui.home.ESwitchFragCard
-import co.develhope.meteoapp.ui.home.HomeCardInfo
-import co.develhope.meteoapp.ui.home.HomeFragment
-import co.develhope.meteoapp.ui.home.HomeFragmentAdapter
+import co.develhope.meteoapp.networking.domainmodel.Weather
+import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import org.threeten.bp.OffsetDateTime
 
 data class Daily(

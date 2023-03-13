@@ -1,11 +1,11 @@
-package co.develhope.meteoapp.networking.weeklySummary
+package co.develhope.meteoapp.networking.dto
 
-data class WeatherResponse(
+data class DaySummary(
     val current_weather: CurrentWeather,
-    val daily: Daily,
-    val daily_units: DailyUnits,
     val elevation: Double,
     val generationtime_ms: Double,
+    val hourly: Hourly,
+    val hourly_units: HourlyUnits,
     val latitude: Double,
     val longitude: Double,
     val timezone: String,

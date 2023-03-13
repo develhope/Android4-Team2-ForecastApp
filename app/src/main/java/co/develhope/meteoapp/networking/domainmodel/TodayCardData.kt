@@ -1,6 +1,5 @@
-package co.develhope.meteoapp.ui.oggi
+package co.develhope.meteoapp.networking.domainmodel
 
-import co.develhope.meteoapp.Weather
 import org.threeten.bp.OffsetDateTime
 
 data class TodayCardData (

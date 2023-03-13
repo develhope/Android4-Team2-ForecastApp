@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.ui.oggi
+package co.develhope.meteoapp.ui.today
 
 import org.threeten.bp.OffsetDateTime
 data class TodayTitleData(

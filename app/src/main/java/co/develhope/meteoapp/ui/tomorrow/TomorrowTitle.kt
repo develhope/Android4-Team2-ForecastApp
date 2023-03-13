@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.ui.domani
+package co.develhope.meteoapp.ui.tomorrow
 
 import org.threeten.bp.OffsetDateTime
 

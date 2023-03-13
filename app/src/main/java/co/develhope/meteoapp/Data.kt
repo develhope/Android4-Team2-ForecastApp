@@ -3,34 +3,11 @@ package co.develhope.meteoapp
 import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
 import co.develhope.meteoapp.ui.domani.ForecastData
 import co.develhope.meteoapp.ui.home.HomeCardInfo
+import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+import co.develhope.meteoapp.networking.domainmodel.Weather
 
 object Data {
-
-    fun weatherIcon(weather: Weather): Int {
-        return when (weather) {
-            Weather.SUNNY -> R.drawable.sun
-            Weather.FOGGY -> R.drawable.suncloud
-            Weather.RAINY -> R.drawable.rainsun
-            Weather.HEAVYRAIN -> R.drawable.rainsun
-            Weather.WINDY -> R.drawable.suncloud
-            Weather.CLOUDY -> R.drawable.suncloud
-            Weather.UNKNOWN -> R.drawable.suncloud // Da sostituire con un icona che indica che non c'è il dato
-        }
-    }
-    fun Int.toWeather() : Weather{
-        return when(this){
-            0 -> Weather.SUNNY
-            1,2,3 -> Weather.CLOUDY
-            45,48 -> Weather.FOGGY
-            51,53,55 -> Weather.RAINY
-            56,57 ->Weather.RAINY
-            71,73,75 ->Weather.HEAVYRAIN
-            80,81,82 -> Weather.HEAVYRAIN
-            95 -> Weather.HEAVYRAIN
-            96,99 ->Weather.HEAVYRAIN
-            else -> Weather.SUNNY
-        }
-    }
 
     suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo> {
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
