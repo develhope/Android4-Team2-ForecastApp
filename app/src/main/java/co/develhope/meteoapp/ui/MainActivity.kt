@@ -1,16 +1,15 @@
-package co.develhope.meteoapp
+package co.develhope.meteoapp.ui
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Window
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

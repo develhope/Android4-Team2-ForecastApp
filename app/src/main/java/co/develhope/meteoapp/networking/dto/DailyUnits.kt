@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.networking.weeklySummary
+package co.develhope.meteoapp.networking.dto
 
 data class DailyUnits(
     val precipitation_sum: String,

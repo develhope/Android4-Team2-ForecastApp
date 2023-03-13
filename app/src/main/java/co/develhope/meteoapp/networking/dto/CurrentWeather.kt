@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.networking.dailySummary
+package co.develhope.meteoapp.networking.dto
 
 data class CurrentWeather(
     val temperature: Double,

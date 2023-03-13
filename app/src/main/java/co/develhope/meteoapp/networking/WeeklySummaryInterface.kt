@@ -1,9 +1,7 @@
-package co.develhope.meteoapp.networking.weeklySummary
+package co.develhope.meteoapp.networking
 
-import co.develhope.meteoapp.networking.dailySummary.DaySummary
-import co.develhope.meteoapp.networking.dailySummary.Hourly
-import retrofit2.Call
-import retrofit2.Response
+import co.develhope.meteoapp.networking.dto.DaySummary
+import co.develhope.meteoapp.networking.dto.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

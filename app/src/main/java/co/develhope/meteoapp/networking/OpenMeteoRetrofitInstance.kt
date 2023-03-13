@@ -1,6 +1,5 @@
 package co.develhope.meteoapp.networking
 
-import co.develhope.meteoapp.networking.weeklySummary.WeeklySummaryInterface
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient

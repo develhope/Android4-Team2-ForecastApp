@@ -1,21 +1,20 @@
-package co.develhope.meteoapp.ui.oggi
+package co.develhope.meteoapp.ui.today
 
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import co.develhope.meteoapp.R
-import co.develhope.meteoapp.Weather
+import co.develhope.meteoapp.networking.domainmodel.Weather
 import co.develhope.meteoapp.databinding.FragmentOggiBinding
+import co.develhope.meteoapp.networking.domainmodel.TodayCardData
 import org.threeten.bp.OffsetDateTime
 
-class OggiFragment : Fragment() {
+class TodayFragment : Fragment() {
 
     private var _binding: FragmentOggiBinding? = null
 
@@ -56,9 +55,9 @@ class OggiFragment : Fragment() {
 private val titleScreenObj= TodayTitleData("Palermo", "Sicilia", OffsetDateTime.now())
 private val cardScreenObj1= TodayCardData(OffsetDateTime.now(), Weather.SUNNY,31,
     0,45,5,60,7,24,0)
-private val cardScreenObj2= TodayCardData(OffsetDateTime.now().plusHours(1),Weather.SUNNY,
+private val cardScreenObj2= TodayCardData(OffsetDateTime.now().plusHours(1), Weather.SUNNY,
     29, 0,44,8,67,4,20,0)
-private val cardScreenObj3= TodayCardData(OffsetDateTime.now().plusHours(2),Weather.SUNNY,
+private val cardScreenObj3= TodayCardData(OffsetDateTime.now().plusHours(2), Weather.SUNNY,
 30, 0, 42,5,70,12,45,0)
 private val cardScreenObj4= TodayCardData(OffsetDateTime.now().plusHours(3), Weather.RAINY,
 32, 60, 40, 4, 80, 12, 70, 4)
