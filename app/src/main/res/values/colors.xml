@@ -11,4 +11,5 @@
     <color name="home_fragment_card_bg">#948CEF</color>
     <color name="search_fragment_recent_research">#230EA5</color>
     <color name="background_screen">#F0EFFF</color>
+    <color name="dayForecastBg">#F0EFFF</color>
 </resources>
