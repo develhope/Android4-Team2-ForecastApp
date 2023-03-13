@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.ui.domani
+package co.develhope.meteoapp.ui.tomorrow
 
 import android.transition.AutoTransition
 import android.transition.TransitionManager

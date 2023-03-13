@@ -1,22 +1,14 @@
-package co.develhope.meteoapp.ui.oggi
+package co.develhope.meteoapp.ui.today
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.Data
-import co.develhope.meteoapp.Data.weatherIcon
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.TodayRowCardBinding
 import co.develhope.meteoapp.databinding.TodayTitleFragmentBinding
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.OffsetDateTime
-import java.time.ZoneId
 
 class TodayScreenAdapter (var items : List<TodayScreenData>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

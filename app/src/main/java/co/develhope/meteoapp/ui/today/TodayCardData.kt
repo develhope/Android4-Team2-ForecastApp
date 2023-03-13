@@ -1,9 +1,9 @@
-package co.develhope.meteoapp.ui.domani
+package co.develhope.meteoapp.ui.today
 
 import co.develhope.meteoapp.Weather
 import org.threeten.bp.OffsetDateTime
 
-data class ForecastData(
+data class TodayCardData (
     val date: OffsetDateTime,
     val weather: Weather,
     val temperature: Int,
@@ -14,5 +14,4 @@ data class ForecastData(
     val wind: Int,
     val coverage: Int,
     val rain: Int
-    )
-
+)

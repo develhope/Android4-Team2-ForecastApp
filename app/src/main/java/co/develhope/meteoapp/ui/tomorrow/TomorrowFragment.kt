@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.ui.domani
+package co.develhope.meteoapp.ui.tomorrow
 
 import android.os.Build
 import android.os.Bundle

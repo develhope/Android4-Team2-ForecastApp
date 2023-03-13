@@ -1,21 +1,19 @@
-package co.develhope.meteoapp.ui.oggi
+package co.develhope.meteoapp.ui.today
 
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.Weather
 import co.develhope.meteoapp.databinding.FragmentOggiBinding
 import org.threeten.bp.OffsetDateTime
 
-class OggiFragment : Fragment() {
+class TodayFragment : Fragment() {
 
     private var _binding: FragmentOggiBinding? = null
 

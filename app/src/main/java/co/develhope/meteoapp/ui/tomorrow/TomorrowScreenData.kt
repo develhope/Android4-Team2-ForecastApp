@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.ui.domani
+package co.develhope.meteoapp.ui.tomorrow
 
 sealed class TomorrowScreenData() {
         data class TSTitle(val titleTomorrow: TomorrowTitle) : TomorrowScreenData()

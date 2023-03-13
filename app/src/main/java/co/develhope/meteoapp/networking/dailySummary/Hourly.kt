@@ -2,9 +2,7 @@ package co.develhope.meteoapp.networking.dailySummary
 
 import co.develhope.meteoapp.Data.toWeather
 import co.develhope.meteoapp.Weather
-import co.develhope.meteoapp.ui.domani.ForecastData
-import co.develhope.meteoapp.ui.domani.TomorrowScreenData
-import co.develhope.meteoapp.ui.home.HomeCardInfo
+import co.develhope.meteoapp.ui.tomorrow.ForecastData
 import org.threeten.bp.OffsetDateTime
 
 data class Hourly(
