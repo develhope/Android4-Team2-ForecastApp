@@ -1,14 +1,21 @@
 package co.develhope.meteoapp.ui.domani
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.Weather
 import co.develhope.meteoapp.databinding.FragmentDomaniBinding
+import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
+import org.threeten.bp.ZoneId
 
 
 class TomorrowFragment : Fragment() {
@@ -30,13 +37,44 @@ class TomorrowFragment : Fragment() {
         return binding.root
     }
 
+   private fun createTomorrowScreenItems(dailyWeather: List<ForecastData>): List<TomorrowScreenData>{
+        val listTomorrow = ArrayList<TomorrowScreenData>()
+        listTomorrow.add(TomorrowScreenData.TSTitle(TomorrowTitle("Roma, ", "Lazio", OffsetDateTime.now())))
+
+       val tomorrowWeather = dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear }
+       if (tomorrowWeather.isNotEmpty()) {
+           tomorrowWeather.forEach {
+               listTomorrow.add(TomorrowScreenData.TSForecast(it))
+           }
+       }
+
+       return listTomorrow
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvTomorrowScreen.layoutManager = layoutManager
-        binding.rvTomorrowScreen.setHasFixedSize(true)
-        binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(itemsTomorrowScreen)
+        binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(emptyList())
 
+        retrieveTomorrowForecastInfo()
+    }
+
+    private fun retrieveTomorrowForecastInfo(){
+        lifecycleScope.launch {
+            try {
+                val dailyWeather: List<ForecastData> =
+                    Data.getDailyWeather(41.9, 12.48) ?: emptyList()
+
+                val listToShow = createTomorrowScreenItems(dailyWeather)
+                binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(listToShow)
+
+            } catch (e: Exception){
+                Toast.makeText(requireContext(),"ERROR", Toast.LENGTH_LONG).show()
+                Log.d("TomorrowFragment", "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -44,18 +82,4 @@ class TomorrowFragment : Fragment() {
         _binding = null
     }
 
-    private val title_TomScreen = TomorrowTitle("Milano, ", "Lombardia", OffsetDateTime.now())
-    private val row_card_TomScreen = ForecastData(OffsetDateTime.now(), Weather.SUNNY,
-        22, 0, 21, 3, 20, 0, 0, 0)
-    private val row_card_TomScreen2 = ForecastData(OffsetDateTime.now().plusHours(1), Weather.FOGGY,
-        25, 5, 23, 6, 16, 2, 5, 1)
-    private val row_card_TomScreen3 = ForecastData(OffsetDateTime.now().plusHours(2), Weather.RAINY,
-        21, 80, 24, 4, 18, 5, 3, 10)
-
-    private val itemsTomorrowScreen = listOf(
-        TomorrowScreenData.TSTitle(title_TomScreen),
-        TomorrowScreenData.TSForecast(row_card_TomScreen),
-        TomorrowScreenData.TSForecast(row_card_TomScreen2),
-        TomorrowScreenData.TSForecast(row_card_TomScreen3)
-    )
 }
