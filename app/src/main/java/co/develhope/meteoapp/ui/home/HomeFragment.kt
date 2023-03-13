@@ -103,9 +103,10 @@ class HomeFragment : Fragment() {
                 }
 
             } catch (e: Exception) {
+                findNavController().navigate(R.id.navigation_search)
                 Toast.makeText(
                     requireContext(),
-                    "Meteo non disponibile, mi dispiace!",
+                    "Meteo non disponibile,seleziona una città!",
                     Toast.LENGTH_LONG
                 ).show()
                 Log.d("HomeFragment", "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
