@@ -1,25 +1,21 @@
 package co.develhope.meteoapp.ui.domani
 
 import android.os.Build
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController
-import androidx.annotation.RequiresApi
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.develhope.meteoapp.R
 import co.develhope.meteoapp.Data
-import co.develhope.meteoapp.Weather
+import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentDomaniBinding
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
-import org.threeten.bp.ZoneId
 
 
 class TomorrowFragment : Fragment() {
