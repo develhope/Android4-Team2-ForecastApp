@@ -1,9 +1,6 @@
 package co.develhope.meteoapp.networking.weeklySummary
 
 import co.develhope.meteoapp.networking.dailySummary.DaySummary
-import co.develhope.meteoapp.networking.dailySummary.Hourly
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -21,8 +18,8 @@ interface WeeklySummaryInterface {
             "rain_sum",
             "windspeed_10m_max"
         ),
-        @Query("latitude") latitude: Double,
-        @Query("longitude") longitude: Double,
+        @Query("latitude") latitude: Double?,
+        @Query("longitude") longitude: Double?,
         @Query("timezone") timezone: String? = "Europe/Berlin"
     ): WeatherResponse
 

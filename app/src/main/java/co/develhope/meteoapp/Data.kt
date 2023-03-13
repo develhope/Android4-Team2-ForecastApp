@@ -1,15 +1,8 @@
 package co.develhope.meteoapp
 
-import android.util.Log
 import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
-import co.develhope.meteoapp.networking.weeklySummary.WeatherResponse
 import co.develhope.meteoapp.ui.domani.ForecastData
-import co.develhope.meteoapp.ui.home.ESwitchFragCard
 import co.develhope.meteoapp.ui.home.HomeCardInfo
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import org.threeten.bp.OffsetDateTime
-import retrofit2.HttpException
 
 object Data {
 
@@ -39,7 +32,7 @@ object Data {
         }
     }
 
-    suspend fun getWeeklyWeather(latitude: Double, longitude: Double): List<HomeCardInfo> {
+    suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo> {
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
             latitude = latitude,
             longitude = longitude,
