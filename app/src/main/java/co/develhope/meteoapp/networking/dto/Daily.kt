@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.networking.weeklySummary
+package co.develhope.meteoapp.networking.dto
 
 import co.develhope.meteoapp.Data.toWeather
 import co.develhope.meteoapp.Weather
