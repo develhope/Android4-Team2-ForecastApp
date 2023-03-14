@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.databinding.SearchFragmentCardBinding
+import co.develhope.meteoapp.networking.domainmodel.Place
 
-class SearchFragmentAdapter(private val list: List<SearchCardInfo>) :
+class SearchFragmentAdapter(private val list: List<Place>) :
     RecyclerView.Adapter<SearchFragmentAdapter.ViewHolder>() {
 
 
@@ -25,7 +26,7 @@ class SearchFragmentAdapter(private val list: List<SearchCardInfo>) :
 
     class ViewHolder(private val binding: SearchFragmentCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: SearchCardInfo) {
+        fun bind(item: Place) {
             binding.searchedCity.text = item.city
             binding.weatherCondition.text = item.weather
             "${item.temperature}°".also { binding.cityTemperature.text = it }
