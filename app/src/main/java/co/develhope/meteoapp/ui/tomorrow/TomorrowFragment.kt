@@ -38,18 +38,28 @@ class TomorrowFragment : Fragment() {
         return binding.root
     }
 
-   private fun createTomorrowScreenItems(dailyWeather: List<ForecastData>): List<TomorrowScreenData>{
+    private fun createTomorrowScreenItems(dailyWeather: List<ForecastData>): List<TomorrowScreenData> {
+        val cityName = arguments?.getString("city")
         val listTomorrow = ArrayList<TomorrowScreenData>()
-        listTomorrow.add(TomorrowScreenData.TSTitle(TomorrowTitle("Roma, ", "Lazio", OffsetDateTime.now())))
+        listTomorrow.add(
+            TomorrowScreenData.TSTitle(
+                TomorrowTitle(
+                    cityName ?: "Roma, ",
+                    "Lazio",
+                    OffsetDateTime.now()
+                )
+            )
+        )
 
-       val tomorrowWeather = dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear }
-       if (tomorrowWeather.isNotEmpty()) {
-           tomorrowWeather.forEach {
-               listTomorrow.add(TomorrowScreenData.TSForecast(it))
-           }
-       }
+        val tomorrowWeather =
+            dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear }
+        if (tomorrowWeather.isNotEmpty()) {
+            tomorrowWeather.forEach {
+                listTomorrow.add(TomorrowScreenData.TSForecast(it))
+            }
+        }
 
-       return listTomorrow
+        return listTomorrow
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -69,7 +79,7 @@ class TomorrowFragment : Fragment() {
         retrieveTomorrowForecastInfo()
     }
 
-    private fun retrieveTomorrowForecastInfo(){
+    private fun retrieveTomorrowForecastInfo() {
         lifecycleScope.launch {
             try {
                 val dailyWeather: List<ForecastData> =
@@ -78,8 +88,8 @@ class TomorrowFragment : Fragment() {
                 val listToShow = createTomorrowScreenItems(dailyWeather)
                 binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(listToShow)
 
-            } catch (e: Exception){
-                Toast.makeText(requireContext(),"ERROR", Toast.LENGTH_LONG).show()
+            } catch (e: Exception) {
+                Toast.makeText(requireContext(), "ERROR", Toast.LENGTH_LONG).show()
                 Log.d("TomorrowFragment", "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
             }
         }

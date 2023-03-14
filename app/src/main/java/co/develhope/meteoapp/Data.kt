@@ -3,7 +3,7 @@ package co.develhope.meteoapp
 import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
-import co.develhope.meteoapp.networking.domainmodel.Weather
+import co.develhope.meteoapp.networking.domainmodel.Place
 
 object Data {
 

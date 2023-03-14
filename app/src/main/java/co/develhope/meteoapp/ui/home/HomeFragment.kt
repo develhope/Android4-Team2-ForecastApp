@@ -23,7 +23,6 @@ class HomeFragment : Fragment() {
 
 
     private var _binding: FragmentHomeBinding? = null
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -35,14 +34,15 @@ class HomeFragment : Fragment() {
     ): View {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
         return binding.root
+
 
     }
 
     private fun createHomeScreenItems(weeklyWeather: List<HomeCardInfo>): List<HomeScreenParts> {
+        val cityName = arguments?.getString("city")
         val list = ArrayList<HomeScreenParts>()
-        list.add(HomeScreenParts.Title(HomeTitle("Fiumefreddo di Sicilia", "Sicilia")))
+        list.add(HomeScreenParts.Title(HomeTitle(cityName?: "Fiumefreddo di Sicilia", "Sicilia")))
         list.add(HomeScreenParts.Card(weeklyWeather.first()))
         list.add(HomeScreenParts.Next5DaysString(Home5NextDays("PROSSIMI 5 GIORNI")))
 
@@ -63,12 +63,10 @@ class HomeFragment : Fragment() {
             window.decorView.setSystemUiVisibility(0)
 
         }
-
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewHomeFrag.layoutManager = layoutManager
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(emptyList()) {}
         retrieveForecastInfo()
-
     }
 
     private fun retrieveForecastInfo() {

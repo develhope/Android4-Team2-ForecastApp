@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
@@ -19,6 +20,7 @@ class SearchFragment : Fragment() {
     private lateinit var city : Array<String>
     private lateinit var weather: Array<String>
     private lateinit var temperature: Array<Int>
+
 
     private var _binding: FragmentSearchBinding? = null
 
@@ -47,14 +49,16 @@ class SearchFragment : Fragment() {
 
         }
         dataInit()
+
         binding.recyclerViewSearchFrag.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(searchArrayList)
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(searchArrayList) {
+            findNavController().navigate(R.id.navigation_home)
+        }
 
 
     }
-
-    private fun dataInit(){
+     fun dataInit(){
         searchArrayList = arrayListOf()
         city = arrayOf("Roma", "Catania", "Palermo", "Milano", "Bologna")
         weather = arrayOf("rovesci", "nuvoloso", "parz.nuvoloso", "nevoso", "rovesci")
