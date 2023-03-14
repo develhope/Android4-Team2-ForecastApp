@@ -74,6 +74,7 @@ class TodayFragment : Fragment() {
         binding.todayRecyclerView.layoutManager = layoutManager
         binding.todayRecyclerView.setHasFixedSize(true)
         binding.todayRecyclerView.adapter = TodayScreenAdapter(emptyList())
+        retrieveTodayForecastInfo()
     }
 
     private fun retrieveTodayForecastInfo(){
