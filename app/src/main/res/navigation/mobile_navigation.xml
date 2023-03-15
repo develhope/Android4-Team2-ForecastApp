@@ -15,7 +15,7 @@
         android:id="@+id/navigation_oggi"
         android:name="co.develhope.meteoapp.ui.today.TodayFragment"
         android:label="@string/title_oggi"
-        tools:layout="@layout/fragment_oggi" />
+        tools:layout="@layout/fragment_today" />
 
     <fragment
         android:id="@+id/navigation_domani"

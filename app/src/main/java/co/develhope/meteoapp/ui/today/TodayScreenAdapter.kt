@@ -3,7 +3,6 @@ package co.develhope.meteoapp.ui.today
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.TodayRowCardBinding
 import co.develhope.meteoapp.databinding.TodayTitleFragmentBinding

@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.Data.nameCity
 import co.develhope.meteoapp.R
-import co.develhope.meteoapp.databinding.FragmentDomaniBinding
+import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
@@ -22,7 +22,7 @@ import org.threeten.bp.OffsetDateTime
 
 class TomorrowFragment : Fragment() {
 
-    private var _binding: FragmentDomaniBinding? = null
+    private var _binding: FragmentTomorrowBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -34,7 +34,7 @@ class TomorrowFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentDomaniBinding.inflate(inflater, container, false)
+        _binding = FragmentTomorrowBinding.inflate(inflater, container, false)
 
         return binding.root
     }
