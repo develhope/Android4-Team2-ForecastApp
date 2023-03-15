@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import co.develhope.meteoapp.Data
+import co.develhope.meteoapp.Data.nameCity
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.networking.domainmodel.Weather
 import co.develhope.meteoapp.databinding.FragmentOggiBinding
@@ -52,7 +54,7 @@ class TodayFragment : Fragment() {
         _binding = null
     }
 }
-private val titleScreenObj= TodayTitleData("Palermo", "Sicilia", OffsetDateTime.now())
+private val titleScreenObj= TodayTitleData(nameCity, "Sicilia", OffsetDateTime.now())
 private val cardScreenObj1= TodayCardData(OffsetDateTime.now(), Weather.SUNNY,31,
     0,45,5,60,7,24,0)
 private val cardScreenObj2= TodayCardData(OffsetDateTime.now().plusHours(1), Weather.SUNNY,
