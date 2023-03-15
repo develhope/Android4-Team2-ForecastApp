@@ -41,7 +41,7 @@ class TomorrowFragment : Fragment() {
 
    private fun createTomorrowScreenItems(dailyWeather: List<ForecastData>): List<TomorrowScreenData>{
         val listTomorrow = ArrayList<TomorrowScreenData>()
-        listTomorrow.add(TomorrowScreenData.TSTitle(TomorrowTitle(nameCity?: "Roma, ", "Lazio", OffsetDateTime.now())))
+        listTomorrow.add(TomorrowScreenData.TSTitle(TomorrowTitle("$nameCity, "?: "Roma, ", "Lazio", OffsetDateTime.now())))
 
        val tomorrowWeather = dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear }
        if (tomorrowWeather.isNotEmpty()) {
