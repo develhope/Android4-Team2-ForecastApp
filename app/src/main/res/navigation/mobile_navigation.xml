@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_domani" />
     <fragment
         android:id="@+id/navigation_search"
-        android:name="co.develhope.meteoapp.ui.today.SearchFragment"
+        android:name="co.develhope.meteoapp.ui.search.SearchFragment"
         android:label="@string/title_Search"
         tools:layout="@layout/fragment_search"/>
 

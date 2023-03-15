@@ -19,6 +19,14 @@
         android:queryBackground="@android:color/transparent"
         android:queryHint="@string/search_view_search_fragment"
         android:searchIcon="@drawable/search" />
+    <ImageButton
+        android:id="@+id/btn_to_speech"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="@dimen/search_frag_card_margin_top_cv"
+        android:src="@android:drawable/ic_btn_speak_now"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@string/button_to_speech" />
 
     <TextView
         android:id="@+id/tv_recent_search"

@@ -65,4 +65,5 @@
     <string name="today_title_region">%d</string>
     <string name="today_title_date">%d</string>
     <string name="benvenuti">Benvenuti!</string>
+    <string name="button_to_speech">button to speech</string>
 </resources>
