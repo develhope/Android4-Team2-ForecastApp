@@ -1,8 +1,9 @@
 package co.develhope.meteoapp.networking.dto
 
-import co.develhope.meteoapp.Data.toWeather
+
 import co.develhope.meteoapp.networking.domainmodel.Weather
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+
 import org.threeten.bp.OffsetDateTime
 
 data class Hourly(
