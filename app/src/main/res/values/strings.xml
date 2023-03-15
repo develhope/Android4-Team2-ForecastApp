@@ -64,4 +64,5 @@
     <string name="today_title_city">%d,</string>
     <string name="today_title_region">%d</string>
     <string name="today_title_date">%d</string>
+    <string name="benvenuti">Benvenuti!</string>
 </resources>
