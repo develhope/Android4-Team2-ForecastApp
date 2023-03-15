@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
@@ -49,7 +51,10 @@ class SearchFragment : Fragment() {
         dataInit()
         binding.recyclerViewSearchFrag.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(searchArrayList)
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(searchArrayList){
+            Data.nameCity = it.city
+            findNavController().navigate(R.id.navigation_home)
+        }
 
 
     }

@@ -3,9 +3,13 @@ package co.develhope.meteoapp
 import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+import co.develhope.meteoapp.networking.domainmodel.Place
 import co.develhope.meteoapp.networking.domainmodel.Weather
+import co.develhope.meteoapp.ui.search.SearchFragmentAdapter
+import co.develhope.meteoapp.ui.today.SearchFragment
 
 object Data {
+    lateinit var nameCity : String
 
     suspend fun getWeeklyWeather(latitude: Double, longitude: Double): List<HomeCardInfo> {
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(

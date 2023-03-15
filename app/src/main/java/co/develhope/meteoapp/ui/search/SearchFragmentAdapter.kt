@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.databinding.SearchFragmentCardBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
 
-class SearchFragmentAdapter(private val list: List<Place>) :
+class SearchFragmentAdapter(private val list: List<Place>, private val onClick: (Place)-> Unit) :
     RecyclerView.Adapter<SearchFragmentAdapter.ViewHolder>() {
 
 
@@ -21,15 +21,18 @@ class SearchFragmentAdapter(private val list: List<Place>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = list[position]
-        holder.bind(currentItem)
+        holder.bind(currentItem,onClick)
     }
 
     class ViewHolder(private val binding: SearchFragmentCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Place) {
+        fun bind(item: Place, onClick: (Place) -> Unit) {
             binding.searchedCity.text = item.city
             binding.weatherCondition.text = item.weather
             "${item.temperature}°".also { binding.cityTemperature.text = it }
+            binding.searchCard.setOnClickListener {
+                onClick(item)
+            }
         }
     }
 }
