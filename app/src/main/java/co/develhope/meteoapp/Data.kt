@@ -11,7 +11,7 @@ import co.develhope.meteoapp.ui.today.SearchFragment
 object Data {
     lateinit var nameCity : String
 
-    suspend fun getWeeklyWeather(latitude: Double, longitude: Double): List<HomeCardInfo> {
+    suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo> {
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
             latitude = latitude,
             longitude = longitude,
