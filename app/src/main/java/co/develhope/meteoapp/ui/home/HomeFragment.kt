@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
 
     private fun createHomeScreenItems(weeklyWeather: List<HomeCardInfo>): List<HomeScreenParts> {
         val list = ArrayList<HomeScreenParts>()
-        list.add(HomeScreenParts.Title(HomeTitle("Fiumefreddo di Sicilia", "Sicilia")))
+        list.add(HomeScreenParts.Title(HomeTitle(Data.nameCity, "Sicilia")))
         list.add(HomeScreenParts.Card(weeklyWeather.first()))
         list.add(HomeScreenParts.Next5DaysString(Home5NextDays("PROSSIMI 5 GIORNI")))
 

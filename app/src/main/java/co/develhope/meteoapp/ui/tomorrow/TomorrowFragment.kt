@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
+import co.develhope.meteoapp.Data.nameCity
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentDomaniBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
@@ -40,7 +41,7 @@ class TomorrowFragment : Fragment() {
 
    private fun createTomorrowScreenItems(dailyWeather: List<ForecastData>): List<TomorrowScreenData>{
         val listTomorrow = ArrayList<TomorrowScreenData>()
-        listTomorrow.add(TomorrowScreenData.TSTitle(TomorrowTitle("Roma, ", "Lazio", OffsetDateTime.now())))
+        listTomorrow.add(TomorrowScreenData.TSTitle(TomorrowTitle(nameCity?: "Roma, ", "Lazio", OffsetDateTime.now())))
 
        val tomorrowWeather = dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear }
        if (tomorrowWeather.isNotEmpty()) {
