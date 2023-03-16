@@ -1,6 +1,9 @@
 package co.develhope.meteoapp.ui.today
 
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.R
@@ -77,8 +80,22 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
                 itemView.context.getString(R.string.today_rain, card.todayCard.rain)
 
 
+            rowCardBinding.row.setOnClickListener{
+                if (rowCardBinding.todayInfoCard.visibility == View.GONE){
+                TransitionManager.beginDelayedTransition(rowCardBinding.todayInfoCard, AutoTransition())
+                rowCardBinding.todayInfoCard.visibility = View.VISIBLE
+                rowCardBinding.todayArrow.rotation = 180F
+            } else{
+                TransitionManager.beginDelayedTransition(rowCardBinding.todayInfoCard, AutoTransition())
+                rowCardBinding.todayInfoCard.visibility = View.GONE
+                rowCardBinding.todayArrow.rotation = 0F
+            }
+            }
+            }
+
+
         }
-    }
+
 
     class TodayTitleViewHolder(private val titleFragmentBinding: TodayTitleFragmentBinding) :
         RecyclerView.ViewHolder(titleFragmentBinding.root) {

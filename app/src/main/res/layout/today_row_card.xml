@@ -5,6 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/row"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:orientation="horizontal"
+   >
 
    <TextView
        android:id="@+id/today_Hour"
@@ -13,19 +22,24 @@
        android:text="@string/today_hour"
        android:textColor="#230EA5"
        android:textSize="16sp"
-       app:layout_constraintEnd_toStartOf="@id/today_Weather"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent" />
+       android:layout_marginStart="24dp"
+       />
 
    <ImageView
        android:id="@+id/today_Weather"
        android:layout_width="30dp"
        android:layout_height="30dp"
        android:src="@drawable/sun"
-       app:layout_constraintEnd_toStartOf="@id/today_Temperature"
-       app:layout_constraintStart_toEndOf="@id/today_Hour"
+       android:layout_toEndOf="@id/today_Hour"
        app:layout_constraintTop_toTopOf="parent"
-       />
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintStart_toStartOf="@id/today_Hour"
+       app:layout_constraintEnd_toEndOf="@id/today_Temperature"
+
+             />
 
    <TextView
        android:id="@+id/today_Temperature"
@@ -35,18 +49,20 @@
        android:textColor="@color/black"
        android:textSize="16sp"
        android:textStyle="bold"
-       app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toTopOf="parent" />
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+       />
 
    <ImageView
        android:id="@+id/today_PrecipitationsView"
        android:layout_width="15.5dp"
        android:layout_height="20.5dp"
        android:src="@drawable/drop"
-       app:layout_constraintEnd_toEndOf="parent"
-       app:layout_constraintStart_toEndOf="@id/today_Weather"
-       app:layout_constraintTop_toTopOf="parent" />
+       app:layout_constraintEnd_toStartOf="@id/today_PrecipitationsText"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"/>
 
    <TextView
        android:id="@+id/today_PrecipitationsText"
@@ -54,26 +70,48 @@
        android:layout_height="wrap_content"
        android:text="@string/today_precipitations"
        android:textColor="@color/black"
-       app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toEndOf="@id/today_Temperature"
-       app:layout_constraintTop_toTopOf="parent" />
+       app:layout_constraintEnd_toStartOf="@id/today_arrow"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+      />
+
+   <ImageView
+       android:id="@+id/today_arrow"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+       android:src="@drawable/arrow"
+       android:layout_marginEnd="24dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+   <ImageView
+       android:id="@+id/firstLine"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:src="@drawable/vector_1"
+       android:paddingBottom="18dp"
+       android:paddingTop="16dp"
+       app:layout_constraintTop_toBottomOf="@id/row" />
 
    <androidx.cardview.widget.CardView
        android:id="@+id/today_infoCard"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_marginStart="24dp"
-       android:layout_marginTop="30dp"
+       android:layout_marginTop="23dp"
        android:layout_marginEnd="24dp"
        android:layout_marginBottom="45dp"
        android:paddingBottom="30dp"
        app:cardElevation="8dp"
-       android:visibility="visible"
+       android:visibility="gone"
        app:cardCornerRadius="8dp"
        app:layout_constraintBottom_toBottomOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintTop_toBottomOf="@id/today_Temperature">
+       app:layout_constraintTop_toBottomOf="@id/firstLine">
 
       <TextView
           android:id="@+id/today_cardPerceived"
