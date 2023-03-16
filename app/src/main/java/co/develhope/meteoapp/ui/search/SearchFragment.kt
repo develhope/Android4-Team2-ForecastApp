@@ -72,7 +72,7 @@ class SearchFragment : Fragment() {
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(searchArrayList) {
-            Data.nameCity = it.city
+            Data.citySearched = it
             findNavController().navigate(R.id.navigation_home)
         }
 

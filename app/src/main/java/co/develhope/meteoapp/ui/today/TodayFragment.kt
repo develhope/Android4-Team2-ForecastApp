@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
-import co.develhope.meteoapp.Data.nameCity
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTodayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
@@ -43,7 +42,7 @@ class TodayFragment : Fragment() {
         listToday.add(
             TodayScreenData.TodayScreenTitle(
                 TodayTitleData(
-                    "Roma, ",
+                    "${Data.citySearched.city},",
                     "Lazio",
                     OffsetDateTime.now()
                 )
