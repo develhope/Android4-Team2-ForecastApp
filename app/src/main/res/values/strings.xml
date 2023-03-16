@@ -34,7 +34,7 @@
     <string name="city_region_home">Palermo,Sicilia</string>
 
     // TEXT VIEW TOMORROW SCREEN
-    <string name="tv_hour_00">%d:00</string>
+    <string name="tv_hour_00">%02d:00</string>
     <string name="tv_temperature">%d C°</string>
     <string name="tv_percRain">%d cm</string>
     <string name="tv_humRainCov">%d%%</string>
@@ -52,7 +52,7 @@
     <string name="recent_research_search_fragment">Ricerche recenti</string>
 
     //TODAY VIEW SCREEN
-    <string name="today_hour">%d :00</string>
+    <string name="today_hour">%02d:00</string>
     <string name="today_temperature">%d C°</string>
     <string name="today_rain">%d cm</string>
     <string name="today_coverage">%d%%</string>
@@ -64,5 +64,5 @@
     <string name="today_title_city">%d,</string>
     <string name="today_title_region">%d</string>
     <string name="today_title_date">%d</string>
-    <string name="benvenuti">Benvenuti!</string>
+    <string name="button_to_speech">button to speech</string>
 </resources>
