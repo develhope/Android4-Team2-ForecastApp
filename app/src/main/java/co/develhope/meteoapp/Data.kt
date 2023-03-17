@@ -1,5 +1,6 @@
 package co.develhope.meteoapp
 
+import co.develhope.meteoapp.networking.GeocodingRetrofitIstance
 import co.develhope.meteoapp.networking.OpenMeteoRetrofitInstance
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
@@ -21,5 +22,11 @@ object Data {
             latitude = latitude,
             longitude = longitude,
         ).hourly.toDomain()
+    }
+
+    suspend fun getSearchData(name : String) : Place {
+        return GeocodingRetrofitIstance().geoMeteoApi.getSearchData(
+            name = name
+        ).toDomain()
     }
 }

@@ -16,21 +16,19 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
+import co.develhope.meteoapp.networking.GeocodingRetrofitIstance
 import co.develhope.meteoapp.networking.domainmodel.Place
+import kotlinx.coroutines.launch
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SearchFragment : Fragment() {
 
-    private lateinit var searchArrayList: ArrayList<Place>
-    private lateinit var city: Array<String>
-    private lateinit var weather: Array<String>
-    private lateinit var temperature: Array<Int>
     private val REQUEST_CODE_SPEECH_INPUT = 1
 
 
@@ -41,21 +39,21 @@ class SearchFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater ,
+        container: ViewGroup? ,
         savedInstanceState: Bundle?
     ): View {
 
 
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater , container , false)
 
         return binding.root
     }
 
 
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View , savedInstanceState: Bundle?) {
+        super.onViewCreated(view , savedInstanceState)
         val window = activity?.window
         if (window != null) {
             window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
@@ -64,63 +62,46 @@ class SearchFragment : Fragment() {
         }
 
         binding.btnToSpeech.setOnClickListener {
-        permissionRecord()
+            permissionRecord()
         }
 
-        dataInit()
         binding.recyclerViewSearchFrag.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(context , LinearLayoutManager.VERTICAL , false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(searchArrayList) {
-            Data.citySearched = it
-            findNavController().navigate(R.id.navigation_home)
-        }
-
-
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(emptyList()) {}
+        searchCall()
     }
 
     @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int , resultCode: Int , data: Intent?) {
+        super.onActivityResult(requestCode , resultCode , data)
         if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
             if (resultCode == RESULT_OK && data != null) {
                 val res: ArrayList<String> =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
-                binding.SearchBarSearchFrag.setQuery(Objects.requireNonNull(res)[0], false)
+                binding.SearchBarSearchFrag.setQuery(Objects.requireNonNull(res)[0] , false)
             }
         }
     }
 
-
-    private fun dataInit() {
-        searchArrayList = arrayListOf()
-        city = arrayOf("Roma", "Catania", "Palermo", "Milano", "Bologna")
-        weather = arrayOf("rovesci", "nuvoloso", "parz.nuvoloso", "nevoso", "rovesci")
-        temperature = arrayOf(8, 9, 8, 2, 4)
-
-        for (i in city.indices) {
-            val item = Place(city[i], weather[i], temperature[i])
-            searchArrayList.add(item)
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    private fun speechToText(){
+    private fun speechToText() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL ,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla adesso")
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE , Locale.getDefault())
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT , "Parla adesso")
         try {
-            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT)
+            startActivityForResult(intent , REQUEST_CODE_SPEECH_INPUT)
         } catch (e: java.lang.Exception) {
-            Log.d("Speech", "Error : ${e.message},${e.cause}")
+            Log.d("Speech" , "Error : ${e.message},${e.cause}")
         }
     }
 
@@ -128,16 +109,38 @@ class SearchFragment : Fragment() {
         run {
             if (context?.let {
                     ContextCompat.checkSelfPermission(
-                        it, Manifest.permission.RECORD_AUDIO
+                        it , Manifest.permission.RECORD_AUDIO
                     )
                 } != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
-                    context as Activity, arrayOf(Manifest.permission.RECORD_AUDIO), REQUEST_CODE_SPEECH_INPUT
+                    context as Activity ,
+                    arrayOf(Manifest.permission.RECORD_AUDIO) ,
+                    REQUEST_CODE_SPEECH_INPUT
                 )
             } else {
                 // permission already granted
                 speechToText()
+            }
+        }
+    }
+
+    private fun searchCall() {
+        lifecycleScope.launch {
+            try {
+                val item: Place = Data.getSearchData("Palermo")
+                val item2: Place = Data.getSearchData("Catania")
+                Log.d("item", "${item.region}")
+                val list: MutableList<Place> = mutableListOf(item, item2)
+
+                binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
+                    Data.citySearched = it
+                    findNavController().navigate(R.id.navigation_home)
+                }
+
+            } catch (e: Exception) {
+                Log.d("SearchFragment" , "Error: ${e.message},${e.cause}")
+
             }
         }
     }
