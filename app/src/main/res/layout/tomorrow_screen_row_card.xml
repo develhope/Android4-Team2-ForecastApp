@@ -52,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/tv_humRainCov"
+        android:paddingStart="4dp"
         android:textColor="@color/black"
         android:textSize="@dimen/text_min_dimensions_card_info"
         app:layout_constraintEnd_toStartOf="@+id/tv_imageArrow"
