@@ -3,7 +3,7 @@ package co.develhope.meteoapp.networking.dto
 import co.develhope.meteoapp.networking.domainmodel.Place
 
 data class Result(
-    val admin1: String?,
+    val admin1: String,
     val admin1_id: Int?,
     val admin2: String?,
     val admin2_id: Int?,

@@ -42,8 +42,8 @@ class TodayFragment : Fragment() {
         listToday.add(
             TodayScreenData.TodayScreenTitle(
                 TodayTitleData(
-                    "${Data.citySearched.city},",
-                    "Lazio",
+                    Data.citySearched.city,
+                    Data.citySearched.region,
                     OffsetDateTime.now()
                 )
             )
@@ -79,7 +79,7 @@ class TodayFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val dailyWeather: List<ForecastData> =
-                    Data.getDailyWeather(41.9, 12.48) ?: emptyList()
+                    Data.getDailyWeather(Data.citySearched.latitude, Data.citySearched.longitude) ?: emptyList()
 
                 val listToShow = createTodayScreenItems(dailyWeather)
                 binding.todayRecyclerView.adapter = TodayScreenAdapter(listToShow)
