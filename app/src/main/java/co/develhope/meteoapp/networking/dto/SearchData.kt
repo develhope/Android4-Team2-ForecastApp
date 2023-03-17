@@ -13,7 +13,7 @@ data class SearchData(
             city = results.get(0).name,
             latitude = results.get(0).latitude,
             longitude = results.get(0).longitude,
-            region = results.get(0).country,
+            region = results.get(0).admin1,
             temperature = null,
             weather = null
         ) }

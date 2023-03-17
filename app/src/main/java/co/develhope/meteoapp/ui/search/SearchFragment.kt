@@ -130,7 +130,7 @@ class SearchFragment : Fragment() {
             try {
                 val item: Place = Data.getSearchData("Palermo")
                 val item2: Place = Data.getSearchData("Catania")
-                Log.d("item", "${item.region}")
+
                 val list: MutableList<Place> = mutableListOf(item, item2)
 
                 binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
