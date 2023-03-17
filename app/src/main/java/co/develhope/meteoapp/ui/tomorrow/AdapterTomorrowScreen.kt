@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.TomorrowScreenRowCardBinding
 import co.develhope.meteoapp.databinding.TomorrowScreenTitleBinding
@@ -14,7 +13,6 @@ import co.develhope.meteoapp.ui.utils.weatherIcon
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
-
 
 class AdapterTomorrowScreen (
 
@@ -29,11 +27,13 @@ class AdapterTomorrowScreen (
         return when(viewType){
 
             forecast_tomorrow_screen ->
-                TomorrowRowCardViewHolder(TomorrowScreenRowCardBinding.inflate
+                TomorrowRowCardViewHolder(
+                    TomorrowScreenRowCardBinding.inflate
                     (LayoutInflater.from(parent.context), parent, false))
 
             title_tomorrow_screen ->
-                TomorrowTitleViewHolder(TomorrowScreenTitleBinding.inflate
+                TomorrowTitleViewHolder(
+                    TomorrowScreenTitleBinding.inflate
                     (LayoutInflater.from(parent.context), parent, false))
 
             else -> throw java.lang.IllegalArgumentException("ERROR")
@@ -49,7 +49,6 @@ class AdapterTomorrowScreen (
             is TomorrowRowCardViewHolder -> holder.bind(items[position] as TomorrowScreenData.TSForecast)
             is TomorrowTitleViewHolder -> holder.bind(items[position] as TomorrowScreenData.TSTitle)
         }
-
     }
 
     class TomorrowRowCardViewHolder(private val rowCardBinding: TomorrowScreenRowCardBinding)
@@ -133,4 +132,4 @@ class AdapterTomorrowScreen (
             is TomorrowScreenData.TSTitle -> title_tomorrow_screen
         }
     }
-}
+    }

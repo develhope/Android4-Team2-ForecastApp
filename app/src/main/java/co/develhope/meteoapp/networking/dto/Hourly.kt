@@ -1,5 +1,6 @@
 package co.develhope.meteoapp.networking.dto
 
+import co.develhope.meteoapp.R
 import co.develhope.meteoapp.networking.domainmodel.Weather
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import org.threeten.bp.OffsetDateTime
@@ -14,10 +15,15 @@ data class Hourly(
     val windspeed_10m: List<Double>
 ){
     fun toDomain(): List<ForecastData> {
-        return time.mapIndexed { index, hour ->
+        return time.mapIndexed { index, time ->
+
             ForecastData(
-                date = hour,
-                weather = weathercode.getOrNull(index)?.toWeather() ?: Weather.UNKNOWN,
+                date = time,
+                weather = if (time.hour in 19..23 || time.hour in 0..5) {
+                    Weather.NIGHT
+                }else{
+                    weathercode.getOrNull(index)?.toWeather() ?: Weather.UNKNOWN
+                },
                 temperature = temperature_2m.getOrNull(index)?.toInt() ?: 0,
                 precipitation = showers.getOrNull(index)?.toInt() ?: 0,
                 perc_temperature = temperature_2m.getOrNull(index)?.toInt() ?: 0,
