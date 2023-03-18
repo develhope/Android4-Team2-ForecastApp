@@ -100,6 +100,7 @@ class HomeFragment : Fragment() {
                             Data.homeData!!.weather, Data.homeData!!.minTemp)
                     }
                 } else {
+                    findNavController().navigate(R.id.navigation_error)
                     Toast.makeText(
                         requireContext(),
                         "Meteo non disponibile, mi dispiace",

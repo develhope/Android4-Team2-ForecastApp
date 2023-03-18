@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dayForecastBg"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".ui.error.ErrorFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:contentDescription="@string/image_error"
+        android:src="@drawable/error" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/error_fragment_message"
+        android:textAlignment="center"
+        android:maxEms="12"
+        android:textColor="#434C59"
+        android:letterSpacing="0.01"
+        android:textSize="17sp"
+        android:textStyle="bold"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_error_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/error_btn_bg"
+        android:layout_marginStart="@dimen/universal_margin_dx_sx"
+        android:layout_marginEnd="@dimen/universal_margin_dx_sx"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textAlignment="center"
+        android:layout_marginTop="@dimen/home_fragment_marginTop"
+        android:text="@string/riprova"/>
+
+</LinearLayout>
