@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
@@ -87,7 +88,8 @@ class TomorrowFragment : Fragment() {
                 binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(listToShow)
 
             } catch (e: Exception) {
-                Toast.makeText(requireContext() , "ERROR" , Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.navigation_error)
+                Toast.makeText(requireContext(),"ERROR", Toast.LENGTH_SHORT).show()
                 Log.d("TomorrowFragment" , "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
             }
         }

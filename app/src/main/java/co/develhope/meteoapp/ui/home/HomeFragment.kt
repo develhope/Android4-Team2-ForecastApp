@@ -94,6 +94,7 @@ class HomeFragment : Fragment() {
                         findNavController().navigate(choosenFragment)
                     }
                 } else {
+                    findNavController().navigate(R.id.navigation_error)
                     Toast.makeText(
                         requireContext(),
                         "Meteo non disponibile, mi dispiace",

@@ -65,4 +65,7 @@
     <string name="today_title_region">%d</string>
     <string name="today_title_date">%d</string>
     <string name="button_to_speech">button to speech</string>
+    <string name="image_error">Image Error</string>
+    <string name="error_fragment_message">C’è stato un problema con il caricamento dei tuoi dati. Verifica la tua rete e riprova.</string>
+    <string name="riprova">Riprova</string>
 </resources>
