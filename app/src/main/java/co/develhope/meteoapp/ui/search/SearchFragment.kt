@@ -23,8 +23,6 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
-import co.develhope.meteoapp.networking.domainmodel.Weather
-import co.develhope.meteoapp.ui.utils.updateWidget
 import kotlinx.coroutines.launch
 import java.util.*
 
