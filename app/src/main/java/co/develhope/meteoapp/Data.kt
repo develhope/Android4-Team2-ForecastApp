@@ -9,6 +9,7 @@ import co.develhope.meteoapp.networking.domainmodel.Place
 
 object Data {
     lateinit var citySearched : Place
+    var homeData : HomeCardInfo? = null
 
     suspend fun getWeeklyWeather(latitude: Double, longitude: Double): List<HomeCardInfo> {
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(

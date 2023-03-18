@@ -22,8 +22,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
-import co.develhope.meteoapp.networking.GeocodingRetrofitIstance
 import co.develhope.meteoapp.networking.domainmodel.Place
+import co.develhope.meteoapp.networking.domainmodel.Weather
+import co.develhope.meteoapp.ui.utils.updateWidget
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -130,8 +131,9 @@ class SearchFragment : Fragment() {
             try {
                 val item: Place = Data.getSearchData("Palermo")
                 val item2: Place = Data.getSearchData("Catania")
+                val item3: Place = Data.getSearchData("Milano")
 
-                val list: MutableList<Place> = mutableListOf(item, item2)
+                val list: MutableList<Place> = mutableListOf(item, item2,item3)
 
                 binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
                     Data.citySearched = it

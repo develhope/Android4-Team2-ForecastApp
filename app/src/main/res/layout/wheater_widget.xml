@@ -1,0 +1,53 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_layout"
+    style="@style/Widget.Meteoapp.AppWidget.Container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@drawable/widget_bg_container"
+    android:gravity="center"
+    android:theme="@style/Theme.Meteoapp.AppWidgetContainer">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="horizontal"
+        android:background="@drawable/widget_bg_elements"
+        android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/appwidget_city"
+        android:background="@drawable/widget_bg_elements"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:contentDescription="@string/appwidget_text"
+        android:text="@string/city_region_home"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/img_widget"
+        android:layout_width="wrap_content"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sun"
+        android:contentDescription="@string/weatherimage"/>
+    <TextView
+        android:id="@+id/appwidget_degree"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textAlignment="center"
+        android:text="@string/maxTempGrad"
+        android:background="@drawable/widget_bg_elements"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+    </LinearLayout>
+
+
+</LinearLayout>
