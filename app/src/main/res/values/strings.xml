@@ -65,4 +65,8 @@
     <string name="today_title_region">%d</string>
     <string name="today_title_date">%d</string>
     <string name="button_to_speech">button to speech</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="weatherimage">WeatherImage</string>
 </resources>
