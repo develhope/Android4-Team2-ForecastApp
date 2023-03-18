@@ -98,7 +98,6 @@ class HomeFragment : Fragment() {
                         findNavController().navigate(choosenFragment)
                         updateWidget(requireContext(),Data.citySearched.city,Data.citySearched.region,
                             Data.homeData!!.weather, Data.homeData!!.minTemp)
-
                     }
                 } else {
                     Toast.makeText(
