@@ -16,6 +16,8 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+import co.develhope.meteoapp.networking.domainmodel.Weather
+import co.develhope.meteoapp.ui.utils.updateWidget
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
@@ -69,6 +71,7 @@ class HomeFragment : Fragment() {
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(emptyList()) {}
         retrieveForecastInfo()
 
+
     }
 
     private fun retrieveForecastInfo() {
@@ -81,6 +84,7 @@ class HomeFragment : Fragment() {
                 if (weeklyWeather.isNotEmpty()) {
                     val listToShow = createHomeScreenItems(weeklyWeather)
                     binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
+                        Data.homeData = it
                         val choosenFragment: Int =
                             when {
                                 it.dateTime.toLocalDate().isEqual(
@@ -92,6 +96,8 @@ class HomeFragment : Fragment() {
                                 else -> R.id.navigation_domani //gestirà il click sulle altre card
                             }
                         findNavController().navigate(choosenFragment)
+                        updateWidget(requireContext(),Data.citySearched.city,Data.citySearched.region,
+                            Data.homeData!!.weather, Data.homeData!!.minTemp)
                     }
                 } else {
                     findNavController().navigate(R.id.navigation_error)

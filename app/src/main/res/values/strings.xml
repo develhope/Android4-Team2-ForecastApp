@@ -68,4 +68,8 @@
     <string name="image_error">Image Error</string>
     <string name="error_fragment_message">C’è stato un problema con il caricamento dei tuoi dati. Verifica la tua rete e riprova.</string>
     <string name="riprova">Riprova</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="weatherimage">WeatherImage</string>
 </resources>
