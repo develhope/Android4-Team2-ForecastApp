@@ -1,10 +1,9 @@
-package co.develhope.meteoapp.ui.home
+package co.develhope.meteoapp.ui.home.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.HomeFragmentCardBinding
 import co.develhope.meteoapp.databinding.HomeFragmentNextdaysBinding

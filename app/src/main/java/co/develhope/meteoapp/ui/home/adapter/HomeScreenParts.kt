@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.ui.home
+package co.develhope.meteoapp.ui.home.adapter
 
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 

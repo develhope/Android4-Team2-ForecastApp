@@ -6,7 +6,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.networking.domainmodel.Weather
-import co.develhope.meteoapp.ui.WheaterWidget
+import co.develhope.meteoapp.ui.widget.WheaterWidget
 
 fun updateWidget(context: Context, widgetCity: String?, widgetRegion: String?, widgetWeather: Weather, widgetMinTemp: Int?) {
     val widgetImage = weatherIcon(widgetWeather)

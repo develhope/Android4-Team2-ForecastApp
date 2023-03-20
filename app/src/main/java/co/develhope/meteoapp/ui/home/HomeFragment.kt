@@ -16,7 +16,10 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
-import co.develhope.meteoapp.networking.domainmodel.Weather
+import co.develhope.meteoapp.ui.home.adapter.Home5NextDays
+import co.develhope.meteoapp.ui.home.adapter.HomeFragmentAdapter
+import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
+import co.develhope.meteoapp.ui.home.adapter.HomeTitle
 import co.develhope.meteoapp.ui.utils.updateWidget
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
@@ -96,6 +99,7 @@ class HomeFragment : Fragment() {
                                 else -> R.id.navigation_domani //gestirà il click sulle altre card
                             }
                         findNavController().navigate(choosenFragment)
+
                         updateWidget(requireContext(),Data.citySearched.city,Data.citySearched.region,
                             Data.homeData!!.weather, Data.homeData!!.minTemp)
                     }
