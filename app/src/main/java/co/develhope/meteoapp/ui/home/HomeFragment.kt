@@ -97,9 +97,10 @@ class HomeFragment : Fragment() {
                             }
                         findNavController().navigate(choosenFragment)
                         updateWidget(requireContext(),Data.citySearched.city,Data.citySearched.region,
-                            Data.homeData!!.weather, Data.homeData!!.maxTemp)
+                            Data.homeData!!.weather, Data.homeData!!.minTemp)
                     }
                 } else {
+                    findNavController().navigate(R.id.navigation_error)
                     Toast.makeText(
                         requireContext(),
                         "Meteo non disponibile, mi dispiace",
