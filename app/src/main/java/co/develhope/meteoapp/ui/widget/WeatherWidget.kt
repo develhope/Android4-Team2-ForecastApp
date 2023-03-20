@@ -1,4 +1,4 @@
-package co.develhope.meteoapp.ui
+package co.develhope.meteoapp.ui.widget
 
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
