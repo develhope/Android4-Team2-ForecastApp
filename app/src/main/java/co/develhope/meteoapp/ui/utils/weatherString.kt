@@ -1,6 +1,5 @@
 package co.develhope.meteoapp.ui.utils
 
-import co.develhope.meteoapp.R
 import co.develhope.meteoapp.networking.domainmodel.Weather
 
 fun Weather.weatherString(): String{

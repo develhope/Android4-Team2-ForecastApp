@@ -7,13 +7,12 @@ import android.widget.RemoteViews
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.networking.domainmodel.Weather
-import co.develhope.meteoapp.networking.dto.toWeather
 import co.develhope.meteoapp.ui.utils.weatherIcon
 
 /**
  * Implementation of App Widget functionality.
  */
-class WheaterWidget : AppWidgetProvider() {
+class WeatherWidget : AppWidgetProvider() {
     override fun onUpdate(
         context: Context,
         appWidgetManager: AppWidgetManager,

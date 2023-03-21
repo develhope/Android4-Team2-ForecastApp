@@ -6,7 +6,7 @@ import android.content.Context
 import android.widget.RemoteViews
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.networking.domainmodel.Weather
-import co.develhope.meteoapp.ui.widget.WheaterWidget
+import co.develhope.meteoapp.ui.widget.WeatherWidget
 
 fun updateWidget(context: Context, widgetCity: String?, widgetRegion: String?, widgetWeather: Weather, widgetMinTemp: Int?) {
     val widgetImage = weatherIcon(widgetWeather)
@@ -14,6 +14,6 @@ fun updateWidget(context: Context, widgetCity: String?, widgetRegion: String?, w
     views.setTextViewText(R.id.appwidget_city, "${widgetCity},${widgetRegion}")
     views.setImageViewResource(R.id.img_widget,widgetImage)
     views.setTextViewText(R.id.appwidget_degree, "${widgetMinTemp.toString()}°")
-    val widgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(context, WheaterWidget::class.java))
+    val widgetIds = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(context, WeatherWidget::class.java))
     AppWidgetManager.getInstance(context).updateAppWidget(widgetIds, views)
 }
