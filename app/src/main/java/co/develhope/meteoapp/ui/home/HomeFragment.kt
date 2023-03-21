@@ -100,8 +100,10 @@ class HomeFragment : Fragment() {
                             }
                         findNavController().navigate(choosenFragment)
 
-                        updateWidget(requireContext(),Data.citySearched.city,Data.citySearched.region,
-                            Data.homeData!!.weather, Data.homeData!!.minTemp)
+                        Data.homeData?.weather?.let { it1 ->
+                            updateWidget(requireContext(),Data.citySearched.city,Data.citySearched.region,
+                                it1, Data.homeData?.minTemp)
+                        }
                     }
                 } else {
                     findNavController().navigate(R.id.navigation_error)
