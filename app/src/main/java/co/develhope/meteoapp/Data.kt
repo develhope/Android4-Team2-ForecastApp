@@ -8,17 +8,17 @@ import co.develhope.meteoapp.networking.domainmodel.Place
 
 
 object Data {
-    lateinit var citySearched : Place
+    var citySearched : Place? = null
     var homeData : HomeCardInfo? = null
 
-    suspend fun getWeeklyWeather(latitude: Double, longitude: Double): List<HomeCardInfo> {
+    suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo> {
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
             latitude = latitude,
             longitude = longitude,
         ).daily.toDomain()
     }
 
-    suspend fun getDailyWeather(latitude: Double, longitude: Double): List<ForecastData> {
+    suspend fun getDailyWeather(latitude: Double?, longitude: Double?): List<ForecastData> {
         return OpenMeteoRetrofitInstance().openMeteoApi.getDailyData(
             latitude = latitude,
             longitude = longitude,

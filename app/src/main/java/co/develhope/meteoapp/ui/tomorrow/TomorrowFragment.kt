@@ -44,7 +44,7 @@ class TomorrowFragment : Fragment() {
         listTomorrow.add(
             TomorrowScreenData.TSTitle(
                 TomorrowTitle(
-                    Data.citySearched.city , Data.citySearched.region , OffsetDateTime.now()
+                    Data.citySearched?.city , Data.citySearched?.region , OffsetDateTime.now()
                 )
             )
         )
@@ -81,7 +81,7 @@ class TomorrowFragment : Fragment() {
         lifecycleScope.launch {
             try {
                 val dailyWeather: List<ForecastData> =
-                    Data.getDailyWeather(Data.citySearched.latitude , Data.citySearched.longitude)
+                    Data.getDailyWeather(Data.citySearched?.latitude , Data.citySearched?.longitude)
                         ?: emptyList()
 
                 val listToShow = createTomorrowScreenItems(dailyWeather)
