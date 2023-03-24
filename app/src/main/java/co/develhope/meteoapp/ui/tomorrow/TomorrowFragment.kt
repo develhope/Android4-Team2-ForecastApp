@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,17 +17,15 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.ui.error.ErrorFragment
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
-
 
 class TomorrowFragment : Fragment() {
 
     private var _binding: FragmentTomorrowBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel: TomorrowViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater ,
@@ -74,10 +73,27 @@ class TomorrowFragment : Fragment() {
         binding.rvTomorrowScreen.layoutManager = layoutManager
         binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(emptyList())
 
-        retrieveTomorrowForecastInfo()
+        observeTomorrowRepos()
+        viewModel.retrieveReposTomorrow()
     }
 
-    private fun retrieveTomorrowForecastInfo() {
+    fun createTomorrowUI(listUI: List<ForecastData>){
+        val tomListToShow = createTomorrowScreenItems(listUI)
+        binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(tomListToShow)
+    }
+
+
+    fun observeTomorrowRepos(){
+        viewModel.tomorrowEventLiveData.observe(viewLifecycleOwner){
+            when(it) {
+                is TomorrowEvents.Success -> createTomorrowUI(it.list)
+                is TomorrowEvents.Error -> findNavController().navigate(R.id.navigation_error)
+            }
+        }
+
+    }
+
+    /* private fun retrieveTomorrowForecastInfo() {
         lifecycleScope.launch {
             try {
                 val dailyWeather: List<ForecastData> =
@@ -93,7 +109,7 @@ class TomorrowFragment : Fragment() {
                 Log.d("TomorrowFragment" , "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
             }
         }
-    }
+    } */
 
     override fun onDestroyView() {
         super.onDestroyView()
