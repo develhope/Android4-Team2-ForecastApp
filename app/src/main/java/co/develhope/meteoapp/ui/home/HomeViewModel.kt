@@ -24,7 +24,7 @@ class HomeViewModel : ViewModel() {
                 )
             } catch (e: Exception) {
                 if (Data.citySearched != null) {
-                    _homeEventsLiveData.value = HomeEvents.FirstOpenFromUser
+                    _homeEventsLiveData.value = HomeEvents.Error(e)
                 } else {
                     _homeEventsLiveData.value = HomeEvents.FirstOpenFromUser
                 }
