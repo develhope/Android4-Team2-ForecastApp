@@ -2,31 +2,26 @@ package co.develhope.meteoapp.ui.tomorrow
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
-
 
 class TomorrowFragment : Fragment() {
 
     private var _binding: FragmentTomorrowBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel: TomorrowViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater ,
@@ -50,7 +45,7 @@ class TomorrowFragment : Fragment() {
         )
 
         val tomorrowWeather =
-            dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear }
+            dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear.plus(1) }
         if (tomorrowWeather.isNotEmpty()) {
             tomorrowWeather.forEach {
                 listTomorrow.add(TomorrowScreenData.TSForecast(it))
@@ -74,25 +69,32 @@ class TomorrowFragment : Fragment() {
         binding.rvTomorrowScreen.layoutManager = layoutManager
         binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(emptyList())
 
-        retrieveTomorrowForecastInfo()
+        observeTomorrowRepos()
+        viewModel.retrieveReposTomorrow()
     }
 
-    private fun retrieveTomorrowForecastInfo() {
-        lifecycleScope.launch {
-            try {
-                val dailyWeather: List<ForecastData> =
-                    Data.getDailyWeather(Data.citySearched.latitude , Data.citySearched.longitude)
-                        ?: emptyList()
+    fun createTomorrowUI(listUI: List<ForecastData>){
+        val tomListToShow = createTomorrowScreenItems(listUI)
+        binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(tomListToShow)
+    }
 
-                val listToShow = createTomorrowScreenItems(dailyWeather)
-                binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(listToShow)
-
-            } catch (e: Exception) {
-                findNavController().navigate(R.id.navigation_error)
-                Toast.makeText(requireContext(),"ERROR", Toast.LENGTH_SHORT).show()
-                Log.d("TomorrowFragment" , "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
+    fun observeTomorrowRepos(){
+        viewModel.tomorrowEventLiveData.observe(viewLifecycleOwner){
+            when(it) {
+                is TomorrowState.Success -> createTomorrowUI(it.list)
+                is TomorrowState.Message -> errorMessage()
+                is TomorrowState.Error -> findNavController().navigate(R.id.navigation_error)
             }
         }
+    }
+
+    private fun errorMessage(){
+        findNavController().navigate(R.id.navigation_search)
+        Toast.makeText(
+            requireContext(),
+            "Meteo non disponibile, seleziona una città",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onDestroyView() {
