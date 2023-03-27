@@ -39,7 +39,7 @@ class TomorrowFragment : Fragment() {
         listTomorrow.add(
             TomorrowScreenData.TSTitle(
                 TomorrowTitle(
-                    Data.citySearched.city , Data.citySearched.region , OffsetDateTime.now()
+                    Data.citySearched?.city , Data.citySearched?.region , OffsetDateTime.now()
                 )
             )
         )

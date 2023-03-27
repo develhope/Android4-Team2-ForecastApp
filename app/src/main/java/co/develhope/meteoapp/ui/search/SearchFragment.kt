@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
-import co.develhope.meteoapp.networking.GeocodingRetrofitIstance
 import co.develhope.meteoapp.networking.domainmodel.Place
 import kotlinx.coroutines.launch
 import java.util.*
