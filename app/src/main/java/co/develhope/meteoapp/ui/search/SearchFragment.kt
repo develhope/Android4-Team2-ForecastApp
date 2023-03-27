@@ -12,19 +12,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
-import kotlinx.coroutines.launch
 import java.util.*
+
 
 class SearchFragment : Fragment() {
 
@@ -33,26 +34,28 @@ class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
+    private val viewModel : SearchViewModel by viewModels()
+
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater ,
+        container: ViewGroup? ,
         savedInstanceState: Bundle?
     ): View {
 
 
-        _binding = FragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater , container , false)
 
         return binding.root
     }
 
 
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View , savedInstanceState: Bundle?) {
+        super.onViewCreated(view , savedInstanceState)
         val window = activity?.window
         if (window != null) {
             window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
@@ -65,24 +68,44 @@ class SearchFragment : Fragment() {
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(context , LinearLayoutManager.VERTICAL , false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(emptyList()) {}
-        searchCall()
+
+        searchingCity()
+        observerViewModel()
     }
 
     @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
+    override fun onActivityResult(requestCode: Int , resultCode: Int , data: Intent?) {
+        super.onActivityResult(requestCode , resultCode , data)
         if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
             if (resultCode == RESULT_OK && data != null) {
                 val res: ArrayList<String> =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
-                binding.SearchBarSearchFrag.setQuery(Objects.requireNonNull(res)[0], false)
+                binding.SearchBarSearchFrag.setQuery(Objects.requireNonNull(res)[0] , false)
             }
         }
     }
 
+    private fun searchingCity() {
+        binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener ,
+            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(text: String?): Boolean {
+
+                viewModel.sendingCity(SearchEvents.citySearched(text.toString()))
+                observerViewModel()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                viewModel.sendingCity(SearchEvents.citySearched(newText.toString()))
+                observerViewModel()
+                return true
+            }
+        })
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -92,15 +115,15 @@ class SearchFragment : Fragment() {
     private fun speechToText() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
         intent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL ,
             RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
         )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla adesso")
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE , Locale.getDefault())
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT , "Parla adesso")
         try {
-            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT)
+            startActivityForResult(intent , REQUEST_CODE_SPEECH_INPUT)
         } catch (e: java.lang.Exception) {
-            Log.d("Speech", "Error : ${e.message},${e.cause}")
+            Log.d("Speech" , "Error : ${e.message},${e.cause}")
         }
     }
 
@@ -108,13 +131,13 @@ class SearchFragment : Fragment() {
         run {
             if (context?.let {
                     ContextCompat.checkSelfPermission(
-                        it, Manifest.permission.RECORD_AUDIO
+                        it , Manifest.permission.RECORD_AUDIO
                     )
                 } != PackageManager.PERMISSION_GRANTED
             ) {
                 ActivityCompat.requestPermissions(
-                    context as Activity,
-                    arrayOf(Manifest.permission.RECORD_AUDIO),
+                    context as Activity ,
+                    arrayOf(Manifest.permission.RECORD_AUDIO) ,
                     REQUEST_CODE_SPEECH_INPUT
                 )
             } else {
@@ -124,23 +147,21 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun searchCall() {
-        lifecycleScope.launch {
-            try {
-                val item: Place = Data.getSearchData("Palermo")
-                val item2: Place = Data.getSearchData("Catania")
-                val item3: Place = Data.getSearchData("Milano")
+    fun createUISearch(place : Place){
+        val list = mutableListOf<Place>()
+        list.add(place)
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
+            Data.citySearched = it
+            findNavController().navigate(R.id.navigation_home)
+        }
 
-                val list: MutableList<Place> = mutableListOf(item, item2,item3)
+    }
 
-                binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
-                    Data.citySearched = it
-                    findNavController().navigate(R.id.navigation_home)
-                }
-
-            } catch (e: Exception) {
-                findNavController().navigate(R.id.navigation_error)
-                Log.d("SearchFragment", "Error: ${e.message},${e.cause}")
+    fun observerViewModel(){
+        viewModel.searchStateLiveData.observe(viewLifecycleOwner){
+            when(it){
+                is SearchState.Success -> createUISearch(it.list)
+                is SearchState.Error -> findNavController().navigate(R.id.navigation_error)
             }
         }
     }
