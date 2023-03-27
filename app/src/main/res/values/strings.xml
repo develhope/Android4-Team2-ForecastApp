@@ -72,4 +72,5 @@
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
     <string name="weatherimage">WeatherImage</string>
+    <string name="search_frag_card_region">Sicilia</string>
 </resources>

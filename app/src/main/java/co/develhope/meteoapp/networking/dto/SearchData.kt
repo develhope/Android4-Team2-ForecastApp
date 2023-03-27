@@ -9,14 +9,4 @@ data class SearchData(
     val results: List<Result>
 
 
-){
-    fun toDomain() : Place{
-        return Place(
-            city = results.get(0).name,
-            latitude = results.get(0).latitude,
-            longitude = results.get(0).longitude,
-            region = results.get(0).admin1,
-            temperature = Data.homeData?.maxTemp?: 0,
-            weather = Data.homeData?.weather?.weatherString()?: ""
-        ) }
-}
+)

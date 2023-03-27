@@ -23,6 +23,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/search_frag_card_uni_margin"
+                android:maxLength="20"
                 android:text="@string/search_frag_card_city"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_norm_dimensions_card_info"
@@ -31,24 +32,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
                 android:id="@+id/cityTemperature"
+                style="@style/descr_Card_Search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/search_frag_card_uni_margin"
                 android:text="@string/search_frag_card_temp"
-                style="@style/descr_Card_Search"
                 app:layout_constraintBottom_toTopOf="@id/weatherCondition"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/searchedCity" />
 
             <TextView
                 android:id="@+id/weatherCondition"
+                style="@style/descr_Card_Search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/search_frag_card_uni_margin"
                 android:text="@string/search_frag_card_weather"
-                style="@style/descr_Card_Search"
                 app:layout_constraintBottom_toBottomOf="@id/searchedCity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/cityTemperature" />

@@ -1,5 +1,9 @@
 package co.develhope.meteoapp.networking.dto
 
+import co.develhope.meteoapp.Data
+import co.develhope.meteoapp.networking.domainmodel.Place
+import co.develhope.meteoapp.ui.utils.weatherString
+
 data class Result(
     val admin1: String,
     val admin1_id: Int?,
@@ -19,4 +23,16 @@ data class Result(
     val population: Int?,
     val postcodes: List<String>?,
     val timezone: String?
-)
+){
+    fun toDomain() : Place {
+        return Place(
+                city = name,
+                latitude = latitude,
+                longitude = longitude,
+                region = admin1,
+                temperature = Data.homeData?.maxTemp?: 0,
+                weather = Data.homeData?.weather?.weatherString()?: ""
+            )
+        }
+
+}
