@@ -38,8 +38,8 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int
 ) {
-    val widgetCity = Data.citySearched.city
-    val widgetRegion = Data.citySearched.region
+    val widgetCity = Data.citySearched?.city
+    val widgetRegion = Data.citySearched?.region
     val widgetImage = weatherIcon(Data.homeData?.weather ?: Weather.UNKNOWN)
     val widgetDegree = Data.homeData?.minTemp
     // Construct the RemoteViews object

@@ -19,8 +19,8 @@ interface WeeklySummaryInterface {
             "rain_sum",
             "windspeed_10m_max"
         ),
-        @Query("latitude") latitude: Double,
-        @Query("longitude") longitude: Double,
+        @Query("latitude") latitude: Double?,
+        @Query("longitude") longitude: Double?,
         @Query("timezone") timezone: String? = "Europe/Berlin"
     ): WeatherResponse
 
@@ -35,8 +35,8 @@ interface WeeklySummaryInterface {
             "weathercode",
             "windspeed_10m"
         ),
-        @Query("latitude") latitude: Double,
-        @Query("longitude") longitude: Double,
+        @Query("latitude") latitude: Double?,
+        @Query("longitude") longitude: Double?,
         @Query("timezone") timezone: String? = "Europe/Berlin"
     ): DaySummary
 }
