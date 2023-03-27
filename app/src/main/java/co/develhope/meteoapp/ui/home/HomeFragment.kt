@@ -1,9 +1,7 @@
 package co.develhope.meteoapp.ui.home
 
-import android.app.ProgressDialog.show
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,20 +9,17 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
-import co.develhope.meteoapp.ui.error.ErrorFragment
 import co.develhope.meteoapp.ui.home.adapter.Home5NextDays
 import co.develhope.meteoapp.ui.home.adapter.HomeFragmentAdapter
 import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
 import co.develhope.meteoapp.ui.home.adapter.HomeTitle
 import co.develhope.meteoapp.ui.utils.updateWidget
-import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
 class HomeFragment : Fragment() {
@@ -89,11 +84,11 @@ class HomeFragment : Fragment() {
     }
 
     fun observeViewModel() {
-        viewModel.homeEventsLiveData.observe(viewLifecycleOwner) {
+        viewModel.homeStateLiveData.observe(viewLifecycleOwner) {
             when (it) {
-                is HomeEvents.Success -> createUI(it.list)
-                is HomeEvents.FirstOpenFromUser -> firstAccess()
-                is HomeEvents.Error -> findNavController().navigate(R.id.navigation_error)
+                is HomeState.Success -> createUI(it.list)
+                is HomeState.FirstOpenFromUser -> firstAccess()
+                is HomeState.Error -> findNavController().navigate(R.id.navigation_error)
             }
         }
     }

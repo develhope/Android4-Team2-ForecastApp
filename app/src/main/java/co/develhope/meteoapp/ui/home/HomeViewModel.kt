@@ -9,25 +9,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
-    private var _homeEventsLiveData = MutableLiveData<HomeEvents>()
-    val homeEventsLiveData: LiveData<HomeEvents>
-        get() = _homeEventsLiveData
+    private var _homeStateLiveData = MutableLiveData<HomeState>()
+    val homeStateLiveData: LiveData<HomeState>
+        get() = _homeStateLiveData
 
     fun retrieveForecastInfo() {
         CoroutineScope(Dispatchers.Main).launch {
-            try {
-                _homeEventsLiveData.value = HomeEvents.Success(
-                    Data.getWeeklyWeather(
-                        Data.citySearched?.latitude,
-                        Data.citySearched?.longitude
-                    )
+            if (Data.citySearched != null) {
+                val result = Data.getWeeklyWeather(
+                    Data.citySearched?.latitude,
+                    Data.citySearched?.longitude
                 )
-            } catch (e: Exception) {
-                if (Data.citySearched != null) {
-                    _homeEventsLiveData.value = HomeEvents.Error(e)
-                } else {
-                    _homeEventsLiveData.value = HomeEvents.FirstOpenFromUser
+                try {
+                    _homeStateLiveData.value = HomeState.Success(result)
+                } catch (e: Exception) {
+
+                    _homeStateLiveData.value = HomeState.Error(e)
                 }
+            } else {
+                _homeStateLiveData.value = HomeState.FirstOpenFromUser
             }
         }
     }
