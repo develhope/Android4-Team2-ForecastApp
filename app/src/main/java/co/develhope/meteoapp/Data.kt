@@ -25,9 +25,11 @@ object Data {
         ).hourly.toDomain()
     }
 
-    suspend fun getSearchData(name : String) : Place {
+    suspend fun getSearchData(name : String) : List<Place> {
         return GeocodingRetrofitIstance().geoMeteoApi.getSearchData(
             name = name
-        ).toDomain()
+        ).results.map { result ->
+            result.toDomain()
+        }
     }
 }

@@ -25,8 +25,8 @@ class TomorrowViewModel : ViewModel() {
         if(Data.citySearched != null) {
             CoroutineScope(Dispatchers.Main).launch {
                 val result = Data.getDailyWeather(
-                    Data.citySearched.latitude,
-                    Data.citySearched.longitude
+                    Data.citySearched?.latitude,
+                    Data.citySearched?.longitude
                 )
                 try {
                     _tomorrowEventLiveData.value = TomorrowState.Success(result)

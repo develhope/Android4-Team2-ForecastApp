@@ -25,6 +25,7 @@ import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
 import java.util.*
+import kotlin.collections.List
 
 
 class SearchFragment : Fragment() {
@@ -147,9 +148,8 @@ class SearchFragment : Fragment() {
         }
     }
 
-    fun createUISearch(place : Place){
-        val list = mutableListOf<Place>()
-        list.add(place)
+    fun createUISearch(list : List<Place>){
+
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
             Data.citySearched = it
             findNavController().navigate(R.id.navigation_home)
