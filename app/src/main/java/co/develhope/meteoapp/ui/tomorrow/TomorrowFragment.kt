@@ -2,7 +2,6 @@ package co.develhope.meteoapp.ui.tomorrow
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,15 +9,12 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.ui.error.ErrorFragment
-import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
 class TomorrowFragment : Fragment() {
@@ -49,7 +45,7 @@ class TomorrowFragment : Fragment() {
         )
 
         val tomorrowWeather =
-            dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear }
+            dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear.plus(1) }
         if (tomorrowWeather.isNotEmpty()) {
             tomorrowWeather.forEach {
                 listTomorrow.add(TomorrowScreenData.TSForecast(it))
@@ -82,34 +78,24 @@ class TomorrowFragment : Fragment() {
         binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(tomListToShow)
     }
 
-
     fun observeTomorrowRepos(){
         viewModel.tomorrowEventLiveData.observe(viewLifecycleOwner){
             when(it) {
-                is TomorrowEvents.Success -> createTomorrowUI(it.list)
-                is TomorrowEvents.Error -> findNavController().navigate(R.id.navigation_error)
+                is TomorrowState.Success -> createTomorrowUI(it.list)
+                is TomorrowState.Message -> errorMessage()
+                is TomorrowState.Error -> findNavController().navigate(R.id.navigation_error)
             }
         }
-
     }
 
-    /* private fun retrieveTomorrowForecastInfo() {
-        lifecycleScope.launch {
-            try {
-                val dailyWeather: List<ForecastData> =
-                    Data.getDailyWeather(Data.citySearched.latitude , Data.citySearched.longitude)
-                        ?: emptyList()
-
-                val listToShow = createTomorrowScreenItems(dailyWeather)
-                binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(listToShow)
-
-            } catch (e: Exception) {
-                findNavController().navigate(R.id.navigation_error)
-                Toast.makeText(requireContext(),"ERROR", Toast.LENGTH_SHORT).show()
-                Log.d("TomorrowFragment" , "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
-            }
-        }
-    } */
+    private fun errorMessage(){
+        findNavController().navigate(R.id.navigation_search)
+        Toast.makeText(
+            requireContext(),
+            "Meteo non disponibile, seleziona una città",
+            Toast.LENGTH_LONG
+        ).show()
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
