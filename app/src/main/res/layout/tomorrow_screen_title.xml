@@ -8,26 +8,15 @@
 
 
     <TextView
-        android:id="@+id/tvCityName"
+        android:id="@+id/tvTitleName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Palermo, "
+        android:text="@string/title_tom_city_region"
         android:textColor="#230EA5"
         android:textSize="@dimen/text_min_dimensions_card_info"
         android:layout_marginTop="61dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvRegionName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sicilia"
-        android:textColor="#230EA5"
-        android:textSize="@dimen/text_min_dimensions_card_info"
-        app:layout_constraintBottom_toBottomOf="@+id/tvCityName"
-        app:layout_constraintStart_toEndOf="@+id/tvCityName"
-        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/tvTomorrow"
@@ -38,7 +27,7 @@
         android:textSize="@dimen/text_norm_dimensions_card_info"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCityName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTitleName" />
 
     <TextView
         android:id="@+id/tvDate"

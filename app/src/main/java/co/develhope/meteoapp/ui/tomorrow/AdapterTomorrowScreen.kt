@@ -117,8 +117,10 @@ class AdapterTomorrowScreen (
         : RecyclerView.ViewHolder(titleBinding.root) {
 
             fun bind(title: TomorrowScreenData.TSTitle){
-                titleBinding.tvCityName.text = title.titleTomorrow.city
-                titleBinding.tvRegionName.text = title.titleTomorrow.region
+                "${title.titleTomorrow.city}, ${title.titleTomorrow.region}".also {
+                    titleBinding.tvTitleName.text = it
+                }
+
                 val dateTime2 = title.titleTomorrow.date
                 val offsetDateTime2 = OffsetDateTime.ofInstant(dateTime2.toInstant() , ZoneOffset.UTC)
                 val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(offsetDateTime2.plusDays(1))
