@@ -95,6 +95,7 @@ class SearchFragment : Fragment() {
             override fun onQueryTextSubmit(text: String?): Boolean {
 
                 viewModel.sendingCity(SearchEvents.citySearched(text.toString()))
+                binding.tvRecentSearch.visibility= View.GONE
                 observerViewModel()
                 return true
             }
@@ -102,6 +103,7 @@ class SearchFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
 
                 viewModel.sendingCity(SearchEvents.citySearched(newText.toString()))
+                binding.tvRecentSearch.visibility = View.GONE
                 observerViewModel()
                 return true
             }
@@ -149,7 +151,6 @@ class SearchFragment : Fragment() {
     }
 
     fun createUISearch(list : List<Place>){
-
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
             Data.citySearched = it
             findNavController().navigate(R.id.navigation_home)
