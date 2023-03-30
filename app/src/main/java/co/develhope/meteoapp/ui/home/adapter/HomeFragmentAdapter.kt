@@ -66,7 +66,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val o
     class TitleViewHolder(private val titleBinding: HomeFragmentTitleBinding) :
         RecyclerView.ViewHolder(titleBinding.root) {
         fun bind(title: HomeScreenParts.Title) {
-            "${title.titleHome.city},${title.titleHome.region}".also {
+            "${title.titleHome.city}, ${title.titleHome.region}".also {
                 titleBinding.titleHomeFrag.text = it
             }
         }

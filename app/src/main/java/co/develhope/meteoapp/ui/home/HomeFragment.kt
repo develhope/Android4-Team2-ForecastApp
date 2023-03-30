@@ -118,12 +118,17 @@ class HomeFragment : Fragment() {
                 }
             findNavController().navigate(choosenFragment)
 
-            Data.homeData?.weather?.let { it1 ->
-                updateWidget(
-                    requireContext(), Data.citySearched?.city, Data.citySearched?.region,
-                    it1, Data.homeData?.minTemp
-                )
-            }
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Data.homeData?.weather?.let { it1 ->
+            updateWidget(
+                requireContext(), Data.citySearched?.city, Data.citySearched?.region,
+                it1, Data.homeData?.minTemp
+            )
         }
     }
 
