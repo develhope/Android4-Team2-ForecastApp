@@ -114,11 +114,9 @@ class HomeFragment : Fragment() {
                     it.dateTime.toLocalDate().isEqual(
                         OffsetDateTime.now().plusDays(1).toLocalDate()
                     ) -> R.id.navigation_domani
-                    else -> R.id.navigation_domani //gestirà il click sulle altre card
+                    else -> R.id.navigation_choosenDay //gestirà il click sulle altre card
                 }
             findNavController().navigate(choosenFragment)
-
-
         }
     }
 

@@ -29,12 +29,12 @@ class AdapterTomorrowScreen (
             forecast_tomorrow_screen ->
                 TomorrowRowCardViewHolder(
                     TomorrowScreenRowCardBinding.inflate
-                    (LayoutInflater.from(parent.context), parent, false))
+                        (LayoutInflater.from(parent.context), parent, false))
 
             title_tomorrow_screen ->
                 TomorrowTitleViewHolder(
                     TomorrowScreenTitleBinding.inflate
-                    (LayoutInflater.from(parent.context), parent, false))
+                        (LayoutInflater.from(parent.context), parent, false))
 
             else -> throw java.lang.IllegalArgumentException("ERROR")
         }
@@ -54,79 +54,79 @@ class AdapterTomorrowScreen (
     class TomorrowRowCardViewHolder(private val rowCardBinding: TomorrowScreenRowCardBinding)
         : RecyclerView.ViewHolder(rowCardBinding.root) {
 
-            fun bind(card: TomorrowScreenData.TSForecast){
+        fun bind(card: TomorrowScreenData.TSForecast){
 
-                rowCardBinding.tvHour.text = itemView.context.getString(
-                    R.string.tv_hour_00, card.forecast_data.date.hour
-                )
+            rowCardBinding.tvHour.text = itemView.context.getString(
+                R.string.tv_hour_00, card.forecast_data.date.hour
+            )
 
-                rowCardBinding.tvWeatherImage.setImageResource(weatherIcon(card.forecast_data.weather))
+            rowCardBinding.tvWeatherImage.setImageResource(weatherIcon(card.forecast_data.weather))
 
-                rowCardBinding.tvTemperature.text = itemView.context.getString(
-                    R.string.tv_temperature, card.forecast_data.temperature
-                )
+            rowCardBinding.tvTemperature.text = itemView.context.getString(
+                R.string.tv_temperature, card.forecast_data.temperature
+            )
 
-                rowCardBinding.tvPercentageRain.text = itemView.context.getString(
-                    R.string.tv_humRainCov, card.forecast_data.precipitation
-                )
+            rowCardBinding.tvPercentageRain.text = itemView.context.getString(
+                R.string.tv_humRainCov, card.forecast_data.precipitation
+            )
 
-                //CARD DATA
+            //CARD DATA
 
-                rowCardBinding.PerceivedTemp.text = itemView.context.getString(
-                    R.string.tv_temperature, card.forecast_data.perc_temperature
-                )
+            rowCardBinding.PerceivedTemp.text = itemView.context.getString(
+                R.string.tv_temperature, card.forecast_data.perc_temperature
+            )
 
-                rowCardBinding.UVInd.text = itemView.context.getString(
-                    R.string.tv_uvIndex, card.forecast_data.UV_Index
-                )
+            rowCardBinding.UVInd.text = itemView.context.getString(
+                R.string.tv_uvIndex, card.forecast_data.UV_Index
+            )
 
-                rowCardBinding.Humidity.text = itemView.context.getString(
-                    R.string.tv_humRainCov, card.forecast_data.humidity
-                )
+            rowCardBinding.Humidity.text = itemView.context.getString(
+                R.string.tv_humRainCov, card.forecast_data.humidity
+            )
 
-                rowCardBinding.Wind.text = itemView.context.getString(
-                    R.string.tv_kmWind, card.forecast_data.wind
-                )
+            rowCardBinding.Wind.text = itemView.context.getString(
+                R.string.tv_kmWind, card.forecast_data.wind
+            )
 
-                rowCardBinding.Coverage.text = itemView.context.getString(
-                    R.string.tv_humRainCov, card.forecast_data.coverage
-                )
+            rowCardBinding.Coverage.text = itemView.context.getString(
+                R.string.tv_humRainCov, card.forecast_data.coverage
+            )
 
-                rowCardBinding.Rain.text = itemView.context.getString(
-                    R.string.tv_percRain, card.forecast_data.rain
-                )
+            rowCardBinding.Rain.text = itemView.context.getString(
+                R.string.tv_percRain, card.forecast_data.rain
+            )
 
 
-                rowCardBinding.tvImageArrow.setOnClickListener {
-                    if(rowCardBinding.CardViewTomorrow.visibility == View.GONE){
-                        TransitionManager.beginDelayedTransition(rowCardBinding.CardViewTomorrow, AutoTransition())
-                        rowCardBinding.CardViewTomorrow.visibility = View.VISIBLE
-                        rowCardBinding.tvImageArrow.rotation = 180F
-                        rowCardBinding.firstLine.visibility = View.GONE
-                    } else{
-                        TransitionManager.beginDelayedTransition(rowCardBinding.CardViewTomorrow, AutoTransition())
-                        rowCardBinding.CardViewTomorrow.visibility = View.GONE
-                        rowCardBinding.firstLine.visibility = View.VISIBLE
-                        rowCardBinding.tvImageArrow.rotation = 0F
-                    }
+            rowCardBinding.tvImageArrow.setOnClickListener {
+                if(rowCardBinding.CardViewTomorrow.visibility == View.GONE){
+                    TransitionManager.beginDelayedTransition(rowCardBinding.CardViewTomorrow, AutoTransition())
+                    rowCardBinding.CardViewTomorrow.visibility = View.VISIBLE
+                    rowCardBinding.tvImageArrow.rotation = 180F
+                    rowCardBinding.firstLine.visibility = View.GONE
+                } else{
+                    TransitionManager.beginDelayedTransition(rowCardBinding.CardViewTomorrow, AutoTransition())
+                    rowCardBinding.CardViewTomorrow.visibility = View.GONE
+                    rowCardBinding.firstLine.visibility = View.VISIBLE
+                    rowCardBinding.tvImageArrow.rotation = 0F
                 }
             }
         }
+    }
 
     class TomorrowTitleViewHolder(private val titleBinding: TomorrowScreenTitleBinding)
         : RecyclerView.ViewHolder(titleBinding.root) {
 
-            fun bind(title: TomorrowScreenData.TSTitle){
-                "${title.titleTomorrow.city}, ${title.titleTomorrow.region}".also {
-                    titleBinding.tvTitleName.text = it
-                }
-
-                val dateTime2 = title.titleTomorrow.date
-                val offsetDateTime2 = OffsetDateTime.ofInstant(dateTime2.toInstant() , ZoneOffset.UTC)
-                val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(offsetDateTime2.plusDays(1))
-                titleBinding.tvDate.text = formattedDate2
-                }
+        fun bind(title: TomorrowScreenData.TSTitle){
+            "${title.titleTomorrow.city}, ${title.titleTomorrow.region}".also {
+                titleBinding.tvTitleName.text = it
             }
+
+            val dateTime2 = title.titleTomorrow.date?.plusDays(1)
+            val offsetDateTime2 = OffsetDateTime.ofInstant(dateTime2?.toInstant() , ZoneOffset.UTC)
+            val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(offsetDateTime2.plusDays(1))
+            titleBinding.tvDate.text = formattedDate2
+        }
+    }
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
@@ -134,4 +134,4 @@ class AdapterTomorrowScreen (
             is TomorrowScreenData.TSTitle -> title_tomorrow_screen
         }
     }
-    }
+}

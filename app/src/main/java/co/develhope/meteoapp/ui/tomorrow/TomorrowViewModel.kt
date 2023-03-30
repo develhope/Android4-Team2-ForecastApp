@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-sealed class TomorrowState() {
+sealed class TomorrowState {
     data class Success(val list: List<ForecastData>) : TomorrowState()
     data class Error(val e:Exception) : TomorrowState()
     object Message : TomorrowState()

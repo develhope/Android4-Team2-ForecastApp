@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_domani"
-        android:name="co.develhope.meteoapp.ui.tomorrow.TomorrowFragment"
+        android:name="co.develhope.meteoapp.ui.choosenDay.ChoosenDayFragment"
         android:label="@string/title_Domani"
         tools:layout="@layout/fragment_tomorrow" />
     <fragment
@@ -32,5 +32,10 @@
         android:name="co.develhope.meteoapp.ui.error.ErrorFragment"
         android:label="Error"
         tools:layout="@layout/fragment_error"/>
+    <fragment
+        android:id="@+id/navigation_choosenDay"
+        android:name="co.develhope.meteoapp.ui.choosenDay.ChoosenDayFragment"
+        android:label="ChoosenDay"
+        tools:layout="@layout/fragment_choosen_day"/>
 
 </navigation>
