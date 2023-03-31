@@ -15,7 +15,6 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentChoosenDayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.ui.tomorrow.*
 import org.threeten.bp.OffsetDateTime
 
 class ChoosenDayFragment : Fragment() {
@@ -67,8 +66,8 @@ class ChoosenDayFragment : Fragment() {
         }
 
         val layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL , false)
-        binding.rvChoosenDayScreen.layoutManager = layoutManager
-        binding.rvChoosenDayScreen.adapter = AdapterChoosenDay(emptyList())
+        binding.rvChoosendayScreen.layoutManager = layoutManager
+        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(emptyList())
 
         observeChoosenRepos()
         viewModel.retrieveReposChoosen()
@@ -76,7 +75,7 @@ class ChoosenDayFragment : Fragment() {
 
     private fun createChoosenDayUI(listUI: List<ForecastData>){
         val chooseListToShow = createChoosenScreenItems(listUI)
-        binding.rvChoosenDayScreen.adapter = AdapterChoosenDay(chooseListToShow)
+        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(chooseListToShow)
     }
 
     private fun observeChoosenRepos(){

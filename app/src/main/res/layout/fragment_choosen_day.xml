@@ -9,7 +9,7 @@
     android:background="@color/dayForecastBg">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_ChoosenDayScreen"
+        android:id="@+id/rv_ChoosendayScreen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layoutAnimation="@anim/item_layout_animation"

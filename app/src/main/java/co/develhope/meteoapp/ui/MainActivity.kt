@@ -5,20 +5,14 @@ import android.util.Log
 import android.view.View
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.ActivityMainBinding
-import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
-import co.develhope.meteoapp.ui.error.ErrorFragment
-import co.develhope.meteoapp.ui.tomorrow.TomorrowFragment
+
 
 class MainActivity : AppCompatActivity() {
 

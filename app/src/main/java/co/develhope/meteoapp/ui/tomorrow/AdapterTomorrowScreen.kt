@@ -121,9 +121,9 @@ class AdapterTomorrowScreen (
                 titleBinding.tvTitleName.text = it
             }
 
-            val dateTime2 = title.titleTomorrow.date?.plusDays(1)
+            val dateTime2 = title.titleTomorrow.date
             val offsetDateTime2 = OffsetDateTime.ofInstant(dateTime2?.toInstant() , ZoneOffset.UTC)
-            val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(offsetDateTime2.plusDays(1))
+            val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(offsetDateTime2)
             titleBinding.tvDate.text = formattedDate2
         }
     }

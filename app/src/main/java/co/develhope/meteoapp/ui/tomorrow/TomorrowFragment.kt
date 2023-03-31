@@ -15,7 +15,6 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import org.threeten.bp.OffsetDateTime
 
 class TomorrowFragment : Fragment() {
