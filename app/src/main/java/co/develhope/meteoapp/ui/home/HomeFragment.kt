@@ -106,6 +106,7 @@ class HomeFragment : Fragment() {
         val listToShow = createHomeScreenItems(cardList)
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
             Data.homeData = it
+
             val choosenFragment: Int =
                 when {
                     it.dateTime.toLocalDate().isEqual(

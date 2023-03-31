@@ -35,7 +35,7 @@ class ChoosenDayFragment : Fragment() {
         return binding.root
     }
 
-    private fun createChoosenScreenItems(dailyWeather: List<ForecastData>): List<ChoosenDayScreenData> {
+    private fun createChoosenScreenItems(choosenDayWheater: List<ForecastData>): List<ChoosenDayScreenData> {
         val listChoosen = ArrayList<ChoosenDayScreenData>()
         listChoosen.add(
             ChoosenDayScreenData.TSTitle(
@@ -46,7 +46,7 @@ class ChoosenDayFragment : Fragment() {
         )
 
         val choosenWeather =
-            dailyWeather.filter { it.date.dayOfYear == Data.homeData?.dateTime?.toLocalDate()?.dayOfYear }
+            choosenDayWheater.filter { it.date.dayOfYear == Data.homeData?.dateTime?.toLocalDate()?.dayOfYear }
         if (choosenWeather.isNotEmpty()) {
             choosenWeather.forEach {
                 listChoosen.add(ChoosenDayScreenData.TSForecast(it))
@@ -75,8 +75,8 @@ class ChoosenDayFragment : Fragment() {
     }
 
     private fun createChoosenDayUI(listUI: List<ForecastData>){
-        val tomListToShow = createChoosenScreenItems(listUI)
-        binding.rvChoosenDayScreen.adapter = AdapterChoosenDay(tomListToShow)
+        val chooseListToShow = createChoosenScreenItems(listUI)
+        binding.rvChoosenDayScreen.adapter = AdapterChoosenDay(chooseListToShow)
     }
 
     private fun observeChoosenRepos(){

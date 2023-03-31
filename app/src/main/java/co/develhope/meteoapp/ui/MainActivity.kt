@@ -16,7 +16,9 @@ import androidx.navigation.ui.setupWithNavController
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.ActivityMainBinding
+import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import co.develhope.meteoapp.ui.error.ErrorFragment
+import co.develhope.meteoapp.ui.tomorrow.TomorrowFragment
 
 class MainActivity : AppCompatActivity() {
 

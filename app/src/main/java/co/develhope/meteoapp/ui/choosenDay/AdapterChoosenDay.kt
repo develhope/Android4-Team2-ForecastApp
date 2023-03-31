@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
+import co.develhope.meteoapp.databinding.ChoosenDayScreenRowCardBinding
 import co.develhope.meteoapp.databinding.ChoosenDayScreenTitleBinding
-import co.develhope.meteoapp.databinding.TomorrowScreenRowCardBinding
 import co.develhope.meteoapp.ui.utils.weatherIcon
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -18,19 +18,19 @@ class AdapterChoosenDay (
     private val items: List<ChoosenDayScreenData>
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val forecast_tomorrow_screen = 0
-    private val title_tomorrow_screen = 1
+    private val forecast_choosen_screen = 0
+    private val title_choosen_screen = 1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         return when(viewType){
 
-            forecast_tomorrow_screen ->
-                TomorrowRowCardViewHolder(
-                    TomorrowScreenRowCardBinding.inflate
+            forecast_choosen_screen ->
+                ChoosenRowCardViewHolder(
+                    ChoosenDayScreenRowCardBinding.inflate
                     (LayoutInflater.from(parent.context), parent, false))
 
-            title_tomorrow_screen ->
+            title_choosen_screen ->
                 ChoosenTitleViewHolder(
                     ChoosenDayScreenTitleBinding.inflate
                     (LayoutInflater.from(parent.context), parent, false))
@@ -45,12 +45,12 @@ class AdapterChoosenDay (
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder){
-            is TomorrowRowCardViewHolder -> holder.bind(items[position] as ChoosenDayScreenData.TSForecast)
+            is ChoosenRowCardViewHolder -> holder.bind(items[position] as ChoosenDayScreenData.TSForecast)
             is ChoosenTitleViewHolder -> holder.bind(items[position] as ChoosenDayScreenData.TSTitle)
         }
     }
 
-    class TomorrowRowCardViewHolder(private val rowCardBinding: TomorrowScreenRowCardBinding)
+    class ChoosenRowCardViewHolder(private val rowCardBinding: ChoosenDayScreenRowCardBinding)
         : RecyclerView.ViewHolder(rowCardBinding.root) {
 
             fun bind(card: ChoosenDayScreenData.TSForecast){
@@ -117,17 +117,17 @@ class AdapterChoosenDay (
 
             fun bind(title: ChoosenDayScreenData.TSTitle){
                 "${title.title_choosenDay.city}, ${title.title_choosenDay.region}".also {
-                    titleBinding.cvTitleName.text = it
+                    titleBinding.cvTitleNameChoosen.text = it
                 }
                 val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(Data.homeData?.dateTime)
-                titleBinding.tvDate.text = formattedDate2
+                titleBinding.cvDate.text = formattedDate2
                 }
             }
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is ChoosenDayScreenData.TSForecast -> forecast_tomorrow_screen
-            is ChoosenDayScreenData.TSTitle -> title_tomorrow_screen
+            is ChoosenDayScreenData.TSForecast -> forecast_choosen_screen
+            is ChoosenDayScreenData.TSTitle -> title_choosen_screen
             }
         }
     }

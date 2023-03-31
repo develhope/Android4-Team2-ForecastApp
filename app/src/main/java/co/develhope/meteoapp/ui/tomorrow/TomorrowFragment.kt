@@ -15,6 +15,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import org.threeten.bp.OffsetDateTime
 
 class TomorrowFragment : Fragment() {
@@ -22,7 +23,6 @@ class TomorrowFragment : Fragment() {
     private var _binding: FragmentTomorrowBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TomorrowViewModel by viewModels()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

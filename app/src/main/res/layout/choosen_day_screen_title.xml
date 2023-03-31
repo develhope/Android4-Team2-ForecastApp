@@ -8,7 +8,7 @@
 
 
     <TextView
-        android:id="@+id/cvTitleName"
+        android:id="@+id/cvTitleNameChoosen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/title_tom_city_region"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/cvTomorrow"
+        android:id="@+id/cvChoosen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/choosen_day_text"
@@ -27,10 +27,10 @@
         android:textSize="@dimen/text_norm_dimensions_card_info"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvTitleName" />
+        app:layout_constraintTop_toBottomOf="@+id/cvTitleNameChoosen" />
 
     <TextView
-        android:id="@+id/tvDate"
+        android:id="@+id/cvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lunedì 11 settembre"
@@ -38,7 +38,7 @@
         android:textSize="@dimen/text_min_dimensions_card_info"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cvTomorrow" />
+        app:layout_constraintTop_toBottomOf="@+id/cvChoosen" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
