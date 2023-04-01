@@ -46,9 +46,9 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is TodayScreenAdapter.TodayRowCardViewHolder ->
+            is TodayRowCardViewHolder ->
                 holder.bind(items[position] as TodayScreenData.TodayScreenCard)
-            is TodayScreenAdapter.TodayTitleViewHolder ->
+            is TodayTitleViewHolder ->
                 holder.bind(items[position] as TodayScreenData.TodayScreenTitle)
         }
 
