@@ -102,6 +102,7 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
         fun bind(title: TodayScreenData.TodayScreenTitle) {
             titleFragmentBinding.todayTitleCity.text = title.todayTitle.city
             titleFragmentBinding.todayTitleRegion.text = title.todayTitle.region
+
             val dateTimeT = title.todayTitle.date
             val offsetDateTimeT = org.threeten.bp.OffsetDateTime.ofInstant(dateTimeT.toInstant(), ZoneOffset.UTC)
             val formattedDate = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(offsetDateTimeT)

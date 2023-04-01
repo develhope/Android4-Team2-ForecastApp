@@ -22,14 +22,13 @@ class TomorrowFragment : Fragment() {
     private var _binding: FragmentTomorrowBinding? = null
     private val binding get() = _binding!!
     private val viewModel: TomorrowViewModel by viewModels()
-
     override fun onCreateView(
-        inflater: LayoutInflater ,
-        container: ViewGroup? ,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentTomorrowBinding.inflate(inflater , container , false)
+        _binding = FragmentTomorrowBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -39,13 +38,18 @@ class TomorrowFragment : Fragment() {
         listTomorrow.add(
             TomorrowScreenData.TSTitle(
                 TomorrowTitle(
-                    Data.citySearched?.city , Data.citySearched?.region , OffsetDateTime.now()
+                    Data.citySearched?.city,
+                    Data.citySearched?.region,
+                    OffsetDateTime.now().plusDays(1)
                 )
             )
         )
 
         val tomorrowWeather =
-            dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear.plus(1) }
+            dailyWeather.filter {
+                it.date.dayOfYear == OffsetDateTime.now().dayOfYear.plus(1)
+            }
+
         if (tomorrowWeather.isNotEmpty()) {
             tomorrowWeather.forEach {
                 listTomorrow.add(TomorrowScreenData.TSForecast(it))
@@ -56,8 +60,8 @@ class TomorrowFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun onViewCreated(view: View , savedInstanceState: Bundle?) {
-        super.onViewCreated(view , savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val window = activity?.window
         if (window != null) {
             window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
@@ -65,7 +69,7 @@ class TomorrowFragment : Fragment() {
 
         }
 
-        val layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL , false)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvTomorrowScreen.layoutManager = layoutManager
         binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(emptyList())
 
@@ -73,14 +77,14 @@ class TomorrowFragment : Fragment() {
         viewModel.retrieveReposTomorrow()
     }
 
-    fun createTomorrowUI(listUI: List<ForecastData>){
+    private fun createTomorrowUI(listUI: List<ForecastData>) {
         val tomListToShow = createTomorrowScreenItems(listUI)
         binding.rvTomorrowScreen.adapter = AdapterTomorrowScreen(tomListToShow)
     }
 
-    fun observeTomorrowRepos(){
-        viewModel.tomorrowEventLiveData.observe(viewLifecycleOwner){
-            when(it) {
+    private fun observeTomorrowRepos() {
+        viewModel.tomorrowEventLiveData.observe(viewLifecycleOwner) {
+            when (it) {
                 is TomorrowState.Success -> createTomorrowUI(it.list)
                 is TomorrowState.Message -> errorMessage()
                 is TomorrowState.Error -> findNavController().navigate(R.id.navigation_error)
@@ -88,7 +92,7 @@ class TomorrowFragment : Fragment() {
         }
     }
 
-    private fun errorMessage(){
+    private fun errorMessage() {
         findNavController().navigate(R.id.navigation_search)
         Toast.makeText(
             requireContext(),

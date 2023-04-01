@@ -106,6 +106,7 @@ class HomeFragment : Fragment() {
         val listToShow = createHomeScreenItems(cardList)
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
             Data.homeData = it
+
             val choosenFragment: Int =
                 when {
                     it.dateTime.toLocalDate().isEqual(
@@ -114,11 +115,9 @@ class HomeFragment : Fragment() {
                     it.dateTime.toLocalDate().isEqual(
                         OffsetDateTime.now().plusDays(1).toLocalDate()
                     ) -> R.id.navigation_domani
-                    else -> R.id.navigation_domani //gestirà il click sulle altre card
+                    else -> R.id.navigation_choosenDay //gestirà il click sulle altre card
                 }
             findNavController().navigate(choosenFragment)
-
-
         }
     }
 
