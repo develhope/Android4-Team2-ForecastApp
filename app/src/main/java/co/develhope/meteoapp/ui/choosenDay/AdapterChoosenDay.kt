@@ -127,7 +127,7 @@ class AdapterChoosenDay (
                     .toFormatter(Locale.getDefault())
                     .format(Data.homeData?.dateTime)
                     .capitalize(Locale.ROOT)
-                "$weekChoosen ,".also { titleBinding.cvChoosen.text = it }
+                "$weekChoosen,".also { titleBinding.cvChoosen.text = it }
                 val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(Data.homeData?.dateTime)
                 titleBinding.cvDate.text = formattedDate2
                 }
