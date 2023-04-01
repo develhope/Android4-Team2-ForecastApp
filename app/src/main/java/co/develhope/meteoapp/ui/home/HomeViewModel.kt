@@ -16,10 +16,8 @@ class HomeViewModel : ViewModel() {
     fun retrieveForecastInfo() {
         CoroutineScope(Dispatchers.Main).launch {
             if (Data.citySearched != null) {
-                val result = Data.getWeeklyWeather(
-                    Data.citySearched?.latitude,
-                    Data.citySearched?.longitude
-                )
+                val result =
+                    Data.getWeeklyWeather(Data.citySearched?.latitude, Data.citySearched?.longitude)
                 try {
                     _homeStateLiveData.value = HomeState.Success(result)
                 } catch (e: Exception) {
