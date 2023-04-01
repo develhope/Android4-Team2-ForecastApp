@@ -12,6 +12,9 @@ import co.develhope.meteoapp.databinding.ChoosenDayScreenRowCardBinding
 import co.develhope.meteoapp.databinding.ChoosenDayScreenTitleBinding
 import co.develhope.meteoapp.ui.utils.weatherIcon
 import org.threeten.bp.format.DateTimeFormatter
+import org.threeten.bp.format.DateTimeFormatterBuilder
+import org.threeten.bp.temporal.ChronoField
+import java.util.*
 
 class AdapterChoosenDay (
 
@@ -119,6 +122,12 @@ class AdapterChoosenDay (
                 "${title.title_choosenDay.city}, ${title.title_choosenDay.region}".also {
                     titleBinding.cvTitleNameChoosen.text = it
                 }
+                val weekChoosen =DateTimeFormatterBuilder()
+                    .appendText(ChronoField.DAY_OF_WEEK)
+                    .toFormatter(Locale.getDefault())
+                    .format(Data.homeData?.dateTime)
+                    .capitalize(Locale.ROOT)
+                "$weekChoosen ,".also { titleBinding.cvChoosen.text = it }
                 val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(Data.homeData?.dateTime)
                 titleBinding.cvDate.text = formattedDate2
                 }
@@ -128,7 +137,8 @@ class AdapterChoosenDay (
         return when (items[position]) {
             is ChoosenDayScreenData.TSForecast -> forecast_choosen_screen
             is ChoosenDayScreenData.TSTitle -> title_choosen_screen
-            }
+            else -> throw java.lang.IllegalArgumentException("ERROR")
+        }
         }
     }
 
