@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,16 +17,16 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTodayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.ui.tomorrow.AdapterTomorrowScreen
+import co.develhope.meteoapp.ui.tomorrow.TomorrowState
 import kotlinx.coroutines.launch
 import org.threeten.bp.OffsetDateTime
 
 class TodayFragment : Fragment() {
 
     private var _binding: FragmentTodayBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel : TodayViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -73,25 +74,37 @@ class TodayFragment : Fragment() {
         binding.todayRecyclerView.layoutManager = layoutManager
         binding.todayRecyclerView.setHasFixedSize(true)
         binding.todayRecyclerView.adapter = TodayScreenAdapter(emptyList())
-        retrieveTodayForecastInfo()
+        observeTodayRepos()
+        viewModel.retrieveReposToday()
     }
 
-    private fun retrieveTodayForecastInfo(){
-        lifecycleScope.launch {
-            try {
-                val dailyWeather: List<ForecastData> =
-                    Data.getDailyWeather(Data.citySearched?.latitude, Data.citySearched?.longitude) ?: emptyList()
+    fun createTodayUI(listUI: List<ForecastData>){
+        val listToShow = createTodayScreenItems(listUI)
+        binding.todayRecyclerView.adapter = TodayScreenAdapter(listToShow)
+    }
 
-                val listToShow = createTodayScreenItems(dailyWeather)
-                binding.todayRecyclerView.adapter = TodayScreenAdapter(listToShow)
 
-            } catch (e: Exception){
-                findNavController().navigate(R.id.navigation_error)
-                Toast.makeText(requireContext(),"ERROR", Toast.LENGTH_SHORT).show()
-                Log.d("TomorrowFragment", "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
+    fun observeTodayRepos(){
+         viewModel.result.observe(viewLifecycleOwner){
+            when(it) {
+                is TodayState.Success -> createTodayUI(it.repos)
+                is TodayState.Message -> errorMessage()
+                is TodayState.Error -> findNavController().navigate(R.id.navigation_error)
             }
         }
     }
+
+
+    private fun errorMessage(){
+        findNavController().navigate(R.id.navigation_search)
+        Toast.makeText(
+            requireContext(),
+            "Meteo non disponibile, seleziona una città",
+            Toast.LENGTH_LONG
+        ).show()
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
