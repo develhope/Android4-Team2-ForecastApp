@@ -85,6 +85,7 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
                 TransitionManager.beginDelayedTransition(rowCardBinding.todayInfoCard, AutoTransition())
                 rowCardBinding.todayInfoCard.visibility = View.VISIBLE
                 rowCardBinding.todayArrow.rotation = 180F
+                rowCardBinding.firstLine.visibility = View.GONE
             } else{
                 TransitionManager.beginDelayedTransition(rowCardBinding.todayInfoCard, AutoTransition())
                 rowCardBinding.todayInfoCard.visibility = View.GONE
