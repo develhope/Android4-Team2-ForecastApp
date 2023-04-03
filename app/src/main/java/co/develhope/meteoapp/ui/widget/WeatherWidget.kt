@@ -38,15 +38,15 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int
 ) {
-    val widgetCity = Data.citySearched?.city
-    val widgetRegion = Data.citySearched?.region
+    val widgetCity = Data.citySearched?.city?:"Scegli"
+    val widgetRegion = Data.citySearched?.region?:"Città"
     val widgetImage = weatherIcon(Data.homeData?.weather ?: Weather.UNKNOWN)
-    val widgetDegree = Data.homeData?.minTemp
+    val widgetDegree = Data.homeData?.maxTemp ?:0
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.wheater_widget)
     views.setTextViewText(R.id.appwidget_city, "${widgetCity},${widgetRegion}")
     views.setImageViewResource(R.id.img_widget,widgetImage)
-    views.setTextViewText(R.id.appwidget_degree, "${widgetDegree.toString()}°")
+    views.setTextViewText(R.id.appwidget_degree, "${widgetDegree}°")
 
 
     // Instruct the widget manager to update the widget
