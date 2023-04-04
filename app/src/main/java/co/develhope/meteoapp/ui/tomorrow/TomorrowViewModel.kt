@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 
 sealed class TomorrowState {
     data class Success(val list: List<ForecastData>) : TomorrowState()
-    data class Error(val e:Exception) : TomorrowState()
+    data class Error(val code: Int, val message: String) : TomorrowState()
     object Message : TomorrowState()
 }
 
@@ -34,6 +34,7 @@ class TomorrowViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 _tomorrowEventLiveData.value = e.message?.let { TomorrowState.Error(e) }
+
             }
 
         }
