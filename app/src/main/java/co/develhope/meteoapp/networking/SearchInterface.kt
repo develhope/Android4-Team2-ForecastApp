@@ -8,6 +8,6 @@ interface SearchInterface {
 
     @GET("v1/search")
     suspend fun getSearchData(
-        @Query("name") name: String?
-    ) : SearchData
+        @Query("name") name: String? = null
+    ) : SearchData?
 }
