@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,6 +18,7 @@ import co.develhope.meteoapp.ui.home.adapter.Home5NextDays
 import co.develhope.meteoapp.ui.home.adapter.HomeFragmentAdapter
 import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
 import co.develhope.meteoapp.ui.home.adapter.HomeTitle
+import co.develhope.meteoapp.ui.utils.firstAccess
 import co.develhope.meteoapp.ui.utils.updateWidget
 import org.threeten.bp.OffsetDateTime
 
@@ -45,6 +45,63 @@ class HomeFragment : Fragment() {
 
     }
 
+
+
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val window = activity?.window
+        if (window != null) {
+            window.statusBarColor = context?.getColor(R.color.bg_Home) ?: 0
+
+            window.decorView.setSystemUiVisibility(0)
+
+        }
+
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.recyclerViewHomeFrag.layoutManager = layoutManager
+        binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(emptyList()) {}
+        observeViewModel()
+        viewModel.retrieveForecastInfo()
+    }
+
+    private fun observeViewModel() {
+        viewModel.homeStateLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is HomeState.Success -> createUI(it.list)
+                is HomeState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
+                is HomeState.FirstOpenFromUser -> view?.let { it1 ->
+                    context?.let { it2 ->
+                        firstAccess(
+                            it1,
+                            it2
+                        )
+                    }
+                }
+            }
+
+        }
+    }
+
+
+    private fun createUI(cardList: List<HomeCardInfo>) {
+        val listToShow = createHomeScreenItems(cardList)
+        binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
+            Data.homeData = it
+
+            val choosenFragment: Int =
+                when {
+                    it.dateTime.toLocalDate().isEqual(
+                        OffsetDateTime.now().toLocalDate()
+                    ) -> R.id.navigation_oggi
+                    it.dateTime.toLocalDate().isEqual(
+                        OffsetDateTime.now().plusDays(1).toLocalDate()
+                    ) -> R.id.navigation_domani
+                    else -> R.id.navigation_choosenDay //gestirà il click sulle altre card
+                }
+            findNavController().navigate(choosenFragment)
+        }
+    }
     private fun createHomeScreenItems(weeklyWeather: List<HomeCardInfo>): List<HomeScreenParts> {
         val list = ArrayList<HomeScreenParts>()
         list.add(
@@ -65,68 +122,12 @@ class HomeFragment : Fragment() {
         return list
     }
 
-    @RequiresApi(Build.VERSION_CODES.R)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val window = activity?.window
-        if (window != null) {
-            window.statusBarColor = context?.getColor(R.color.bg_Home) ?: 0
-
-            window.decorView.setSystemUiVisibility(0)
-
-        }
-
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerViewHomeFrag.layoutManager = layoutManager
-        binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(emptyList()) {}
-        observeViewModel()
-        viewModel.retrieveForecastInfo()
-    }
-
-    fun observeViewModel() {
-        viewModel.homeStateLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                is HomeState.Success -> createUI(it.list)
-                is HomeState.FirstOpenFromUser -> firstAccess()
-                is HomeState.Error -> findNavController().navigate(R.id.navigation_error)
-            }
-        }
-    }
-
-    private fun firstAccess() {
-        findNavController().navigate(R.id.navigation_search)
-        Toast.makeText(
-            requireContext(),
-            "Meteo non disponibile,seleziona una città!",
-            Toast.LENGTH_LONG
-        ).show()
-    }
-
-    private fun createUI(cardList: List<HomeCardInfo>) {
-        val listToShow = createHomeScreenItems(cardList)
-        binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
-            Data.homeData = it
-
-            val choosenFragment: Int =
-                when {
-                    it.dateTime.toLocalDate().isEqual(
-                        OffsetDateTime.now().toLocalDate()
-                    ) -> R.id.navigation_oggi
-                    it.dateTime.toLocalDate().isEqual(
-                        OffsetDateTime.now().plusDays(1).toLocalDate()
-                    ) -> R.id.navigation_domani
-                    else -> R.id.navigation_choosenDay //gestirà il click sulle altre card
-                }
-            findNavController().navigate(choosenFragment)
-        }
-    }
-
     override fun onResume() {
         super.onResume()
-            updateWidget(
-                requireContext(), Data.citySearched?.city, Data.citySearched?.region,
-                Data.homeData?.weather, Data.homeData?.maxTemp
-            )
+        updateWidget(
+            requireContext(), Data.citySearched?.city, Data.citySearched?.region,
+            Data.homeData?.weather, Data.homeData?.maxTemp
+        )
     }
 
     override fun onDestroyView() {

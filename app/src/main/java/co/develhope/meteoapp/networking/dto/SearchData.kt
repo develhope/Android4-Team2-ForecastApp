@@ -5,8 +5,8 @@ import co.develhope.meteoapp.networking.domainmodel.Place
 import co.develhope.meteoapp.ui.utils.weatherString
 
 data class SearchData(
-    val generationtime_ms: Double,
-    val results: List<Result>
+    val generationtime_ms: Double?,
+    val results: List<Result?>
 
 
 )

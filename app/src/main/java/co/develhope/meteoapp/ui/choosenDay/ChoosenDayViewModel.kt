@@ -29,7 +29,7 @@ class ChoosenDayViewModel : ViewModel() {
                     Data.citySearched?.longitude
                 )
                 try {
-                    _choosenDayEventLiveData.value = ChoosenDayState.Success(result)
+                    _choosenDayEventLiveData.value = result?.let { ChoosenDayState.Success(it) }
                 } catch (e: Exception) {
                     _choosenDayEventLiveData.value = ChoosenDayState.Error(e)
                 }
