@@ -32,6 +32,7 @@ class TodayViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 _todayLiveData.value = e.message?.let { TodayState.Error(e) }
+
             }
 
         }
