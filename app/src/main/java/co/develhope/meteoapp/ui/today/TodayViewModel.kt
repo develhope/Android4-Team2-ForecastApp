@@ -31,7 +31,8 @@ class TodayViewModel : ViewModel() {
                     _todayLiveData.value = TodayState.Message
                 }
             } catch (e: Exception) {
-                _todayLiveData.value = e.message?.let { TodayState.Error(500, it) }
+                _todayLiveData.value = e.message?.let { TodayState.Error(e) }
+
             }
 
         }

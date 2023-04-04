@@ -6,9 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.ui.today.TodayState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 sealed class TomorrowState {
@@ -36,7 +33,8 @@ class TomorrowViewModel : ViewModel() {
                     _tomorrowEventLiveData.value = TomorrowState.Message
                 }
             } catch (e: Exception) {
-                _tomorrowEventLiveData.value = e.message?.let { TomorrowState.Error(500, it) }
+                _tomorrowEventLiveData.value = e.message?.let { TomorrowState.Error(e) }
+
             }
 
         }
