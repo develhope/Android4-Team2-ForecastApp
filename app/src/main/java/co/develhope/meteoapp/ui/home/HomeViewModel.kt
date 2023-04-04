@@ -28,7 +28,7 @@ class HomeViewModel : ViewModel() {
                     _homeStateLiveData.value = HomeState.FirstOpenFromUser
                 }
             } catch (e: Exception) {
-                _homeStateLiveData.value = e.message?.let { HomeState.Error(500, it) }
+                _homeStateLiveData.value = e.message?.let { HomeState.Error(e) }
             }
 
         }
