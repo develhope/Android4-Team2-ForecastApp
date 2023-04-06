@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.develhope.meteoapp.Data
+import co.develhope.meteoapp.networking.domainmodel.Place
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -20,7 +21,7 @@ class SearchViewModel : ViewModel() {
         }
 
 
-    private fun retrieveSearchRepos(city: String?) {
+    fun retrieveSearchRepos(city: String?) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _searchStateLiveData.value = SearchState.Success(

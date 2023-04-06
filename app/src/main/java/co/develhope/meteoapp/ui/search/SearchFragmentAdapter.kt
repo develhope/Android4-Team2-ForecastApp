@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.databinding.SearchFragmentCardBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
 
-class SearchFragmentAdapter(private val list: List<Place?> , private val onClick: (Place) -> Unit) :
+class SearchFragmentAdapter(var list: MutableList<Place?>, private val onClick: (Place) -> Unit) :
     RecyclerView.Adapter<SearchFragmentAdapter.ViewHolder>() {
 
 
