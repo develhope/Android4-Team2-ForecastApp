@@ -66,7 +66,10 @@ class SearchFragment : Fragment() {
         binding.recyclerViewSearchFrag.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(emptyList()) {}
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(mutableListOf()) {}
+
+        addCard(Data.listCitySearched)
+
         searchingCity()
         observerViewModel()
     }
@@ -84,7 +87,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun searchingCity() {
-        binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
                 binding.tvRecentSearch.visibility = View.GONE
                 viewModel.sendingCity(SearchEvents.CitySearched(text.toString()))
@@ -142,18 +145,27 @@ class SearchFragment : Fragment() {
     }
 
     fun createUISearch(list: List<Place?>) {
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
+        val newlist = ArrayList(list)
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(newlist) {
             Data.citySearched = it
+            Data.listCitySearched.add(it)
             findNavController().navigate(R.id.navigation_home)
         }
     }
 
-     fun observerViewModel() {
+    fun observerViewModel() {
         viewModel.searchStateLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is SearchState.Success -> createUISearch(it.list)
                 is SearchState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
             }
+        }
+    }
+
+    private fun addCard(list: MutableList<Place?>){
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
+            Data.citySearched = it
+            findNavController().navigate(R.id.navigation_home)
         }
     }
 }
