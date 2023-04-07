@@ -10,7 +10,7 @@ import co.develhope.meteoapp.networking.domainmodel.Place
 object Data {
     var citySearched : Place? = null
     var homeData : HomeCardInfo? = null
-    var listCitySearched = mutableListOf(citySearched)
+    var listCitySearched : MutableList<Place?> = mutableListOf()
 
     suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo>? { //value nullable bc of citySearched
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(

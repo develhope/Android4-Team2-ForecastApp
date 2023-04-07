@@ -25,7 +25,6 @@ import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class SearchFragment : Fragment() {
@@ -69,7 +68,7 @@ class SearchFragment : Fragment() {
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(mutableListOf()) {}
 
-        addCard(Data.citySearched)
+        addCard(Data.listCitySearched)
 
         searchingCity()
         observerViewModel()
@@ -88,7 +87,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun searchingCity() {
-        binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+        binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
                 binding.tvRecentSearch.visibility = View.GONE
                 viewModel.sendingCity(SearchEvents.CitySearched(text.toString()))
@@ -154,7 +153,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-     fun observerViewModel() {
+    fun observerViewModel() {
         viewModel.searchStateLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is SearchState.Success -> createUISearch(it.list)
@@ -162,14 +161,10 @@ class SearchFragment : Fragment() {
             }
         }
     }
-    fun addCard(place: Place?) {
-        val list = mutableListOf<Place?>()
-        if (place != null) {
-            list.add(place)
-        }
-        binding.recyclerViewSearchFrag.adapter =SearchFragmentAdapter(list){
+
+    private fun addCard(list: MutableList<Place?>){
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
             Data.citySearched = it
-            Data.listCitySearched.add(it)
             findNavController().navigate(R.id.navigation_home)
         }
     }
