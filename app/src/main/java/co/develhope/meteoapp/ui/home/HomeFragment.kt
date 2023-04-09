@@ -100,6 +100,10 @@ class HomeFragment : Fragment() {
                     else -> R.id.navigation_choosenDay //gestirà il click sulle altre card
                 }
             findNavController().navigate(choosenFragment)
+            updateWidget(
+                requireContext(), Data.citySearched?.city, Data.citySearched?.region,
+                Data.homeData?.weather, Data.homeData?.maxTemp
+            )
         }
     }
     private fun createHomeScreenItems(weeklyWeather: List<HomeCardInfo>): List<HomeScreenParts> {
@@ -118,6 +122,11 @@ class HomeFragment : Fragment() {
         val cleanedList = weeklyWeather.drop(1)
         cleanedList.map {
             list.add(HomeScreenParts.Card(it))
+            updateWidget(
+                requireContext(), Data.citySearched?.city, Data.citySearched?.region,
+                Data.homeData?.weather, Data.homeData?.maxTemp
+            )
+
         }
         return list
     }
