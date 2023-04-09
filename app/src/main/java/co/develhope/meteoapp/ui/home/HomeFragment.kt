@@ -117,17 +117,20 @@ class HomeFragment : Fragment() {
                     else -> R.id.navigation_domani //gestirà il click sulle altre card
                 }
             findNavController().navigate(choosenFragment)
-
+            updateWidget(
+                requireContext(), Data.citySearched?.city, Data.citySearched?.region,
+                Data.homeData?.weather, Data.homeData?.maxTemp
+            )
 
         }
     }
 
     override fun onResume() {
         super.onResume()
-            updateWidget(
-                requireContext(), Data.citySearched?.city, Data.citySearched?.region,
-                Data.homeData?.weather, Data.homeData?.maxTemp
-            )
+        updateWidget(
+            requireContext(), Data.citySearched?.city, Data.citySearched?.region,
+            Data.homeData?.weather, Data.homeData?.maxTemp
+        )
     }
 
     override fun onDestroyView() {
