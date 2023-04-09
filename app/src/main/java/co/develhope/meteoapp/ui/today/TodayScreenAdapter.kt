@@ -13,8 +13,8 @@ import co.develhope.meteoapp.ui.utils.weatherIcon
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
 
-class TodayScreenAdapter (var items : List<TodayScreenData>)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class TodayScreenAdapter(var items: List<TodayScreenData>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val today_title = 0
     private val today_card = 1
@@ -46,9 +46,9 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is TodayScreenAdapter.TodayRowCardViewHolder ->
+            is TodayRowCardViewHolder ->
                 holder.bind(items[position] as TodayScreenData.TodayScreenCard)
-            is TodayScreenAdapter.TodayTitleViewHolder ->
+            is TodayTitleViewHolder ->
                 holder.bind(items[position] as TodayScreenData.TodayScreenTitle)
         }
 
@@ -66,35 +66,46 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
             rowCardBinding.todayPrecipitationsText.text =
                 itemView.context.getString(R.string.today_precipitations, card.todayCard.humidity)
 
-            rowCardBinding.todayCardPerceivedVal.text=
-                itemView.context.getString(R.string.today_perceived, card.todayCard.perc_temperature)
-            rowCardBinding.todayCardUvVal.text=
+            rowCardBinding.todayCardPerceivedVal.text =
+                itemView.context.getString(
+                    R.string.today_perceived,
+                    card.todayCard.perc_temperature
+                )
+            rowCardBinding.todayCardUvVal.text =
                 itemView.context.getString(R.string.today_uv, card.todayCard.UV_Index)
-            rowCardBinding.todayCardHumidityVal.text=
+            rowCardBinding.todayCardHumidityVal.text =
                 itemView.context.getString(R.string.today_humidity, card.todayCard.humidity)
-            rowCardBinding.todayCardWindVal.text=
+            rowCardBinding.todayCardWindVal.text =
                 itemView.context.getString(R.string.today_wind, card.todayCard.wind)
-            rowCardBinding.todayCardCoverageVal.text=
+            rowCardBinding.todayCardCoverageVal.text =
                 itemView.context.getString(R.string.today_coverage, card.todayCard.coverage)
-            rowCardBinding.todayCardRainVal.text=
+            rowCardBinding.todayCardRainVal.text =
                 itemView.context.getString(R.string.today_rain, card.todayCard.rain)
 
 
-            rowCardBinding.row.setOnClickListener{
-                if (rowCardBinding.todayInfoCard.visibility == View.GONE){
-                TransitionManager.beginDelayedTransition(rowCardBinding.todayInfoCard, AutoTransition())
-                rowCardBinding.todayInfoCard.visibility = View.VISIBLE
-                rowCardBinding.todayArrow.rotation = 180F
-            } else{
-                TransitionManager.beginDelayedTransition(rowCardBinding.todayInfoCard, AutoTransition())
-                rowCardBinding.todayInfoCard.visibility = View.GONE
-                rowCardBinding.todayArrow.rotation = 0F
+            rowCardBinding.row.setOnClickListener {
+                if (rowCardBinding.todayInfoCard.visibility == View.GONE) {
+                    TransitionManager.beginDelayedTransition(
+                        rowCardBinding.todayInfoCard,
+                        AutoTransition()
+                    )
+                    rowCardBinding.todayInfoCard.visibility = View.VISIBLE
+                    rowCardBinding.todayArrow.rotation = 180F
+                    rowCardBinding.firstLine.visibility = View.GONE
+                } else {
+                    TransitionManager.beginDelayedTransition(
+                        rowCardBinding.todayInfoCard,
+                        AutoTransition()
+                    )
+                    rowCardBinding.todayInfoCard.visibility = View.GONE
+                    rowCardBinding.todayArrow.rotation = 0F
+                    rowCardBinding.firstLine.visibility = View.VISIBLE
+                }
             }
-            }
-            }
-
-
         }
+
+
+    }
 
 
     class TodayTitleViewHolder(private val titleFragmentBinding: TodayTitleFragmentBinding) :
@@ -102,8 +113,10 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
         fun bind(title: TodayScreenData.TodayScreenTitle) {
             titleFragmentBinding.todayTitleCity.text = title.todayTitle.city
             titleFragmentBinding.todayTitleRegion.text = title.todayTitle.region
+
             val dateTimeT = title.todayTitle.date
-            val offsetDateTimeT = org.threeten.bp.OffsetDateTime.ofInstant(dateTimeT.toInstant(), ZoneOffset.UTC)
+            val offsetDateTimeT =
+                org.threeten.bp.OffsetDateTime.ofInstant(dateTimeT.toInstant(), ZoneOffset.UTC)
             val formattedDate = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(offsetDateTimeT)
             titleFragmentBinding.todayTitleDate.text = formattedDate
 
@@ -111,10 +124,10 @@ class TodayScreenAdapter (var items : List<TodayScreenData>)
 
     }
 
-   override fun getItemViewType(position: Int): Int {
-        return when (items[position]){
-            is TodayScreenData.TodayScreenTitle-> today_title
-            is TodayScreenData.TodayScreenCard-> today_card
+    override fun getItemViewType(position: Int): Int {
+        return when (items[position]) {
+            is TodayScreenData.TodayScreenTitle -> today_title
+            is TodayScreenData.TodayScreenCard -> today_card
         }
     }
 }

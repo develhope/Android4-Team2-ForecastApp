@@ -24,10 +24,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
-import co.develhope.meteoapp.ui.utils.updateWidget
-import co.develhope.meteoapp.ui.widget.updateAppWidget
 import java.util.*
-import kotlin.collections.List
 
 
 class SearchFragment : Fragment() {
@@ -69,7 +66,9 @@ class SearchFragment : Fragment() {
         binding.recyclerViewSearchFrag.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(emptyList()) {}
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(mutableListOf()) {}
+
+        addCard(Data.listCitySearched)
 
         searchingCity()
         observerViewModel()
@@ -88,22 +87,19 @@ class SearchFragment : Fragment() {
     }
 
     private fun searchingCity() {
-        binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-            androidx.appcompat.widget.SearchView.OnQueryTextListener {
+        binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
-
-                viewModel.sendingCity(SearchEvents.citySearched(text.toString()))
                 binding.tvRecentSearch.visibility = View.GONE
+                viewModel.sendingCity(SearchEvents.CitySearched(text.toString()))
                 observerViewModel()
-                return true
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-
-                viewModel.sendingCity(SearchEvents.citySearched(newText.toString()))
                 binding.tvRecentSearch.visibility = View.GONE
+                viewModel.sendingCity(SearchEvents.CitySearched(newText.toString()))
                 observerViewModel()
-                return true
+                return false
             }
         })
     }
@@ -148,9 +144,11 @@ class SearchFragment : Fragment() {
         }
     }
 
-    fun createUISearch(list: List<Place>) {
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
+    fun createUISearch(list: List<Place?>) {
+        val newlist = ArrayList(list)
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(newlist) {
             Data.citySearched = it
+            Data.listCitySearched.add(it)
             findNavController().navigate(R.id.navigation_home)
         }
     }
@@ -159,8 +157,15 @@ class SearchFragment : Fragment() {
         viewModel.searchStateLiveData.observe(viewLifecycleOwner) {
             when (it) {
                 is SearchState.Success -> createUISearch(it.list)
-                is SearchState.Error -> findNavController().navigate(R.id.navigation_error)
+                is SearchState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
             }
+        }
+    }
+
+    private fun addCard(list: MutableList<Place?>){
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
+            Data.citySearched = it
+            findNavController().navigate(R.id.navigation_home)
         }
     }
 }

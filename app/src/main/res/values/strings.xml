@@ -42,6 +42,7 @@
     <string name="tv_kmWind">%d km/h</string>
     <string name="today">OGGI</string>
     <string name="tomorrow">DOMANI</string>
+    <string name="title_tom_city_region">${city}, ${region}</string>
 
     // SEARCH FRAG CARD
     <string name="search_frag_card_city">Palermo</string>
@@ -61,8 +62,8 @@
     <string name="today_humidity">%d%%</string>
     <string name="today_precipitations">%d%%</string>
     <string name="today_perceived">%d°</string>
-    <string name="today_title_city">%d,</string>
-    <string name="today_title_region">%d</string>
+    <string name="today_title_city">%s, </string>
+    <string name="today_title_region">%s</string>
     <string name="today_title_date">%d</string>
     <string name="button_to_speech">button to speech</string>
     <string name="image_error">Image Error</string>
@@ -73,4 +74,6 @@
     <string name="app_widget_description">This is an app widget description</string>
     <string name="weatherimage">WeatherImage</string>
     <string name="search_frag_card_region">Sicilia</string>
+    <string name="choosen_day_text">Giorno :</string>
+    <string name="tomorrow_title_text">Domani,</string>
 </resources>

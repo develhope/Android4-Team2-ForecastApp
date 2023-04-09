@@ -2,30 +2,25 @@ package co.develhope.meteoapp.ui.today
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTodayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import kotlinx.coroutines.launch
+import co.develhope.meteoapp.ui.utils.firstAccess
 import org.threeten.bp.OffsetDateTime
 
 class TodayFragment : Fragment() {
 
     private var _binding: FragmentTodayBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel: TodayViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +33,45 @@ class TodayFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val window = activity?.window
+        if (window != null) {
+            window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
+            window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+        }
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        binding.todayRecyclerView.layoutManager = layoutManager
+        binding.todayRecyclerView.setHasFixedSize(true)
+        binding.todayRecyclerView.adapter = TodayScreenAdapter(emptyList())
+        observeTodayRepos()
+        viewModel.retrieveReposToday()
+    }
+
+    private fun createTodayUI(listUI: List<ForecastData>) {
+        val listToShow = createTodayScreenItems(listUI)
+        binding.todayRecyclerView.adapter = TodayScreenAdapter(listToShow)
+    }
+
+
+    private fun observeTodayRepos() {
+        viewModel.result.observe(viewLifecycleOwner) {
+            when (it) {
+                is TodayState.Success -> createTodayUI(it.repos)
+                is TodayState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
+                is TodayState.Message -> context?.let { it1 ->
+                    view?.let { it2 ->
+                        firstAccess(
+                            it2,
+                            it1
+                        )
+                    }
+                }
+
+            }
+        }
+    }
     private fun createTodayScreenItems(dailyWeather: List<ForecastData>): List<TodayScreenData> {
         val listToday = ArrayList<TodayScreenData>()
         listToday.add(
@@ -59,39 +93,6 @@ class TodayFragment : Fragment() {
         return listToday
     }
 
-
-
-    @RequiresApi(Build.VERSION_CODES.R)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val window = activity?.window
-        if (window != null) {
-            window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
-            window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-        }
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.todayRecyclerView.layoutManager = layoutManager
-        binding.todayRecyclerView.setHasFixedSize(true)
-        binding.todayRecyclerView.adapter = TodayScreenAdapter(emptyList())
-        retrieveTodayForecastInfo()
-    }
-
-    private fun retrieveTodayForecastInfo(){
-        lifecycleScope.launch {
-            try {
-                val dailyWeather: List<ForecastData> =
-                    Data.getDailyWeather(Data.citySearched?.latitude, Data.citySearched?.longitude) ?: emptyList()
-
-                val listToShow = createTodayScreenItems(dailyWeather)
-                binding.todayRecyclerView.adapter = TodayScreenAdapter(listToShow)
-
-            } catch (e: Exception){
-                findNavController().navigate(R.id.navigation_error)
-                Toast.makeText(requireContext(),"ERROR", Toast.LENGTH_SHORT).show()
-                Log.d("TomorrowFragment", "ERROR IN FRAGMENT : ${e.message}, ${e.cause}")
-            }
-        }
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

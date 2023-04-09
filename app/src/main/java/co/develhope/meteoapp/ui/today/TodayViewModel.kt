@@ -1,36 +1,41 @@
-package co.develhope.meteoapp.ui.home
+package co.develhope.meteoapp.ui.today
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
-import co.develhope.meteoapp.ui.today.TodayState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
-    private var _homeStateLiveData = MutableLiveData<HomeState>()
-    val homeStateLiveData: LiveData<HomeState>
-        get() = _homeStateLiveData
 
-    fun retrieveForecastInfo() {
+class TodayViewModel : ViewModel() {
+
+    private var _todayLiveData = MutableLiveData<TodayState>()
+    val result: LiveData<TodayState>
+        get() = _todayLiveData
+
+
+    fun retrieveReposToday() {
         viewModelScope.launch {
+
             try {
                 if (Data.citySearched != null) {
-                    val result = Data.getWeeklyWeather(
+                    val result = Data.getDailyWeather(
                         Data.citySearched?.latitude,
                         Data.citySearched?.longitude
                     )
-                    _homeStateLiveData.value = result?.let { HomeState.Success(it) }
+                    _todayLiveData.value = result.let { it?.let { it1 -> TodayState.Success(it1) } }
                 } else {
-                    _homeStateLiveData.value = HomeState.FirstOpenFromUser
+                    _todayLiveData.value = TodayState.Message
                 }
             } catch (e: Exception) {
-                _homeStateLiveData.value = e.message?.let { HomeState.Error(e) }
+                _todayLiveData.value = e.message?.let { TodayState.Error(e) }
+
             }
 
         }
+
     }
 }

@@ -22,7 +22,7 @@ interface WeeklySummaryInterface {
         @Query("latitude") latitude: Double?,
         @Query("longitude") longitude: Double?,
         @Query("timezone") timezone: String? = "Europe/Berlin"
-    ): WeatherResponse
+    ): WeatherResponse?
 
     @GET("/v1/forecast")
     suspend fun getDailyData(
@@ -38,5 +38,5 @@ interface WeeklySummaryInterface {
         @Query("latitude") latitude: Double?,
         @Query("longitude") longitude: Double?,
         @Query("timezone") timezone: String? = "Europe/Berlin"
-    ): DaySummary
+    ): DaySummary?
 }

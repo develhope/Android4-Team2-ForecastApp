@@ -10,26 +10,27 @@ import co.develhope.meteoapp.networking.domainmodel.Place
 object Data {
     var citySearched : Place? = null
     var homeData : HomeCardInfo? = null
+    var listCitySearched : MutableList<Place?> = mutableListOf()
 
-    suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo> { //value nullable bc of citySearched
+    suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo>? { //value nullable bc of citySearched
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
             latitude = latitude,
             longitude = longitude,
-        ).daily.toDomain()
+        )?.daily?.toDomain()
     }
 
-    suspend fun getDailyWeather(latitude: Double?, longitude: Double?): List<ForecastData> {
+    suspend fun getDailyWeather(latitude: Double?, longitude: Double?): List<ForecastData>? {
         return OpenMeteoRetrofitInstance().openMeteoApi.getDailyData(
             latitude = latitude,
             longitude = longitude,
-        ).hourly.toDomain()
+        )?.hourly?.toDomain()
     }
 
-    suspend fun getSearchData(name : String) : List<Place> {
+    suspend fun getSearchData(name : String?) : List<Place?> {
         return GeocodingRetrofitIstance().geoMeteoApi.getSearchData(
             name = name
-        ).results.map { result ->
-            result.toDomain()
-        }
+        )?.results?.map { result ->
+            result?.toDomain()
+        } ?: emptyList()
     }
 }
