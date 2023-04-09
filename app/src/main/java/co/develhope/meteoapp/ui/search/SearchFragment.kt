@@ -60,7 +60,7 @@ class SearchFragment : Fragment() {
         }
 
         binding.btnToSpeech.setOnClickListener {
-            permissionRecord()
+            speechToText()
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
@@ -124,25 +124,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun permissionRecord() {
-        run {
-            if (context?.let {
-                    ContextCompat.checkSelfPermission(
-                        it, Manifest.permission.RECORD_AUDIO
-                    )
-                } != PackageManager.PERMISSION_GRANTED
-            ) {
-                ActivityCompat.requestPermissions(
-                    context as Activity,
-                    arrayOf(Manifest.permission.RECORD_AUDIO),
-                    REQUEST_CODE_SPEECH_INPUT
-                )
-            } else {
-                // permission already granted
-                speechToText()
-            }
-        }
-    }
 
     fun createUISearch(list: List<Place?>) {
         val newlist = ArrayList(list)
