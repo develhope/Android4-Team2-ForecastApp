@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentChoosenDayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.ui.MainActivity
 import org.threeten.bp.OffsetDateTime
 
 class ChoosenDayFragment : Fragment() {
@@ -60,6 +62,8 @@ class ChoosenDayFragment : Fragment() {
         super.onViewCreated(view , savedInstanceState)
         val window = activity?.window
         if (window != null) {
+            (activity as MainActivity).showBottomNavigation(false)
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
             window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
             window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
 
@@ -100,6 +104,10 @@ class ChoosenDayFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        (activity as MainActivity).showBottomNavigation(true)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+
     }
 
 }

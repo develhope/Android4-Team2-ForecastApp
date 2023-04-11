@@ -52,8 +52,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val window = activity?.window
         if (window != null) {
-            window.statusBarColor = context?.getColor(R.color.bg_Home) ?: 0
-
+            window.statusBarColor = context?.getColor(R.color.bg_Home)!!
             window.decorView.setSystemUiVisibility(0)
 
         }
