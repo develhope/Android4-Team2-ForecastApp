@@ -30,8 +30,8 @@ class ErrorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val window = activity?.window
         if (window != null) {
-            window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
             (activity as MainActivity).showBottomNavigation(false)
+            window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
             window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
             window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         }
@@ -43,5 +43,6 @@ class ErrorFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         (activity as MainActivity).showBottomNavigation(true)
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 }
