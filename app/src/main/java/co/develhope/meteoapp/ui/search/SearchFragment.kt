@@ -24,6 +24,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
+import java.security.Permission
 import java.util.*
 
 
@@ -45,8 +46,8 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
-
         return binding.root
+
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -60,7 +61,17 @@ class SearchFragment : Fragment() {
         }
 
         binding.btnToSpeech.setOnClickListener {
-            speechToText()
+            if (context?.let { it1 ->
+                    ActivityCompat.checkSelfPermission(
+                        it1, Manifest.permission.RECORD_AUDIO
+                    )
+                } != PackageManager.PERMISSION_GRANTED
+            ) {
+               val buttonToSpeech = binding.btnToSpeech
+                buttonToSpeech.visibility = View.GONE
+            } else {
+                speechToText()
+            }
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
