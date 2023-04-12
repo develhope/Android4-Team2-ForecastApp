@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,11 +23,11 @@ class ChoosenDayViewModel : ViewModel() {
         get() = _choosenDayEventLiveData
 
     fun retrieveReposChoosen() {
-        if(Data.citySearched != null) {
+        if(prefs.getMyCityObject() != null) {
             CoroutineScope(Dispatchers.Main).launch {
                 val result = Data.getDailyWeather(
-                    Data.citySearched?.latitude,
-                    Data.citySearched?.longitude
+                    prefs.getMyCityObject()?.latitude,
+                    prefs.getMyCityObject()?.longitude
                 )
                 try {
                     _choosenDayEventLiveData.value = result?.let { ChoosenDayState.Success(it) }

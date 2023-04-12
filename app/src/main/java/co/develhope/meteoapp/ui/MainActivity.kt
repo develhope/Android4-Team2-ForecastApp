@@ -1,5 +1,6 @@
 package co.develhope.meteoapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,14 +11,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import co.develhope.meteoapp.App
+import co.develhope.meteoapp.Data
+import co.develhope.meteoapp.Prefs
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.ActivityMainBinding
 import co.develhope.meteoapp.ui.utils.permissionAll
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -63,8 +67,6 @@ class MainActivity : AppCompatActivity() {
                 "MainActivity", "Error"
             )
         }
-
-
     }
     fun showBottomNavigation(show: Boolean) {
         if (show) {

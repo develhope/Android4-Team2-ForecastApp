@@ -16,6 +16,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentChoosenDayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.MainActivity
 import org.threeten.bp.OffsetDateTime
 
@@ -41,13 +42,15 @@ class ChoosenDayFragment : Fragment() {
         listChoosen.add(
             ChoosenDayScreenData.TSTitle(
                 ChoosenDayTitle(
-                    Data.citySearched?.city, Data.citySearched?.region, OffsetDateTime.now()
+                    prefs.getMyCityObject()?.city,
+                    prefs.getMyCityObject()?.region,
+                    OffsetDateTime.now()
                 )
             )
         )
 
         val choosenWeather =
-            choosenDayWheater.filter { it.date.dayOfYear == Data.homeData?.dateTime?.toLocalDate()?.dayOfYear }
+            choosenDayWheater.filter { it.date.dayOfYear == prefs.getMyHomeObject()?.dateTime?.toLocalDate()?.dayOfYear }
         if (choosenWeather.isNotEmpty()) {
             choosenWeather.forEach {
                 listChoosen.add(ChoosenDayScreenData.TSForecast(it))

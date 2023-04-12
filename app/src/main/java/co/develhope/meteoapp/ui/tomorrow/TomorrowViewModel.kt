@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.prefs
 import kotlinx.coroutines.launch
 
 sealed class TomorrowState {
@@ -23,10 +24,10 @@ class TomorrowViewModel : ViewModel() {
     fun retrieveReposTomorrow() {
         viewModelScope.launch {
             try {
-                if (Data.citySearched != null) {
+                if (prefs.getMyCityObject() != null) {
                     val result = Data.getDailyWeather(
-                        Data.citySearched?.latitude,
-                        Data.citySearched?.longitude
+                        prefs.getMyCityObject()?.latitude,
+                        prefs.getMyCityObject()?.longitude
                     )
                     _tomorrowEventLiveData.value = result.let { it?.let { it1 -> TomorrowState.Success(it1) } }
                 } else {

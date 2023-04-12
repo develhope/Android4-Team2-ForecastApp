@@ -13,6 +13,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
+import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.utils.firstAccess
 import org.threeten.bp.OffsetDateTime
 
@@ -82,8 +83,8 @@ class TomorrowFragment : Fragment() {
         listTomorrow.add(
             TomorrowScreenData.TSTitle(
                 TomorrowTitle(
-                    Data.citySearched?.city,
-                    Data.citySearched?.region,
+                    prefs.getMyCityObject()?.city,
+                    prefs.getMyCityObject()?.region,
                     OffsetDateTime.now().plusDays(1)
                 )
             )
