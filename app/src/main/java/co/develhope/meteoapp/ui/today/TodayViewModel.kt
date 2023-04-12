@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
+import co.develhope.meteoapp.prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -21,10 +22,10 @@ class TodayViewModel : ViewModel() {
         viewModelScope.launch {
 
             try {
-                if (Data.citySearched != null) {
+                if (prefs.getMyCityObject() != null) {
                     val result = Data.getDailyWeather(
-                        Data.citySearched?.latitude,
-                        Data.citySearched?.longitude
+                        prefs.getMyCityObject()?.latitude,
+                        prefs.getMyCityObject()?.longitude
                     )
                     _todayLiveData.value = result.let { it?.let { it1 -> TodayState.Success(it1) } }
                 } else {

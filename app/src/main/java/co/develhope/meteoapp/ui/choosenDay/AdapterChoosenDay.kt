@@ -10,6 +10,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.ChoosenDayScreenRowCardBinding
 import co.develhope.meteoapp.databinding.ChoosenDayScreenTitleBinding
+import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.utils.weatherIcon
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.DateTimeFormatterBuilder
@@ -125,10 +126,10 @@ class AdapterChoosenDay (
                 val weekChoosen =DateTimeFormatterBuilder()
                     .appendText(ChronoField.DAY_OF_WEEK)
                     .toFormatter(Locale.getDefault())
-                    .format(Data.homeData?.dateTime)
+                    .format(prefs.getMyHomeObject()?.dateTime)
                     .capitalize(Locale.ROOT)
                 "$weekChoosen,".also { titleBinding.cvChoosen.text = it }
-                val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(Data.homeData?.dateTime)
+                val formattedDate2 = DateTimeFormatter.ofPattern("dd MMMM yyyy").format(prefs.getMyHomeObject()?.dateTime)
                 titleBinding.cvDate.text = formattedDate2
                 }
             }

@@ -2,6 +2,7 @@ package co.develhope.meteoapp.networking.dto
 
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.Place
+import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.utils.weatherString
 
 data class Result(
@@ -30,8 +31,8 @@ data class Result(
                 latitude = latitude?: 0.0,
                 longitude = longitude?:0.0,
                 region = admin1,
-                temperature = Data.homeData?.maxTemp?: 0,
-                weather = Data.homeData?.weather?.weatherString()?: ""
+                temperature = prefs.getMyHomeObject()?.maxTemp?: 0,
+                weather = prefs.getMyHomeObject()?.weather?.weatherString()?: ""
             )
         }
 

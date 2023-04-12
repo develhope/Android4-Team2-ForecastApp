@@ -24,6 +24,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
+import co.develhope.meteoapp.prefs
 import java.security.Permission
 import java.util.*
 
@@ -79,7 +80,7 @@ class SearchFragment : Fragment() {
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(mutableListOf()) {}
 
-        addCard(Data.listCitySearched)
+        addCard(prefs.getMyListCityObject())
 
         searchingCity()
         observerViewModel()
@@ -139,8 +140,8 @@ class SearchFragment : Fragment() {
     fun createUISearch(list: List<Place?>) {
         val newlist = ArrayList(list)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(newlist) {
-            Data.citySearched = it
-            Data.listCitySearched.add(it)
+            prefs.saveMyCityObject(it)
+            prefs.saveMyListCityObject(prefs.addInfo(it))
             findNavController().navigate(R.id.navigation_home)
         }
     }
@@ -156,7 +157,7 @@ class SearchFragment : Fragment() {
 
     private fun addCard(list: MutableList<Place?>){
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
-            Data.citySearched = it
+            prefs.saveMyCityObject(it)
             findNavController().navigate(R.id.navigation_home)
         }
     }

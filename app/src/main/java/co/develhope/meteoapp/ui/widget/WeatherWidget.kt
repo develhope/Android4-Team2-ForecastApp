@@ -7,6 +7,7 @@ import android.widget.RemoteViews
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.networking.domainmodel.Weather
+import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.utils.weatherIcon
 
 /**
@@ -38,10 +39,10 @@ internal fun updateAppWidget(
     appWidgetManager: AppWidgetManager,
     appWidgetId: Int
 ) {
-    val widgetCity = Data.citySearched?.city?:"Scegli"
-    val widgetRegion = Data.citySearched?.region?:"Città"
-    val widgetImage = weatherIcon(Data.homeData?.weather ?: Weather.UNKNOWN)
-    val widgetDegree = Data.homeData?.maxTemp ?:0
+    val widgetCity = prefs.getMyCityObject()?.city?:"Scegli"
+    val widgetRegion = prefs.getMyCityObject()?.region?:"Città"
+    val widgetImage = weatherIcon(prefs.getMyHomeObject()?.weather ?: Weather.UNKNOWN)
+    val widgetDegree = prefs.getMyHomeObject()?.maxTemp ?:0
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.wheater_widget)
     views.setTextViewText(R.id.appwidget_city, "${widgetCity},${widgetRegion}")

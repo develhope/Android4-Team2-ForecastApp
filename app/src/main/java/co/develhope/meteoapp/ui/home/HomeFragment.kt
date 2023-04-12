@@ -14,6 +14,7 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.home.adapter.Home5NextDays
 import co.develhope.meteoapp.ui.home.adapter.HomeFragmentAdapter
 import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
@@ -86,7 +87,7 @@ class HomeFragment : Fragment() {
     private fun createUI(cardList: List<HomeCardInfo>) {
         val listToShow = createHomeScreenItems(cardList)
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
-            Data.homeData = it
+            prefs.saveMyHomeObject(it)
 
             val choosenFragment: Int =
                 when {
@@ -100,8 +101,8 @@ class HomeFragment : Fragment() {
                 }
             findNavController().navigate(choosenFragment)
             updateWidget(
-                requireContext(), Data.citySearched?.city, Data.citySearched?.region,
-                Data.homeData?.weather, Data.homeData?.maxTemp
+                requireContext(), prefs.getMyCityObject()?.city, prefs.getMyCityObject()?.region,
+                prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
             )
         }
     }
@@ -110,8 +111,8 @@ class HomeFragment : Fragment() {
         list.add(
             HomeScreenParts.Title(
                 HomeTitle(
-                    Data.citySearched?.city,
-                    Data.citySearched?.region
+                    prefs.getMyCityObject()?.city,
+                    prefs.getMyCityObject()?.region
                 )
             )
         )
@@ -122,8 +123,8 @@ class HomeFragment : Fragment() {
         cleanedList.map {
             list.add(HomeScreenParts.Card(it))
             updateWidget(
-                requireContext(), Data.citySearched?.city, Data.citySearched?.region,
-                Data.homeData?.weather, Data.homeData?.maxTemp
+                requireContext(), prefs.getMyCityObject()?.city, prefs.getMyCityObject()?.region,
+                prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
             )
 
         }
@@ -133,8 +134,8 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateWidget(
-            requireContext(), Data.citySearched?.city, Data.citySearched?.region,
-            Data.homeData?.weather, Data.homeData?.maxTemp
+            requireContext(), prefs.getMyCityObject()?.city, prefs.getMyCityObject()?.region,
+            prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
         )
     }
 

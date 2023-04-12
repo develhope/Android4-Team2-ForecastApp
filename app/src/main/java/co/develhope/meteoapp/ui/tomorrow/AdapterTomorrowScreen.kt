@@ -1,5 +1,6 @@
 package co.develhope.meteoapp.ui.tomorrow
 
+import android.content.Context
 import android.transition.AutoTransition
 import android.transition.TransitionManager
 import android.view.LayoutInflater
