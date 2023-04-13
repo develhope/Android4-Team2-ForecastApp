@@ -6,6 +6,7 @@ import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.TomorrowScreenRowCardBinding
@@ -97,7 +98,7 @@ class AdapterTomorrowScreen (
                 R.string.tv_percRain, card.forecast_data.rain
             )
 
-
+            //TODO resolve card issues
             rowCardBinding.tvImageArrow.setOnClickListener {
                 if(rowCardBinding.CardViewTomorrow.visibility == View.GONE){
                     TransitionManager.beginDelayedTransition(rowCardBinding.CardViewTomorrow, AutoTransition())

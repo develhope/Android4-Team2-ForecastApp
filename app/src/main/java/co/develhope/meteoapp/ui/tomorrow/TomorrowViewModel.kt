@@ -35,9 +35,15 @@ class TomorrowViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 _tomorrowEventLiveData.value = e.message?.let { TomorrowState.Error(e) }
-
             }
-
         }
+    }
+
+    fun citySharedPrefTom() : String? {
+        return prefs.getMyCityObject()?.city
+    }
+
+    fun regionSharedPrefTom() : String? {
+        return prefs.getMyCityObject()?.region
     }
 }
