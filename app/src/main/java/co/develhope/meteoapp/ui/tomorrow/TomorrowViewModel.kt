@@ -25,7 +25,7 @@ class TomorrowViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 if (prefs.getMyCityObject() != null) {
-                    val result = Data.getDailyWeather(
+                    val result = Data().getDailyWeather(
                         prefs.getMyCityObject()?.latitude,
                         prefs.getMyCityObject()?.longitude
                     )
