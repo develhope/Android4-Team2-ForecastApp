@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
+import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import co.develhope.meteoapp.prefs
-import co.develhope.meteoapp.ui.today.TodayState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
@@ -16,11 +14,23 @@ class HomeViewModel : ViewModel() {
     val homeStateLiveData: LiveData<HomeState>
         get() = _homeStateLiveData
 
+    fun getCityPref(): String? {
+        return prefs.getMyCityObject()?.city
+    }
+    fun getRegionPref() : String?{
+        return prefs.getMyCityObject()?.region
+    }
+    fun savePrefHome(homeCardInfo: HomeCardInfo){
+        prefs.saveMyHomeObject(homeCardInfo)
+    }
+
+
+
     fun retrieveForecastInfo() {
         viewModelScope.launch {
             try {
                 if (prefs.getMyCityObject() != null) {
-                    val result = Data.getWeeklyWeather(
+                    val result = Data().getWeeklyWeather(
                         prefs.getMyCityObject()?.latitude,
                         prefs.getMyCityObject()?.longitude
                     )

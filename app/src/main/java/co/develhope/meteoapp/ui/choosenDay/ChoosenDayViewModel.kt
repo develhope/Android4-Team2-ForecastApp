@@ -25,7 +25,7 @@ class ChoosenDayViewModel : ViewModel() {
     fun retrieveReposChoosen() {
         if(prefs.getMyCityObject() != null) {
             CoroutineScope(Dispatchers.Main).launch {
-                val result = Data.getDailyWeather(
+                val result = Data().getDailyWeather(
                     prefs.getMyCityObject()?.latitude,
                     prefs.getMyCityObject()?.longitude
                 )
