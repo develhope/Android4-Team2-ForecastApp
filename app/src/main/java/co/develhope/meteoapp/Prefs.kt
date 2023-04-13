@@ -73,10 +73,18 @@ class Prefs(context: Context) {
             ?: mutableListOf()
     }
 
-    fun addInfo(place: Place?) : MutableList<Place?>{
+    fun addInfo(place: Place?): MutableList<Place?> {
         val listCityInfo = getMyListCityObject()
-        listCityInfo.add(place)
-
-        return listCityInfo
+        if (place in listCityInfo) {
+            return listCityInfo
+        } else {
+            listCityInfo.add(place)
+            if (listCityInfo.size == 6){
+                listCityInfo.removeFirst()
+            }else {
+                return listCityInfo
+            }
+            return listCityInfo
+        }
     }
 }
