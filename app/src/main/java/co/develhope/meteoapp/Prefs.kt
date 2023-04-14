@@ -75,7 +75,7 @@ class Prefs(context: Context) {
 
     fun addInfo(place: Place?): MutableList<Place?> {
         val listCityInfo = getMyListCityObject()
-        if (place in listCityInfo) {
+        if (listCityInfo.contains(place)) {
             return listCityInfo
         } else {
             listCityInfo.add(place)

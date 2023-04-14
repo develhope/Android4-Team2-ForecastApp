@@ -151,6 +151,7 @@ class SearchFragment : Fragment() {
     }
 
     private fun addCard(list: MutableList<Place?>){
+        list.reverse()
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
             viewModel.getCityObj(it)
             findNavController().navigate(R.id.navigation_home)
