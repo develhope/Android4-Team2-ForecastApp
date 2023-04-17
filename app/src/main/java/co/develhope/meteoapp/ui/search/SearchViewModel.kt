@@ -1,6 +1,5 @@
 package co.develhope.meteoapp.ui.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -35,7 +34,7 @@ class SearchViewModel : ViewModel() {
     }
 
 
-    fun retrieveSearchRepos(city: String?) {
+    private fun retrieveSearchRepos(city: String?) {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _searchStateLiveData.value = SearchState.Success(

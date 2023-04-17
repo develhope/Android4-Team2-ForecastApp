@@ -8,7 +8,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 class Prefs(context: Context) {
-    // var listCitySearched : MutableList<Place?> = mutableListOf()
 
     private val CITY_SEARCHED = "city"
     private val HOME_INFO = "home"

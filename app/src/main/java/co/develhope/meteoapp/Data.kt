@@ -9,7 +9,7 @@ import co.develhope.meteoapp.networking.domainmodel.Place
 
 
 class Data {
-    suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo>? { //value nullable bc of citySearched
+    suspend fun getWeeklyWeather(latitude: Double?, longitude: Double?): List<HomeCardInfo>? {
         return OpenMeteoRetrofitInstance().openMeteoApi.getWeeklyData(
             latitude = latitude,
             longitude = longitude,
@@ -30,4 +30,5 @@ class Data {
             result?.toDomain()
         } ?: emptyList()
     }
+
 }

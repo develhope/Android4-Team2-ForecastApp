@@ -5,7 +5,8 @@
     <dimen name="title_HomeFragment">32sp</dimen>
     <dimen name="text_day_HomeFragment">24sp</dimen>
     <dimen name="text_min_dimensions_card_info">16sp</dimen>
-    <dimen name="text_norm_dimensions_card_info">17sp</dimen>
+    <dimen name="text_norm_dimensions_card_info">20sp</dimen>
+    <dimen name="text_homeCard_day">17sp</dimen>
     <dimen name="text_description_SearchFragment">10sp</dimen>
     <dimen name="home_fragment_marginTop">42dp</dimen>
     <dimen name="home_fragment_marginBottom">22dp</dimen>

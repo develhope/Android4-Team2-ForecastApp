@@ -30,10 +30,7 @@ data class Result(
                 city = name ?: "-",
                 latitude = latitude?: 0.0,
                 longitude = longitude?:0.0,
-                region = admin1,
-                temperature = prefs.getMyHomeObject()?.maxTemp?: 0,
-                weather = prefs.getMyHomeObject()?.weather?.weatherString()?: ""
+                region = admin1
             )
         }
-
 }

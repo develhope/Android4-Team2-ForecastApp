@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+import co.develhope.meteoapp.networking.domainmodel.Weather
 import co.develhope.meteoapp.prefs
 import kotlinx.coroutines.launch
 
@@ -14,17 +15,22 @@ class HomeViewModel : ViewModel() {
     val homeStateLiveData: LiveData<HomeState>
         get() = _homeStateLiveData
 
-    fun getCityPref(): String? {
+    fun getCityName() : String?{
         return prefs.getMyCityObject()?.city
     }
-    fun getRegionPref() : String?{
+    fun getCityRegion(): String?{
         return prefs.getMyCityObject()?.region
     }
+    fun getHomeWeather() : Weather? {
+        return prefs.getMyHomeObject()?.weather
+    }
+    fun getHomeTemp() : Int? {
+        return prefs.getMyHomeObject()?.maxTemp
+    }
+
     fun savePrefHome(homeCardInfo: HomeCardInfo){
         prefs.saveMyHomeObject(homeCardInfo)
     }
-
-
 
     fun retrieveForecastInfo() {
         viewModelScope.launch {

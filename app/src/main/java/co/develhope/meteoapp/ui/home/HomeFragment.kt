@@ -10,11 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
-import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.home.adapter.Home5NextDays
 import co.develhope.meteoapp.ui.home.adapter.HomeFragmentAdapter
 import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
@@ -92,8 +90,8 @@ class HomeFragment : Fragment() {
                 }
             findNavController().navigate(choosenFragment)
             updateWidget(
-                requireContext(), viewModel.getCityPref(), viewModel.getRegionPref(),
-                prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
+                requireContext(), viewModel.getCityName(), viewModel.getCityRegion(),
+                viewModel.getHomeWeather(), viewModel.getHomeTemp()
             )
         }
     }
@@ -102,8 +100,8 @@ class HomeFragment : Fragment() {
         list.add(
             HomeScreenParts.Title(
                 HomeTitle(
-                    viewModel.getCityPref(),
-                    viewModel.getRegionPref()
+                    viewModel.getCityName(),
+                    viewModel.getCityRegion()
                 )
             )
         )
@@ -113,10 +111,6 @@ class HomeFragment : Fragment() {
         val cleanedList = weeklyWeather.drop(1)
         cleanedList.map {
             list.add(HomeScreenParts.Card(it))
-            updateWidget(
-                requireContext(), viewModel.getCityPref(), viewModel.getRegionPref(),
-                prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
-            )
         }
         return list
     }
@@ -124,8 +118,8 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateWidget(
-            requireContext(), prefs.getMyCityObject()?.city, prefs.getMyCityObject()?.region,
-            prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
+            requireContext(),  viewModel.getCityName(), viewModel.getCityRegion(),
+            viewModel.getHomeWeather(), viewModel.getHomeTemp()
         )
     }
 

@@ -133,7 +133,7 @@ class SearchFragment : Fragment() {
     }
 
 
-    fun createUISearch(list: List<Place?>) {
+    private fun createUISearch(list: List<Place?>) {
         val newlist = ArrayList(list)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(newlist) {
             viewModel.prefsSett(it)
@@ -149,6 +149,7 @@ class SearchFragment : Fragment() {
             }
         }
     }
+
 
     private fun addCard(list: MutableList<Place?>){
         list.reverse()
