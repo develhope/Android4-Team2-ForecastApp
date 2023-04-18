@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.Place
-import co.develhope.meteoapp.prefs
+import co.develhope.meteoapp.sharedPref.PrefsInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchViewModel : ViewModel() {
+class SearchViewModel(val prefs: PrefsInterface) : ViewModel() {
     private var _searchStateLiveData = MutableLiveData<SearchState>()
     val searchStateLiveData: LiveData<SearchState>
         get() = _searchStateLiveData

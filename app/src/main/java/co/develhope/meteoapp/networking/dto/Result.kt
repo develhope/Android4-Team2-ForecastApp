@@ -1,9 +1,6 @@
 package co.develhope.meteoapp.networking.dto
 
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.Place
-import co.develhope.meteoapp.prefs
-import co.develhope.meteoapp.ui.utils.weatherString
 
 data class Result(
     val admin1: String?,

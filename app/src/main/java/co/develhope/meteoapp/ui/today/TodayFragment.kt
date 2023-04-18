@@ -7,21 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTodayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.utils.firstAccess
+import org.koin.android.ext.android.inject
 import org.threeten.bp.OffsetDateTime
 
 class TodayFragment : Fragment() {
 
     private var _binding: FragmentTodayBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: TodayViewModel by viewModels()
+    private val viewModel: TodayViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,

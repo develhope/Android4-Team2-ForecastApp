@@ -19,11 +19,12 @@ import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
 import co.develhope.meteoapp.ui.home.adapter.HomeTitle
 import co.develhope.meteoapp.ui.utils.firstAccess
 import co.develhope.meteoapp.ui.utils.updateWidget
+import org.koin.android.ext.android.inject
 import org.threeten.bp.OffsetDateTime
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    private val viewModel: HomeViewModel by viewModels()
+    private val viewModel: HomeViewModel by inject()
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
