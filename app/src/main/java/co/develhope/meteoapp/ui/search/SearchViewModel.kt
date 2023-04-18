@@ -46,4 +46,7 @@ class SearchViewModel(val prefs: PrefsInterface) : ViewModel() {
         }
     }
 
+    fun settingsMicrophone() : Boolean{
+        return prefs.isGaranted
+    }
 }

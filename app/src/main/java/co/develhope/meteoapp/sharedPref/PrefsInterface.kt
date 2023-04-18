@@ -16,4 +16,6 @@ interface PrefsInterface {
     fun saveMyListCityObject(place: Place)
 
     fun getMyListCityObject(): MutableList<Place?>
+
+    var isGaranted : Boolean
 }

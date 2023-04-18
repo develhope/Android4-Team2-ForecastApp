@@ -22,7 +22,6 @@ class SettingsActivity : AppCompatActivity() {
         this.supportActionBar?.hide()
         val window = this.window
         if (window != null) {
-            
             window.statusBarColor = this.getColor(R.color.background_screen) ?: 0
             window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         }
