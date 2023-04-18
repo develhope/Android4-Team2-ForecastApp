@@ -1,24 +1,14 @@
 package co.develhope.meteoapp
 
 import android.app.Application
-import co.develhope.meteoapp.sharedPref.Prefs
+import co.develhope.meteoapp.di.startKoin
 
-val prefs: Prefs by lazy {
-    App.prefs!!
-}
 
 class App: Application(){
 
-    companion object{
-        var prefs: Prefs? = null
-        lateinit var instance: App
-        private set
-    }
-
     override fun onCreate() {
         super.onCreate()
+        startKoin(applicationContext)
 
-        instance = this
-        prefs = Prefs(applicationContext)
     }
 }

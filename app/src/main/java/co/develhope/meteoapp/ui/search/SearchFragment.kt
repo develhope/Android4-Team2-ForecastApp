@@ -16,12 +16,12 @@ import android.widget.SearchView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
+import org.koin.android.ext.android.inject
 import java.util.*
 
 
@@ -31,7 +31,7 @@ class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
-    private val viewModel: SearchViewModel by viewModels()
+    private val viewModel: SearchViewModel by inject()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
