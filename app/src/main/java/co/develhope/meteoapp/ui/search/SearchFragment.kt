@@ -16,16 +16,13 @@ import android.widget.SearchView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
-import co.develhope.meteoapp.SettingsActivity
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
-import co.develhope.meteoapp.prefs
+import org.koin.android.ext.android.inject
 import java.util.*
-import kotlin.properties.Delegates
 
 
 class SearchFragment : Fragment() {
@@ -34,7 +31,7 @@ class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
-    private val viewModel: SearchViewModel by viewModels()
+    private val viewModel: SearchViewModel by inject()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -60,16 +57,7 @@ class SearchFragment : Fragment() {
         }
 
         binding.btnToSpeech.setOnClickListener {
-            val garantedMic = viewModel.settingsMicrophone()
-
-            if(garantedMic){
-                speechPermission()
-            }
-        }
-
-        binding.settings.setOnClickListener {
-            val intent = Intent(context, SettingsActivity::class.java)
-            context?.startActivity(intent)
+            speechPermission()
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
@@ -160,7 +148,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-     private fun speechPermission(){
+    private fun speechPermission(){
         if (context?.let { it1 ->
                 ActivityCompat.checkSelfPermission(
                     it1, Manifest.permission.RECORD_AUDIO

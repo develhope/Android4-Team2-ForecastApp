@@ -5,13 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
-import co.develhope.meteoapp.prefs
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import co.develhope.meteoapp.sharedPref.PrefsInterface
 import kotlinx.coroutines.launch
 
 
-class TodayViewModel : ViewModel() {
+class TodayViewModel(val prefs:PrefsInterface) : ViewModel() {
 
     private var _todayLiveData = MutableLiveData<TodayState>()
     val result: LiveData<TodayState>

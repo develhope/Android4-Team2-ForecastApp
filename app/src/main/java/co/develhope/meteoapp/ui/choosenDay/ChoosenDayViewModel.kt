@@ -5,10 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.prefs
+import co.develhope.meteoapp.networking.domainmodel.Weather
+import co.develhope.meteoapp.sharedPref.PrefsInterface
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.time.OffsetDateTime
 
 sealed class ChoosenDayState {
     data class Success(val list: List<ForecastData>) : ChoosenDayState()
@@ -16,11 +18,21 @@ sealed class ChoosenDayState {
     object Message : ChoosenDayState()
 }
 
-class ChoosenDayViewModel : ViewModel() {
+class ChoosenDayViewModel(val prefs: PrefsInterface) : ViewModel() {
 
     private var _choosenDayEventLiveData = MutableLiveData<ChoosenDayState>()
     val choosenDayEventLiveData: LiveData<ChoosenDayState>
         get() = _choosenDayEventLiveData
+
+    fun getCityName() : String?{
+        return prefs.getMyCityObject()?.city
+    }
+    fun getCityRegion(): String?{
+        return prefs.getMyCityObject()?.region
+    }
+    fun getHomeDayOfYear() : Int? {
+        return prefs.getMyHomeObject()?.dateTime?.toLocalDate()?.dayOfYear
+    }
 
     fun retrieveReposChoosen() {
         if(prefs.getMyCityObject() != null) {

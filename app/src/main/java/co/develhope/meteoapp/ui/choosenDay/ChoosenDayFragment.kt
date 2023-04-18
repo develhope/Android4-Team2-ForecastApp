@@ -9,22 +9,20 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentChoosenDayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.MainActivity
+import org.koin.android.ext.android.inject
 import org.threeten.bp.OffsetDateTime
 
 class ChoosenDayFragment : Fragment() {
 
     private var _binding: FragmentChoosenDayBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ChoosenDayViewModel by viewModels()
+    private val viewModel: ChoosenDayViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater ,
@@ -42,15 +40,15 @@ class ChoosenDayFragment : Fragment() {
         listChoosen.add(
             ChoosenDayScreenData.TSTitle(
                 ChoosenDayTitle(
-                    prefs.getMyCityObject()?.city,
-                    prefs.getMyCityObject()?.region,
+                    viewModel.getCityName(),
+                    viewModel.getCityRegion(),
                     OffsetDateTime.now()
                 )
             )
         )
 
         val choosenWeather =
-            choosenDayWheater.filter { it.date.dayOfYear == prefs.getMyHomeObject()?.dateTime?.toLocalDate()?.dayOfYear }
+            choosenDayWheater.filter { it.date.dayOfYear == viewModel.getHomeDayOfYear() }
         if (choosenWeather.isNotEmpty()) {
             choosenWeather.forEach {
                 listChoosen.add(ChoosenDayScreenData.TSForecast(it))
@@ -74,7 +72,7 @@ class ChoosenDayFragment : Fragment() {
 
         val layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL , false)
         binding.rvChoosendayScreen.layoutManager = layoutManager
-        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(emptyList())
+        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(emptyList(),viewModel.prefs)
 
         observeChoosenRepos()
         viewModel.retrieveReposChoosen()
@@ -82,7 +80,7 @@ class ChoosenDayFragment : Fragment() {
 
     private fun createChoosenDayUI(listUI: List<ForecastData>){
         val chooseListToShow = createChoosenScreenItems(listUI)
-        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(chooseListToShow)
+        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(chooseListToShow,viewModel.prefs)
     }
 
     private fun observeChoosenRepos(){

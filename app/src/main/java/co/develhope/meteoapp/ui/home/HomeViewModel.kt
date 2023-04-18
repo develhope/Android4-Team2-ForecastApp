@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import co.develhope.meteoapp.networking.domainmodel.Weather
-import co.develhope.meteoapp.prefs
+import co.develhope.meteoapp.sharedPref.PrefsInterface
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(val prefs: PrefsInterface) : ViewModel() {
     private var _homeStateLiveData = MutableLiveData<HomeState>()
     val homeStateLiveData: LiveData<HomeState>
         get() = _homeStateLiveData

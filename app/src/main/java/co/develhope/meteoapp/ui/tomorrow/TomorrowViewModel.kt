@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.prefs
+import co.develhope.meteoapp.sharedPref.PrefsInterface
 import kotlinx.coroutines.launch
 
 sealed class TomorrowState {
@@ -15,7 +15,7 @@ sealed class TomorrowState {
     object Message : TomorrowState()
 }
 
-class TomorrowViewModel : ViewModel() {
+class TomorrowViewModel(val prefs: PrefsInterface) : ViewModel() {
 
     private var _tomorrowEventLiveData = MutableLiveData<TomorrowState>()
     val tomorrowEventLiveData: LiveData<TomorrowState>
