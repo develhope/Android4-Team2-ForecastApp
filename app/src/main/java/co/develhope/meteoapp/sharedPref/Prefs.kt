@@ -15,8 +15,9 @@ class Prefs(context: Context) : PrefsInterface {
     private val LIST_CITY_SEARCHED = "list"
     private val SETTINGS = "enable_microphone_permission"
 
-    private val sharedPermission : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(
-        context)
+    private val sharedPermission: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(
+        context
+    )
 
     private val citySearchedPreferences: SharedPreferences = context.getSharedPreferences(
         CITY_SEARCHED,
@@ -78,22 +79,22 @@ class Prefs(context: Context) : PrefsInterface {
             ?: mutableListOf()
     }
 
-     private fun addInfo(place: Place): List<Place?> {
+    private fun addInfo(place: Place): List<Place?> {
         val listCityInfo = getMyListCityObject()
         if (listCityInfo.contains(place)) {
             return listCityInfo
         } else {
             listCityInfo.add(place)
-            if (listCityInfo.size == 6){
+            if (listCityInfo.size == 6) {
                 listCityInfo.removeFirst()
-            }else {
+            } else {
                 return listCityInfo
             }
             return listCityInfo
         }
     }
 
-    var isGaranted: Boolean
+        override var isGaranted: Boolean
         get() = sharedPermission.getBoolean(SETTINGS, false)
         set(value) = sharedPermission.edit().putBoolean(SETTINGS, value).apply()
 }

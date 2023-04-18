@@ -19,8 +19,10 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
+import co.develhope.meteoapp.SettingsActivity
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
+import kotlinx.serialization.descriptors.PrimitiveKind
 import org.koin.android.ext.android.inject
 import java.util.*
 
@@ -57,7 +59,16 @@ class SearchFragment : Fragment() {
         }
 
         binding.btnToSpeech.setOnClickListener {
-            speechPermission()
+            val settingsSpeech = viewModel.settingsMicrophone()
+
+            if (settingsSpeech) {
+                speechPermission()
+            }
+        }
+
+        binding.settings.setOnClickListener {
+            val intent = Intent(context, SettingsActivity::class.java)
+            context?.startActivity(intent)
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
