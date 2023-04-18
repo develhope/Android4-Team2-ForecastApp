@@ -33,13 +33,12 @@
 
                 <TextView
                     android:id="@+id/homeCardDayText"
-
                     style="@style/num_Card_Home"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.9"
                     android:text="@string/home_card_day_of_week"
-                    android:textSize="@dimen/text_norm_dimensions_card_info"
+                    android:textSize="@dimen/text_homeCard_day"
                     />
 
                 <TextView
