@@ -1,6 +1,5 @@
 package co.develhope.meteoapp.ui
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,12 +10,8 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import co.develhope.meteoapp.App
-import co.develhope.meteoapp.Data
-import co.develhope.meteoapp.Prefs
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.ActivityMainBinding
-import co.develhope.meteoapp.ui.utils.permissionAll
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,8 +25,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navView: BottomNavigationView = binding.navView
-        val permission = permissionAll(this)
-        permission.start()
+
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_main)

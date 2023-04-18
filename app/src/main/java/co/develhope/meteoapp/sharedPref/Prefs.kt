@@ -1,4 +1,4 @@
-package co.develhope.meteoapp
+package co.develhope.meteoapp.sharedPref
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,7 +7,7 @@ import co.develhope.meteoapp.networking.domainmodel.Place
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-class Prefs(context: Context) {
+class Prefs(context: Context) : PrefsInterface {
 
     private val CITY_SEARCHED = "city"
     private val HOME_INFO = "home"
@@ -28,7 +28,7 @@ class Prefs(context: Context) {
         Context.MODE_PRIVATE
     )
 
-    fun saveMyCityObject(place: Place) {
+    override fun saveMyCityObject(place: Place) {
         val editor = citySearchedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(place)
@@ -36,13 +36,13 @@ class Prefs(context: Context) {
         editor.apply()
     }
 
-    fun getMyCityObject(): Place? {
+    override fun getMyCityObject(): Place? {
         val gson = Gson()
         val json = citySearchedPreferences.getString(CITY_SEARCHED, null)
         return gson.fromJson(json, Place::class.java)
     }
 
-    fun saveMyHomeObject(home: HomeCardInfo) {
+    override fun saveMyHomeObject(home: HomeCardInfo) {
         val editor = homeInfoPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(home)
@@ -50,13 +50,14 @@ class Prefs(context: Context) {
         editor.apply()
     }
 
-    fun getMyHomeObject(): HomeCardInfo? {
+    override fun getMyHomeObject(): HomeCardInfo? {
         val gson = Gson()
         val json = homeInfoPreferences.getString(HOME_INFO, null)
         return gson.fromJson(json, HomeCardInfo::class.java)
     }
 
-    fun saveMyListCityObject(listPlace: MutableList<Place?>) {
+    override fun saveMyListCityObject(place: Place) {
+        val listPlace = addInfo(place)
         val editor = listCitySearchedPreferences.edit()
         val gson = Gson()
         val json = gson.toJson(listPlace)
@@ -64,7 +65,7 @@ class Prefs(context: Context) {
         editor.apply()
     }
 
-    fun getMyListCityObject(): MutableList<Place?> {
+    override fun getMyListCityObject(): MutableList<Place?> {
         val gson = Gson()
         val json = listCitySearchedPreferences.getString(LIST_CITY_SEARCHED, null)
         val type = object : TypeToken<List<Place?>>() {}.type
@@ -72,7 +73,7 @@ class Prefs(context: Context) {
             ?: mutableListOf()
     }
 
-    fun addInfo(place: Place?): MutableList<Place?> {
+     private fun addInfo(place: Place): List<Place?> {
         val listCityInfo = getMyListCityObject()
         if (listCityInfo.contains(place)) {
             return listCityInfo

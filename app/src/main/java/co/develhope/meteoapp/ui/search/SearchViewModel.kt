@@ -22,7 +22,7 @@ class SearchViewModel : ViewModel() {
 
     fun prefsSett(place: Place){
         prefs.saveMyCityObject(place)
-        prefs.saveMyListCityObject(prefs.addInfo(place))
+        prefs.saveMyListCityObject(place)
     }
     fun getCityList() : MutableList<Place?>{
         return prefs.getMyListCityObject()

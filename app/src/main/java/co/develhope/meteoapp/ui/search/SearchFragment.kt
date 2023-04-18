@@ -1,6 +1,7 @@
 package co.develhope.meteoapp.ui.search
 
 import android.Manifest
+import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -21,8 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
-import co.develhope.meteoapp.prefs
-import co.develhope.meteoapp.ui.utils.permissionAll
 import java.util.*
 
 
@@ -58,17 +57,7 @@ class SearchFragment : Fragment() {
         }
 
         binding.btnToSpeech.setOnClickListener {
-            if (context?.let { it1 ->
-                    ActivityCompat.checkSelfPermission(
-                        it1, Manifest.permission.RECORD_AUDIO
-                    )
-                } != PackageManager.PERMISSION_GRANTED
-            ) {
-               val buttonToSpeech = binding.btnToSpeech
-                buttonToSpeech.visibility = View.GONE
-            } else {
-                speechToText()
-            }
+            speechPermission()
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
@@ -151,11 +140,28 @@ class SearchFragment : Fragment() {
     }
 
 
-    private fun addCard(list: MutableList<Place?>){
+    private fun addCard(list: MutableList<Place?>) {
         list.reverse()
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
             viewModel.getCityObj(it)
             findNavController().navigate(R.id.navigation_home)
+        }
+    }
+
+    private fun speechPermission(){
+        if (context?.let { it1 ->
+                ActivityCompat.checkSelfPermission(
+                    it1, Manifest.permission.RECORD_AUDIO
+                )
+            } != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                context as Activity,
+                arrayOf(Manifest.permission.RECORD_AUDIO),
+                REQUEST_CODE_SPEECH_INPUT
+            )
+        } else {
+            speechToText()
         }
     }
 }
