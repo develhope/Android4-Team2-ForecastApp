@@ -2,6 +2,7 @@ package co.develhope.meteoapp.sharedPref
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.preference.PreferenceManager
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import co.develhope.meteoapp.networking.domainmodel.Place
 import com.google.gson.Gson
@@ -12,6 +13,10 @@ class Prefs(context: Context) : PrefsInterface {
     private val CITY_SEARCHED = "city"
     private val HOME_INFO = "home"
     private val LIST_CITY_SEARCHED = "list"
+    private val SETTINGS = "enable_microphone_permission"
+
+    private val sharedPermission : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(
+        context)
 
     private val citySearchedPreferences: SharedPreferences = context.getSharedPreferences(
         CITY_SEARCHED,
@@ -87,4 +92,8 @@ class Prefs(context: Context) : PrefsInterface {
             return listCityInfo
         }
     }
+
+    var isGaranted: Boolean
+        get() = sharedPermission.getBoolean(SETTINGS, false)
+        set(value) = sharedPermission.edit().putBoolean(SETTINGS, value).apply()
 }
