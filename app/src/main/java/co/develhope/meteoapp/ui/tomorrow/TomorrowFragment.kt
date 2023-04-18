@@ -9,11 +9,9 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
-import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.utils.firstAccess
 import org.threeten.bp.OffsetDateTime
 
@@ -83,8 +81,8 @@ class TomorrowFragment : Fragment() {
         listTomorrow.add(
             TomorrowScreenData.TSTitle(
                 TomorrowTitle(
-                    prefs.getMyCityObject()?.city,
-                    prefs.getMyCityObject()?.region,
+                    viewModel.citySharedPrefTom(),
+                    viewModel.regionSharedPrefTom(),
                     OffsetDateTime.now().plusDays(1)
                 )
             )

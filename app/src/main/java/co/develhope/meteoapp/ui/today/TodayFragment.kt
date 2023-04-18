@@ -78,8 +78,8 @@ class TodayFragment : Fragment() {
         listToday.add(
             TodayScreenData.TodayScreenTitle(
                 TodayTitleData(
-                    prefs.getMyCityObject()?.city,
-                    prefs.getMyCityObject()?.region,
+                    viewModel.citySharedPrefToday(),
+                    viewModel.regionSharedPrefToday(),
                     OffsetDateTime.now()
                 )
             )

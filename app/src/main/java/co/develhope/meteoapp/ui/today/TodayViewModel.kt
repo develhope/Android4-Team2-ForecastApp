@@ -33,10 +33,16 @@ class TodayViewModel : ViewModel() {
                 }
             } catch (e: Exception) {
                 _todayLiveData.value = e.message?.let { TodayState.Error(e) }
-
             }
-
         }
 
+    }
+
+    fun citySharedPrefToday() : String? {
+        return prefs.getMyCityObject()?.city
+    }
+
+    fun regionSharedPrefToday() : String? {
+        return prefs.getMyCityObject()?.region
     }
 }
