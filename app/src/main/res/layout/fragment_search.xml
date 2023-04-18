@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_screen"
     tools:context=".ui.search.SearchFragment"
     android:orientation="vertical">
+
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="43dp"
+        android:layout_height="43dp"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:background="@color/background_screen"
+        android:contentDescription="@string/settingsimage"
+        android:scaleType="fitXY"
+        android:src="@drawable/settings" />
 
     <SearchView
         android:id="@+id/SearchBarSearchFrag"
@@ -40,7 +52,6 @@
         android:textSize="@dimen/search_frag_text_size_recent_research"
         android:textStyle="bold" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewSearchFrag"
         android:layout_width="match_parent"
@@ -50,5 +61,6 @@
         android:layout_marginEnd="@dimen/universal_margin_dx_sx"
         android:paddingBottom="@dimen/search_frag_rv_padding_bottom"
         tools:listitem="@layout/search_fragment_card" />
+
 
 </LinearLayout>

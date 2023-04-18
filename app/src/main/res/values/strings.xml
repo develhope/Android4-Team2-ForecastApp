@@ -76,4 +76,22 @@
     <string name="search_frag_card_region">Sicilia</string>
     <string name="choosen_day_text">Giorno :</string>
     <string name="tomorrow_title_text">Domani,</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Permission</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Microphone permission</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="settingsimage">settingsImage</string>
+    <string name="settingsTitle">Settings</string>
 </resources>

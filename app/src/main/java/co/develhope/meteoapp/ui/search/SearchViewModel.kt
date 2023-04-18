@@ -1,5 +1,12 @@
 package co.develhope.meteoapp.ui.search
 
+import android.Manifest
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.speech.RecognizerIntent
+import android.util.Log
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,11 +16,17 @@ import co.develhope.meteoapp.prefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.util.*
 
 class SearchViewModel : ViewModel() {
+
     private var _searchStateLiveData = MutableLiveData<SearchState>()
     val searchStateLiveData: LiveData<SearchState>
         get() = _searchStateLiveData
+
+    fun settingsMicrophone() : Boolean {
+        return prefs.isGaranted
+    }
 
     fun sendingCity(input: SearchEvents) =
         when (input) {
@@ -32,7 +45,6 @@ class SearchViewModel : ViewModel() {
             prefs.saveMyCityObject(place)
         }
     }
-
 
     private fun retrieveSearchRepos(city: String?) {
         CoroutineScope(Dispatchers.Main).launch {
