@@ -15,17 +15,13 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
-import co.develhope.meteoapp.prefs
-import java.security.Permission
 import java.util.*
 
 
@@ -48,7 +44,6 @@ class SearchFragment : Fragment() {
     ): View {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -62,17 +57,7 @@ class SearchFragment : Fragment() {
         }
 
         binding.btnToSpeech.setOnClickListener {
-            if (context?.let { it1 ->
-                    ActivityCompat.checkSelfPermission(
-                        it1, Manifest.permission.RECORD_AUDIO
-                    )
-                } != PackageManager.PERMISSION_GRANTED
-            ) {
-               val buttonToSpeech = binding.btnToSpeech
-                buttonToSpeech.visibility = View.GONE
-            } else {
-                speechToText()
-            }
+            speechPermission()
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
@@ -80,7 +65,7 @@ class SearchFragment : Fragment() {
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(mutableListOf()) {}
 
-        addCard(prefs.getMyListCityObject())
+        addCard(viewModel.getCityList())
 
         searchingCity()
         observerViewModel()
@@ -137,11 +122,10 @@ class SearchFragment : Fragment() {
     }
 
 
-    fun createUISearch(list: List<Place?>) {
+    private fun createUISearch(list: List<Place?>) {
         val newlist = ArrayList(list)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(newlist) {
-            prefs.saveMyCityObject(it)
-            prefs.saveMyListCityObject(prefs.addInfo(it))
+            viewModel.prefsSett(it)
             findNavController().navigate(R.id.navigation_home)
         }
     }
@@ -155,10 +139,29 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun addCard(list: MutableList<Place?>){
+
+    private fun addCard(list: MutableList<Place?>) {
+        list.reverse()
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
-            prefs.saveMyCityObject(it)
+            viewModel.getCityObj(it)
             findNavController().navigate(R.id.navigation_home)
+        }
+    }
+
+    private fun speechPermission(){
+        if (context?.let { it1 ->
+                ActivityCompat.checkSelfPermission(
+                    it1, Manifest.permission.RECORD_AUDIO
+                )
+            } != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                context as Activity,
+                arrayOf(Manifest.permission.RECORD_AUDIO),
+                REQUEST_CODE_SPEECH_INPUT
+            )
+        } else {
+            speechToText()
         }
     }
 }

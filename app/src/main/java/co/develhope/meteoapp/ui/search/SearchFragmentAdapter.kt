@@ -31,8 +31,6 @@ class SearchFragmentAdapter(var list: MutableList<Place?>, private val onClick: 
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Place , onClick: (Place) -> Unit) {
             "${item.city}, ${item.region}".also { binding.searchedCity.text = it }
-            binding.weatherCondition.text = item.weather
-            "${item.temperature}°".also { binding.cityTemperature.text = it }
             binding.searchCard.setOnClickListener {
                 onClick(item)
             }

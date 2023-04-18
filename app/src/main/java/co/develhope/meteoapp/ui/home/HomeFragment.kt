@@ -10,11 +10,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentHomeBinding
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
-import co.develhope.meteoapp.prefs
 import co.develhope.meteoapp.ui.home.adapter.Home5NextDays
 import co.develhope.meteoapp.ui.home.adapter.HomeFragmentAdapter
 import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
@@ -24,29 +22,20 @@ import co.develhope.meteoapp.ui.utils.updateWidget
 import org.threeten.bp.OffsetDateTime
 
 class HomeFragment : Fragment() {
-
-
     private var _binding: FragmentHomeBinding? = null
     private val viewModel: HomeViewModel by viewModels()
-
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         return binding.root
-
     }
-
-
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -87,7 +76,7 @@ class HomeFragment : Fragment() {
     private fun createUI(cardList: List<HomeCardInfo>) {
         val listToShow = createHomeScreenItems(cardList)
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
-            prefs.saveMyHomeObject(it)
+            viewModel.savePrefHome(it)
 
             val choosenFragment: Int =
                 when {
@@ -101,8 +90,8 @@ class HomeFragment : Fragment() {
                 }
             findNavController().navigate(choosenFragment)
             updateWidget(
-                requireContext(), prefs.getMyCityObject()?.city, prefs.getMyCityObject()?.region,
-                prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
+                requireContext(), viewModel.getCityName(), viewModel.getCityRegion(),
+                viewModel.getHomeWeather(), viewModel.getHomeTemp()
             )
         }
     }
@@ -111,22 +100,17 @@ class HomeFragment : Fragment() {
         list.add(
             HomeScreenParts.Title(
                 HomeTitle(
-                    prefs.getMyCityObject()?.city,
-                    prefs.getMyCityObject()?.region
+                    viewModel.getCityName(),
+                    viewModel.getCityRegion()
                 )
             )
         )
         list.add(HomeScreenParts.Card(weeklyWeather.first()))
-        list.add(HomeScreenParts.Next5DaysString(Home5NextDays("PROSSIMI 5 GIORNI")))
+        list.add(HomeScreenParts.Next5DaysString(Home5NextDays("PROSSIMI GIORNI")))
 
         val cleanedList = weeklyWeather.drop(1)
         cleanedList.map {
             list.add(HomeScreenParts.Card(it))
-            updateWidget(
-                requireContext(), prefs.getMyCityObject()?.city, prefs.getMyCityObject()?.region,
-                prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
-            )
-
         }
         return list
     }
@@ -134,8 +118,8 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateWidget(
-            requireContext(), prefs.getMyCityObject()?.city, prefs.getMyCityObject()?.region,
-            prefs.getMyHomeObject()?.weather, prefs.getMyHomeObject()?.maxTemp
+            requireContext(),  viewModel.getCityName(), viewModel.getCityRegion(),
+            viewModel.getHomeWeather(), viewModel.getHomeTemp()
         )
     }
 
