@@ -18,7 +18,7 @@ sealed class ChoosenDayState {
     object Message : ChoosenDayState()
 }
 
-class ChoosenDayViewModel(val prefs: PrefsInterface) : ViewModel() {
+class ChoosenDayViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
 
     private var _choosenDayEventLiveData = MutableLiveData<ChoosenDayState>()
     val choosenDayEventLiveData: LiveData<ChoosenDayState>
@@ -37,7 +37,7 @@ class ChoosenDayViewModel(val prefs: PrefsInterface) : ViewModel() {
     fun retrieveReposChoosen() {
         if(prefs.getMyCityObject() != null) {
             CoroutineScope(Dispatchers.Main).launch {
-                val result = Data().getDailyWeather(
+                val result = data.getDailyWeather(
                     prefs.getMyCityObject()?.latitude,
                     prefs.getMyCityObject()?.longitude
                 )

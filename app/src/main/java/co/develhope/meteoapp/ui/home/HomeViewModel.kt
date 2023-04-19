@@ -10,7 +10,7 @@ import co.develhope.meteoapp.networking.domainmodel.Weather
 import co.develhope.meteoapp.sharedPref.PrefsInterface
 import kotlinx.coroutines.launch
 
-class HomeViewModel(val prefs: PrefsInterface) : ViewModel() {
+class HomeViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
     private var _homeStateLiveData = MutableLiveData<HomeState>()
     val homeStateLiveData: LiveData<HomeState>
         get() = _homeStateLiveData
@@ -36,7 +36,7 @@ class HomeViewModel(val prefs: PrefsInterface) : ViewModel() {
         viewModelScope.launch {
             try {
                 if (prefs.getMyCityObject() != null) {
-                    val result = Data().getWeeklyWeather(
+                    val result = data.getWeeklyWeather(
                         prefs.getMyCityObject()?.latitude,
                         prefs.getMyCityObject()?.longitude
                     )

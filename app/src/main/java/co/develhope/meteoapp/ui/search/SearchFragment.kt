@@ -51,6 +51,7 @@ class SearchFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val window = activity?.window
         if (window != null) {
             window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
@@ -60,6 +61,8 @@ class SearchFragment : Fragment() {
         binding.btnToSpeech.setOnClickListener {
             speechPermission()
         }
+
+        isButtonVisible()
 
         binding.settings.setOnClickListener {
             val intent = Intent(context, SettingsActivity::class.java)

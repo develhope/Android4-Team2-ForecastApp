@@ -15,7 +15,7 @@ sealed class TomorrowState {
     object Message : TomorrowState()
 }
 
-class TomorrowViewModel(val prefs: PrefsInterface) : ViewModel() {
+class TomorrowViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
 
     private var _tomorrowEventLiveData = MutableLiveData<TomorrowState>()
     val tomorrowEventLiveData: LiveData<TomorrowState>
@@ -25,7 +25,7 @@ class TomorrowViewModel(val prefs: PrefsInterface) : ViewModel() {
         viewModelScope.launch {
             try {
                 if (prefs.getMyCityObject() != null) {
-                    val result = Data().getDailyWeather(
+                    val result = data.getDailyWeather(
                         prefs.getMyCityObject()?.latitude,
                         prefs.getMyCityObject()?.longitude
                     )
