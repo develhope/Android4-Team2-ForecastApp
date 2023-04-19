@@ -10,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class SearchViewModel(val prefs: PrefsInterface) : ViewModel() {
+class SearchViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
     private var _searchStateLiveData = MutableLiveData<SearchState>()
     val searchStateLiveData: LiveData<SearchState>
         get() = _searchStateLiveData
@@ -40,7 +40,7 @@ class SearchViewModel(val prefs: PrefsInterface) : ViewModel() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _searchStateLiveData.value = SearchState.Success(
-                    Data().getSearchData(city)
+                    data.getSearchData(city)
                 )
             } catch (e: Exception) {
                 _searchStateLiveData.value = SearchState.Error(e)

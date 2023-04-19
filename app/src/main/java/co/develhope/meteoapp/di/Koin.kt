@@ -1,9 +1,9 @@
 package co.develhope.meteoapp.di
 
 import android.content.Context
+import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.sharedPref.Prefs
 import co.develhope.meteoapp.sharedPref.PrefsInterface
-import co.develhope.meteoapp.ui.choosenDay.AdapterChoosenDay
 import co.develhope.meteoapp.ui.choosenDay.ChoosenDayViewModel
 import co.develhope.meteoapp.ui.home.HomeViewModel
 import co.develhope.meteoapp.ui.search.SearchViewModel
@@ -16,16 +16,21 @@ import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { HomeViewModel(get()) }
-    viewModel { TomorrowViewModel(get()) }
-    viewModel { TodayViewModel(get()) }
-    viewModel { SearchViewModel(get()) }
-    viewModel { ChoosenDayViewModel(get()) }
+    viewModel { HomeViewModel(get(),get()) }
+    viewModel { TomorrowViewModel(get(),get()) }
+    viewModel { TodayViewModel(get(),get()) }
+    viewModel { SearchViewModel(get(),get()) }
+    viewModel { ChoosenDayViewModel(get(),get()) }
 }
 
 val prefsModule = module {
     single<PrefsInterface> {
         Prefs(get())
+    }
+}
+val dataModule = module {
+    single {
+        Data()
     }
 }
 
@@ -35,7 +40,7 @@ fun startKoin(context: Context) {
         androidContext(context)
         modules(
             listOf(
-                viewModelModule, prefsModule
+                viewModelModule, prefsModule, dataModule
             )
         )
     }

@@ -9,7 +9,7 @@ import co.develhope.meteoapp.sharedPref.PrefsInterface
 import kotlinx.coroutines.launch
 
 
-class TodayViewModel(val prefs:PrefsInterface) : ViewModel() {
+class TodayViewModel(val prefs:PrefsInterface,val data: Data) : ViewModel() {
 
     private var _todayLiveData = MutableLiveData<TodayState>()
     val result: LiveData<TodayState>
@@ -21,7 +21,7 @@ class TodayViewModel(val prefs:PrefsInterface) : ViewModel() {
 
             try {
                 if (prefs.getMyCityObject() != null) {
-                    val result = Data().getDailyWeather(
+                    val result = data.getDailyWeather(
                         prefs.getMyCityObject()?.latitude,
                         prefs.getMyCityObject()?.longitude
                     )
