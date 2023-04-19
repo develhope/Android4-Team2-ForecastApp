@@ -55,21 +55,17 @@ class SearchFragment : Fragment() {
         if (window != null) {
             window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
             window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
-
         }
-
+        isButtonVisible()
         binding.btnToSpeech.setOnClickListener {
-            val settingsSpeech = viewModel.settingsMicrophone()
-
-            if (settingsSpeech) {
-                speechPermission()
-            }
+            speechPermission()
         }
 
         binding.settings.setOnClickListener {
             val intent = Intent(context, SettingsActivity::class.java)
             context?.startActivity(intent)
         }
+
 
         binding.recyclerViewSearchFrag.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -80,6 +76,12 @@ class SearchFragment : Fragment() {
 
         searchingCity()
         observerViewModel()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isButtonVisible()
+
     }
 
     @Deprecated("Deprecated in Java")
@@ -159,7 +161,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun speechPermission(){
+    private fun speechPermission() {
         if (context?.let { it1 ->
                 ActivityCompat.checkSelfPermission(
                     it1, Manifest.permission.RECORD_AUDIO
@@ -173,6 +175,15 @@ class SearchFragment : Fragment() {
             )
         } else {
             speechToText()
+        }
+    }
+
+    private fun isButtonVisible() {
+        val settingsSpeech = viewModel.settingsMicrophone()
+        if (settingsSpeech) {
+            binding.btnToSpeech.visibility = View.VISIBLE
+        } else {
+            binding.btnToSpeech.visibility = View.GONE
         }
     }
 }

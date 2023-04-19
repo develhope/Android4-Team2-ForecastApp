@@ -24,9 +24,11 @@ class SearchViewModel(val prefs: PrefsInterface) : ViewModel() {
         prefs.saveMyCityObject(place)
         prefs.saveMyListCityObject(place)
     }
+
     fun getCityList() : MutableList<Place?>{
         return prefs.getMyListCityObject()
     }
+
     fun getCityObj(place: Place?){
         if (place != null) {
             prefs.saveMyCityObject(place)
