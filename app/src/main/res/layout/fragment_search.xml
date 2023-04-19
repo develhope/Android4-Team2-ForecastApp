@@ -17,7 +17,7 @@
         android:background="@color/background_screen"
         android:contentDescription="@string/settingsimage"
         android:scaleType="fitXY"
-        android:src="@drawable/settings" />
+        android:src="@drawable/options" />
 
     <SearchView
         android:id="@+id/SearchBarSearchFrag"
@@ -34,10 +34,12 @@
         android:searchIcon="@drawable/search" />
     <ImageButton
         android:id="@+id/btn_to_speech"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="@dimen/search_frag_card_margin_top_cv"
-        android:src="@android:drawable/ic_btn_speak_now"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/voice"
+        android:scaleType="fitXY"
+        android:background="@color/background_screen"
         android:layout_gravity="center_horizontal"
         android:contentDescription="@string/button_to_speech" />
 
@@ -46,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/universal_margin_dx_sx"
-        android:layout_marginTop="@dimen/universal_margin_dx_sx"
+        android:layout_marginTop="20dp"
         android:text="@string/recent_research_search_fragment"
         android:textColor="@color/search_fragment_recent_research"
         android:textSize="@dimen/search_frag_text_size_recent_research"
