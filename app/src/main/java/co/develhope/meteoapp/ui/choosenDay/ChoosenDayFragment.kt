@@ -9,12 +9,14 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentChoosenDayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import co.develhope.meteoapp.ui.MainActivity
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.threeten.bp.OffsetDateTime
 
@@ -25,12 +27,12 @@ class ChoosenDayFragment : Fragment() {
     private val viewModel: ChoosenDayViewModel by inject()
 
     override fun onCreateView(
-        inflater: LayoutInflater ,
-        container: ViewGroup? ,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentChoosenDayBinding.inflate(inflater , container , false)
+        _binding = FragmentChoosenDayBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -59,8 +61,8 @@ class ChoosenDayFragment : Fragment() {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    override fun onViewCreated(view: View , savedInstanceState: Bundle?) {
-        super.onViewCreated(view , savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         val window = activity?.window
         if (window != null) {
             (activity as MainActivity).showBottomNavigation(false)
@@ -70,30 +72,32 @@ class ChoosenDayFragment : Fragment() {
 
         }
 
-        val layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL , false)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.rvChoosendayScreen.layoutManager = layoutManager
-        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(emptyList(),viewModel.prefs)
+        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(emptyList(), viewModel.prefs)
 
         observeChoosenRepos()
         viewModel.retrieveReposChoosen()
     }
 
-    private fun createChoosenDayUI(listUI: List<ForecastData>){
+    private fun createChoosenDayUI(listUI: List<ForecastData>) {
         val chooseListToShow = createChoosenScreenItems(listUI)
-        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(chooseListToShow,viewModel.prefs)
+        binding.rvChoosendayScreen.adapter = AdapterChoosenDay(chooseListToShow, viewModel.prefs)
     }
 
-    private fun observeChoosenRepos(){
-        viewModel.choosenDayEventLiveData.observe(viewLifecycleOwner){
-            when(it) {
-                is ChoosenDayState.Success -> createChoosenDayUI(it.list)
-                is ChoosenDayState.Message -> errorMessage()
-                is ChoosenDayState.Error -> findNavController().navigate(R.id.navigation_error)
+    private fun observeChoosenRepos() {
+        lifecycleScope.launch {
+            viewModel.choosenDayEventLiveData.collect {
+                when (it) {
+                    is ChoosenDayState.Success -> createChoosenDayUI(it.list)
+                    is ChoosenDayState.Message -> errorMessage()
+                    is ChoosenDayState.Error -> findNavController().navigate(R.id.navigation_error)
+                }
             }
         }
     }
 
-    private fun errorMessage(){
+    private fun errorMessage() {
         findNavController().navigate(R.id.navigation_search)
         Toast.makeText(
             requireContext(),

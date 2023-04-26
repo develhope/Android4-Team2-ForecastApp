@@ -16,11 +16,11 @@ import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    viewModel { HomeViewModel(get(),get()) }
-    viewModel { TomorrowViewModel(get(),get()) }
-    viewModel { TodayViewModel(get(),get()) }
-    viewModel { SearchViewModel(get(),get()) }
-    viewModel { ChoosenDayViewModel(get(),get()) }
+    viewModel { HomeViewModel(get(),get())}
+    viewModel { TomorrowViewModel(get(),get())}
+    viewModel { TodayViewModel(get(),get())}
+    viewModel { SearchViewModel(get(),get())}
+    viewModel { ChoosenDayViewModel(get(),get())}
 }
 
 val prefsModule = module {

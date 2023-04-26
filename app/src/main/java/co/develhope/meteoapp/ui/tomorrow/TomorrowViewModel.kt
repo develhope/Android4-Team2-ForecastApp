@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import co.develhope.meteoapp.sharedPref.PrefsInterface
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 sealed class TomorrowState {
@@ -17,9 +18,8 @@ sealed class TomorrowState {
 
 class TomorrowViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
 
-    private var _tomorrowEventLiveData = MutableLiveData<TomorrowState>()
-    val tomorrowEventLiveData: LiveData<TomorrowState>
-        get() = _tomorrowEventLiveData
+     val tomorrowEventLiveData = MutableSharedFlow<TomorrowState>()
+
 
     fun retrieveReposTomorrow() {
         viewModelScope.launch {
@@ -29,12 +29,13 @@ class TomorrowViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() 
                         prefs.getMyCityObject()?.latitude,
                         prefs.getMyCityObject()?.longitude
                     )
-                    _tomorrowEventLiveData.value = result.let { it?.let { it1 -> TomorrowState.Success(it1) } }
+                    result.let { it?.let { it1 -> TomorrowState.Success(it1) } }
+                        ?.let { tomorrowEventLiveData.emit(it) }
                 } else {
-                    _tomorrowEventLiveData.value = TomorrowState.Message
+                    tomorrowEventLiveData.emit(TomorrowState.Message)
                 }
             } catch (e: Exception) {
-                _tomorrowEventLiveData.value = e.message?.let { TomorrowState.Error(e) }
+                e.message?.let { TomorrowState.Error(e) }?.let { tomorrowEventLiveData.emit(it) }
             }
         }
     }

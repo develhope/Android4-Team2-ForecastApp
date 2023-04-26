@@ -7,11 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTodayBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import co.develhope.meteoapp.ui.utils.firstAccess
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.threeten.bp.OffsetDateTime
 
@@ -55,35 +57,43 @@ class TodayFragment : Fragment() {
 
 
     private fun observeTodayRepos() {
-        viewModel.result.observe(viewLifecycleOwner) {
-            when (it) {
-                is TodayState.Success -> createTodayUI(it.repos)
-                is TodayState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
-                is TodayState.Message -> context?.let { it1 ->
-                    view?.let { it2 ->
-                        firstAccess(
-                            it2,
+        lifecycleScope.launch {
+            viewModel.todayLiveData.collect {
+                when (it) {
+                    is TodayState.Success -> createTodayUI(it.repos)
+                    is TodayState.Error -> view?.let { it1 ->
+                        co.develhope.meteoapp.ui.utils.error(
                             it1
                         )
                     }
-                }
+                    is TodayState.Message -> context?.let { it1 ->
+                        view?.let { it2 ->
+                            firstAccess(
+                                it2,
+                                it1
+                            )
+                        }
+                    }
 
+                }
             }
         }
     }
+
     private fun createTodayScreenItems(dailyWeather: List<ForecastData>): List<TodayScreenData> {
         val listToday = ArrayList<TodayScreenData>()
+        val now = OffsetDateTime.now()
         listToday.add(
             TodayScreenData.TodayScreenTitle(
                 TodayTitleData(
                     viewModel.citySharedPrefToday(),
                     viewModel.regionSharedPrefToday(),
-                    OffsetDateTime.now()
+                    now
                 )
             )
         )
         val todayWeather =
-            dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear }
+            dailyWeather.filter { it.date.dayOfYear == OffsetDateTime.now().dayOfYear && it.date.hour >= OffsetDateTime.now().hour}
         if (todayWeather.isNotEmpty()) {
             todayWeather.forEach {
                 listToday.add(TodayScreenData.TodayScreenCard(it))
@@ -96,6 +106,5 @@ class TodayFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-
+    //TEST
 }
