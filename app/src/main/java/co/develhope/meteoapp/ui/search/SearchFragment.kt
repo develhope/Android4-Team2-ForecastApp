@@ -16,12 +16,14 @@ import android.widget.SearchView
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.SettingsActivity
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
+import kotlinx.coroutines.launch
 import kotlinx.serialization.descriptors.PrimitiveKind
 import org.koin.android.ext.android.inject
 import java.util.*
@@ -147,10 +149,12 @@ class SearchFragment : Fragment() {
     }
 
     fun observerViewModel() {
-        viewModel.searchStateLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                is SearchState.Success -> createUISearch(it.list)
-                is SearchState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
+        lifecycleScope.launch {
+            viewModel.searchStateLiveData.collect{
+                when (it) {
+                    is SearchState.Success -> createUISearch(it.list)
+                    is SearchState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
+                }
             }
         }
     }

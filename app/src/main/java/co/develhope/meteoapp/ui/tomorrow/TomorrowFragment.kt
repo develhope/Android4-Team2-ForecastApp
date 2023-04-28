@@ -8,11 +8,13 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.FragmentTomorrowBinding
 import co.develhope.meteoapp.networking.domainmodel.ForecastData
 import co.develhope.meteoapp.ui.utils.firstAccess
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.threeten.bp.OffsetDateTime
 
@@ -58,22 +60,24 @@ class TomorrowFragment : Fragment() {
     }
 
     private fun observeTomorrowRepos() {
-        viewModel.tomorrowEventLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                is TomorrowState.Success -> createTomorrowUI(it.list)
-                is TomorrowState.Error -> view?.let { it1 ->
-                    co.develhope.meteoapp.ui.utils.error(
-                        it1
-                    )
-                }
-                is TomorrowState.Message -> context?.let { it1 ->
-                    view?.let { it2 ->
-                        firstAccess(
-                            it2, it1
+        lifecycleScope.launch {
+            viewModel.tomorrowEventLiveData.collect {
+                when (it) {
+                    is TomorrowState.Success -> createTomorrowUI(it.list)
+                    is TomorrowState.Error -> view?.let { it1 ->
+                        co.develhope.meteoapp.ui.utils.error(
+                            it1
                         )
                     }
-                }
+                    is TomorrowState.Message -> context?.let { it1 ->
+                        view?.let { it2 ->
+                            firstAccess(
+                                it2, it1
+                            )
+                        }
+                    }
 
+                }
             }
         }
     }
