@@ -6,31 +6,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.sharedPref.PrefsInterface
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 
 class TodayViewModel(val prefs:PrefsInterface,val data: Data) : ViewModel() {
 
-    private var _todayLiveData = MutableLiveData<TodayState>()
-    val result: LiveData<TodayState>
-        get() = _todayLiveData
-
+    var todayLiveData = MutableSharedFlow<TodayState>()
 
     fun retrieveReposToday() {
         viewModelScope.launch {
-
             try {
                 if (prefs.getMyCityObject() != null) {
                     val result = data.getDailyWeather(
                         prefs.getMyCityObject()?.latitude,
                         prefs.getMyCityObject()?.longitude
                     )
-                    _todayLiveData.value = result.let { it?.let { it1 -> TodayState.Success(it1) } }
+                    result.let { it?.let { it1 -> TodayState.Success(it1) } }
+                        ?.let { todayLiveData.emit(it) }
                 } else {
-                    _todayLiveData.value = TodayState.Message
+                    todayLiveData.emit(TodayState.Message)
                 }
             } catch (e: Exception) {
-                _todayLiveData.value = e.message?.let { TodayState.Error(e) }
+                e.message?.let { TodayState.Error(e) }?.let { todayLiveData.emit(it) }
             }
         }
 

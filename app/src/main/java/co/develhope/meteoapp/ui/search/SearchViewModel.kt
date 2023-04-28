@@ -4,18 +4,18 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.Place
 import co.develhope.meteoapp.sharedPref.PrefsInterface
 import co.develhope.meteoapp.ui.utils.GeoLocal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class SearchViewModel(val prefs: PrefsInterface, val data: Data, private val geoLocal: GeoLocal) : ViewModel() {
-    private var _searchStateLiveData = MutableLiveData<SearchState>()
-    val searchStateLiveData: LiveData<SearchState>
-        get() = _searchStateLiveData
+class SearchViewModel(val prefs: PrefsInterface,val data: Data,val geoLocal: GeoLocal) : ViewModel() {
+    var searchStateLiveData = MutableSharedFlow<SearchState>()
 
     fun sendingCity(input: SearchEvents) =
         when (input) {
@@ -42,13 +42,13 @@ class SearchViewModel(val prefs: PrefsInterface, val data: Data, private val geo
 
 
     private fun retrieveSearchRepos(city: String?) {
-        CoroutineScope(Dispatchers.Main).launch {
+        viewModelScope.launch {
             try {
-                _searchStateLiveData.value = SearchState.Success(
+                searchStateLiveData.emit(SearchState.Success(
                     data.getSearchData(city)
-                )
+                ))
             } catch (e: Exception) {
-                _searchStateLiveData.value = SearchState.Error(e)
+                searchStateLiveData.emit(SearchState.Error(e))
             }
         }
     }

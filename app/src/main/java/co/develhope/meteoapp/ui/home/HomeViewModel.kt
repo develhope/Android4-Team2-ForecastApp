@@ -8,12 +8,11 @@ import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
 import co.develhope.meteoapp.networking.domainmodel.Weather
 import co.develhope.meteoapp.sharedPref.PrefsInterface
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
 class HomeViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
-    private var _homeStateLiveData = MutableLiveData<HomeState>()
-    val homeStateLiveData: LiveData<HomeState>
-        get() = _homeStateLiveData
+    var homeStateLiveData = MutableSharedFlow<HomeState>()
 
     fun getCityName() : String?{
         return prefs.getMyCityObject()?.city
@@ -40,12 +39,12 @@ class HomeViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
                         prefs.getMyCityObject()?.latitude,
                         prefs.getMyCityObject()?.longitude
                     )
-                    _homeStateLiveData.value = result?.let { HomeState.Success(it) }
+                    result?.let { HomeState.Success(it) }?.let { homeStateLiveData.emit(it) }
                 } else {
-                    _homeStateLiveData.value = HomeState.FirstOpenFromUser
+                    homeStateLiveData.emit(HomeState.FirstOpenFromUser)
                 }
             } catch (e: Exception) {
-                _homeStateLiveData.value = e.message?.let { HomeState.Error(e) }
+                e.message?.let { HomeState.Error(e) }?.let { homeStateLiveData.emit(it) }
             }
 
         }

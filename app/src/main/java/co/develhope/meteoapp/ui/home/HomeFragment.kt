@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.develhope.meteoapp.R
@@ -19,6 +20,7 @@ import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
 import co.develhope.meteoapp.ui.home.adapter.HomeTitle
 import co.develhope.meteoapp.ui.utils.firstAccess
 import co.develhope.meteoapp.ui.utils.updateWidget
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.threeten.bp.OffsetDateTime
 
@@ -56,21 +58,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        viewModel.homeStateLiveData.observe(viewLifecycleOwner) {
-            when (it) {
-                is HomeState.Success -> createUI(it.list)
-                is HomeState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
-                is HomeState.FirstOpenFromUser -> view?.let { it1 ->
-                    context?.let { it2 ->
-                        firstAccess(
-                            it1,
-                            it2
-                        )
+        lifecycleScope.launch {
+            viewModel.homeStateLiveData.collect {
+                when (it) {
+                    is HomeState.Success -> createUI(it.list)
+                    is HomeState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
+                    is HomeState.FirstOpenFromUser -> view?.let { it1 ->
+                        context?.let { it2 ->
+                            firstAccess(
+                                it1,
+                                it2
+                            )
+                        }
                     }
                 }
-            }
 
+            }
         }
+
     }
 
 
