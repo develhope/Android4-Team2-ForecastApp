@@ -14,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class SearchViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
+class SearchViewModel(val prefs: PrefsInterface,val data: Data,val geoLocal: GeoLocal) : ViewModel() {
     var searchStateLiveData = MutableSharedFlow<SearchState>()
 
     fun sendingCity(input: SearchEvents) =

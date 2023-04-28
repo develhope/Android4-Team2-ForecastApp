@@ -23,6 +23,7 @@ import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
 import co.develhope.meteoapp.ui.utils.GeoLocal
 import co.develhope.meteoapp.ui.utils.permission.speechPermission
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import java.util.*
 
