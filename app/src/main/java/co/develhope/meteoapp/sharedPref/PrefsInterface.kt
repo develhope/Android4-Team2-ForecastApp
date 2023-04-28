@@ -17,5 +17,6 @@ interface PrefsInterface {
 
     fun getMyListCityObject(): MutableList<Place?>
 
-    var isGaranted : Boolean
+    var isGarantedMic : Boolean
+    var isGarantedGeo : Boolean
 }

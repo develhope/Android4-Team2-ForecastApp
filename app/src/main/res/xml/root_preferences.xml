@@ -4,9 +4,16 @@
 
         <SwitchPreferenceCompat
             app:key="enable_microphone_permission"
-            app:defaultValue="false"
+            app:defaultValue="true"
             app:enabled="true"
             app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+            app:key="enable_geolocalisation_permission"
+            app:defaultValue="true"
+            app:enabled="true"
+            app:title="@string/geoLocalTest" />
+
 
     </PreferenceCategory>
 

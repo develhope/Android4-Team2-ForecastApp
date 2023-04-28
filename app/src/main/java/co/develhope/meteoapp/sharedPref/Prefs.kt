@@ -13,7 +13,9 @@ class Prefs(context: Context) : PrefsInterface {
     private val CITY_SEARCHED = "city"
     private val HOME_INFO = "home"
     private val LIST_CITY_SEARCHED = "list"
-    private val SETTINGS = "enable_microphone_permission"
+    private val SETTINGSMIC = "enable_microphone_permission"
+    private val SETTINGSGEO = "enable_geolocalisation_permission"
+
 
     private val sharedPermission: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(
         context
@@ -94,7 +96,11 @@ class Prefs(context: Context) : PrefsInterface {
         }
     }
 
-        override var isGaranted: Boolean
-        get() = sharedPermission.getBoolean(SETTINGS, false)
-        set(value) = sharedPermission.edit().putBoolean(SETTINGS, value).apply()
+        override var isGarantedMic: Boolean
+        get() = sharedPermission.getBoolean(SETTINGSMIC, true)
+        set(value) = sharedPermission.edit().putBoolean(SETTINGSMIC, value).apply()
+
+        override var isGarantedGeo: Boolean
+        get() = sharedPermission.getBoolean(SETTINGSGEO, true)
+        set(value) = sharedPermission.edit().putBoolean(SETTINGSGEO, value).apply()
 }
