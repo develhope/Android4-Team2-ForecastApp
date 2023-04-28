@@ -1,10 +1,8 @@
 package co.develhope.meteoapp.ui.search
 
-import android.Manifest
 import android.app.Activity
-import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.speech.RecognizerIntent
@@ -22,7 +20,8 @@ import co.develhope.meteoapp.R
 import co.develhope.meteoapp.SettingsActivity
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
-import kotlinx.serialization.descriptors.PrimitiveKind
+import co.develhope.meteoapp.ui.utils.GeoLocal
+import co.develhope.meteoapp.ui.utils.permission.speechPermission
 import org.koin.android.ext.android.inject
 import java.util.*
 
@@ -57,18 +56,19 @@ class SearchFragment : Fragment() {
             window.statusBarColor = context?.getColor(R.color.background_screen) ?: 0
             window.decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
         }
-        isButtonVisible()
+
         binding.btnToSpeech.setOnClickListener {
-            speechPermission()
+            speechPermission(requireContext(), REQUEST_CODE_SPEECH_INPUT) { speechToText() }
         }
-
-        isButtonVisible()
-
         binding.settings.setOnClickListener {
             val intent = Intent(context, SettingsActivity::class.java)
             context?.startActivity(intent)
         }
 
+        binding.btnGeoLoc.setOnClickListener {
+            context?.let { it1 -> viewModel.getGeoLocation(it1) }
+            findNavController().navigate(R.id.navigation_home)
+        }
 
         binding.recyclerViewSearchFrag.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -77,21 +77,39 @@ class SearchFragment : Fragment() {
 
         addCard(viewModel.getCityList())
 
+
         searchingCity()
         observerViewModel()
     }
 
     override fun onResume() {
         super.onResume()
-        isButtonVisible()
+        isMicEnabled()
+        isGeoEnabled()
 
     }
-
+    private fun speechToText() {
+        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        intent.putExtra(
+            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+        )
+        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla adesso")
+        try {
+            startActivityForResult(
+                intent,
+                REQUEST_CODE_SPEECH_INPUT
+            )
+        } catch (e: java.lang.Exception) {
+            Log.d("Speech", "Error : ${e.message},${e.cause}")
+        }
+    }
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
-            if (resultCode == RESULT_OK && data != null) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
                 val res: ArrayList<String> =
                     data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
                 binding.SearchBarSearchFrag.setQuery(Objects.requireNonNull(res)[0], false)
@@ -122,22 +140,6 @@ class SearchFragment : Fragment() {
         _binding = null
     }
 
-    private fun speechToText() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        intent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-        )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla adesso")
-        try {
-            startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT)
-        } catch (e: java.lang.Exception) {
-            Log.d("Speech", "Error : ${e.message},${e.cause}")
-        }
-    }
-
-
     private fun createUISearch(list: List<Place?>) {
         val newlist = ArrayList(list)
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(newlist) {
@@ -155,7 +157,6 @@ class SearchFragment : Fragment() {
         }
     }
 
-
     private fun addCard(list: MutableList<Place?>) {
         list.reverse()
         binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
@@ -164,29 +165,20 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun speechPermission() {
-        if (context?.let { it1 ->
-                ActivityCompat.checkSelfPermission(
-                    it1, Manifest.permission.RECORD_AUDIO
-                )
-            } != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                context as Activity,
-                arrayOf(Manifest.permission.RECORD_AUDIO),
-                REQUEST_CODE_SPEECH_INPUT
-            )
-        } else {
-            speechToText()
-        }
-    }
-
-    private fun isButtonVisible() {
+    private fun isMicEnabled() {
         val settingsSpeech = viewModel.settingsMicrophone()
         if (settingsSpeech) {
             binding.btnToSpeech.visibility = View.VISIBLE
         } else {
             binding.btnToSpeech.visibility = View.GONE
+        }
+    }
+    private fun isGeoEnabled(){
+        val settingsGeo = viewModel.settingsGeo()
+        if (settingsGeo){
+            binding.btnGeoLoc.visibility = View.VISIBLE
+        }else{
+            binding.btnGeoLoc.visibility = View.GONE
         }
     }
 }
