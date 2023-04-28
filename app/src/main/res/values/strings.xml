@@ -94,4 +94,5 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="settingsimage">settingsImage</string>
     <string name="settingsTitle">Settings</string>
+    <string name="geoLocalTest">Geolocalisation permission</string>
 </resources>

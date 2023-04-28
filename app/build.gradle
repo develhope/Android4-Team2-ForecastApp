@@ -74,4 +74,6 @@ dependencies {
     //LOTTIE
     def lottieVersion = "3.4.0"
     implementation "com.airbnb.android:lottie:$lottieVersion"
+    //GEOLOCAL
+    implementation "com.google.android.gms:play-services-location:21.0.1"
     }

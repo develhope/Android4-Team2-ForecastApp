@@ -1,5 +1,6 @@
 package co.develhope.meteoapp.ui.search
 
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import co.develhope.meteoapp.Data
 import co.develhope.meteoapp.networking.domainmodel.Place
 import co.develhope.meteoapp.sharedPref.PrefsInterface
+import co.develhope.meteoapp.ui.utils.GeoLocal
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -34,6 +36,9 @@ class SearchViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
             prefs.saveMyCityObject(place)
         }
     }
+    fun getGeoLocation(context: Context){
+        geoLocal.getCurrentPosition(context)
+    }
 
 
     private fun retrieveSearchRepos(city: String?) {
@@ -49,6 +54,9 @@ class SearchViewModel(val prefs: PrefsInterface,val data: Data) : ViewModel() {
     }
 
     fun settingsMicrophone() : Boolean{
-        return prefs.isGaranted
+        return prefs.isGarantedMic
+    }
+    fun settingsGeo() : Boolean{
+        return prefs.isGarantedGeo
     }
 }

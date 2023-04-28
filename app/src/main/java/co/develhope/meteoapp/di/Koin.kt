@@ -9,6 +9,7 @@ import co.develhope.meteoapp.ui.home.HomeViewModel
 import co.develhope.meteoapp.ui.search.SearchViewModel
 import co.develhope.meteoapp.ui.today.TodayViewModel
 import co.develhope.meteoapp.ui.tomorrow.TomorrowViewModel
+import co.develhope.meteoapp.ui.utils.GeoLocal
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -19,7 +20,7 @@ val viewModelModule = module {
     viewModel { HomeViewModel(get(),get()) }
     viewModel { TomorrowViewModel(get(),get()) }
     viewModel { TodayViewModel(get(),get()) }
-    viewModel { SearchViewModel(get(),get()) }
+    viewModel { SearchViewModel(get(),get(),get()) }
     viewModel { ChoosenDayViewModel(get(),get()) }
 }
 
@@ -31,6 +32,9 @@ val prefsModule = module {
 val dataModule = module {
     single {
         Data()
+    }
+    single{
+        GeoLocal(get(),get())
     }
 }
 
