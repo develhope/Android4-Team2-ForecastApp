@@ -22,6 +22,7 @@ import co.develhope.meteoapp.SettingsActivity
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
 import co.develhope.meteoapp.ui.utils.GeoLocal
+import co.develhope.meteoapp.ui.utils.permission.isLocationEnabledGeo
 import co.develhope.meteoapp.ui.utils.permission.speechPermission
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -69,7 +70,9 @@ class SearchFragment : Fragment() {
 
         binding.btnGeoLoc.setOnClickListener {
             context?.let { it1 -> viewModel.getGeoLocation(it1) }
-            findNavController().navigate(R.id.navigation_home)
+            if (context?.let { it1 -> isLocationEnabledGeo(it1) } == true){
+                findNavController().navigate(R.id.navigation_home)
+            }
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
