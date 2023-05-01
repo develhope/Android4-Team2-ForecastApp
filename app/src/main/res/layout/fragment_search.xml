@@ -39,10 +39,10 @@
         android:searchIcon="@drawable/search" />
     <ImageButton
         android:id="@+id/btn_to_speech"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="@dimen/search_frag_margin_top_sv"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="45dp"
         android:src="@drawable/voice"
         android:gravity="center"
         android:scaleType="fitXY"

@@ -22,6 +22,7 @@ import co.develhope.meteoapp.SettingsActivity
 import co.develhope.meteoapp.databinding.FragmentSearchBinding
 import co.develhope.meteoapp.networking.domainmodel.Place
 import co.develhope.meteoapp.ui.utils.GeoLocal
+import co.develhope.meteoapp.ui.utils.permission.isLocationEnabledGeo
 import co.develhope.meteoapp.ui.utils.permission.speechPermission
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -69,18 +70,18 @@ class SearchFragment : Fragment() {
 
         binding.btnGeoLoc.setOnClickListener {
             context?.let { it1 -> viewModel.getGeoLocation(it1) }
-            findNavController().navigate(R.id.navigation_home)
+            if (context?.let { it1 -> isLocationEnabledGeo(it1) } == true){
+                findNavController().navigate(R.id.navigation_home)
+            }
         }
 
         binding.recyclerViewSearchFrag.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(mutableListOf()) {}
-
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(viewModel.getCityList()) {}
         addCard(viewModel.getCityList())
-
-
         searchingCity()
+
         observerViewModel()
     }
 
@@ -88,7 +89,6 @@ class SearchFragment : Fragment() {
         super.onResume()
         isMicEnabled()
         isGeoEnabled()
-
     }
     private fun speechToText() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -122,6 +122,7 @@ class SearchFragment : Fragment() {
     private fun searchingCity() {
         binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
+                Log.d("ERRORE IN SEARCH","QUI POTREBBE ESSERE L'ERRORE")
                 binding.tvRecentSearch.visibility = View.GONE
                 viewModel.sendingCity(SearchEvents.CitySearched(text.toString()))
                 observerViewModel()
@@ -129,9 +130,12 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                binding.tvRecentSearch.visibility = View.GONE
-                viewModel.sendingCity(SearchEvents.CitySearched(newText.toString()))
-                observerViewModel()
+                val trimmedQuery = newText?.trim()
+                if (!trimmedQuery.isNullOrEmpty()) {
+                    binding.tvRecentSearch.visibility = View.GONE
+                    viewModel.sendingCity(SearchEvents.CitySearched(trimmedQuery))
+                    observerViewModel()
+                }
                 return false
             }
         })
