@@ -111,8 +111,9 @@ class TodayScreenAdapter(var items: List<TodayScreenData>) :
     class TodayTitleViewHolder(private val titleFragmentBinding: TodayTitleFragmentBinding) :
         RecyclerView.ViewHolder(titleFragmentBinding.root) {
         fun bind(title: TodayScreenData.TodayScreenTitle) {
-            titleFragmentBinding.todayTitleCity.text = title.todayTitle.city
-            titleFragmentBinding.todayTitleRegion.text = title.todayTitle.region
+            "${title.todayTitle.city}, ${title.todayTitle.region}".also {
+                titleFragmentBinding.todayTitleCity.text = it
+            }
 
             val dateTimeT = title.todayTitle.date
             val offsetDateTimeT =
