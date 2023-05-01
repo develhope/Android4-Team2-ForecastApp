@@ -78,12 +78,10 @@ class SearchFragment : Fragment() {
         binding.recyclerViewSearchFrag.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewSearchFrag.setHasFixedSize(true)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(mutableListOf()) {}
-
+        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(viewModel.getCityList()) {}
         addCard(viewModel.getCityList())
-
-
         searchingCity()
+
         observerViewModel()
     }
 
@@ -91,7 +89,6 @@ class SearchFragment : Fragment() {
         super.onResume()
         isMicEnabled()
         isGeoEnabled()
-
     }
     private fun speechToText() {
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
@@ -125,6 +122,7 @@ class SearchFragment : Fragment() {
     private fun searchingCity() {
         binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(text: String?): Boolean {
+                Log.d("ERRORE IN SEARCH","QUI POTREBBE ESSERE L'ERRORE")
                 binding.tvRecentSearch.visibility = View.GONE
                 viewModel.sendingCity(SearchEvents.CitySearched(text.toString()))
                 observerViewModel()
@@ -132,9 +130,12 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                binding.tvRecentSearch.visibility = View.GONE
-                viewModel.sendingCity(SearchEvents.CitySearched(newText.toString()))
-                observerViewModel()
+                val trimmedQuery = newText?.trim()
+                if (!trimmedQuery.isNullOrEmpty()) {
+                    binding.tvRecentSearch.visibility = View.GONE
+                    viewModel.sendingCity(SearchEvents.CitySearched(trimmedQuery))
+                    observerViewModel()
+                }
                 return false
             }
         })
