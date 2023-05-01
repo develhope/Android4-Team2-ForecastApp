@@ -81,7 +81,7 @@ class Prefs(context: Context) : PrefsInterface {
             ?: mutableListOf()
     }
 
-    private fun addInfo(place: Place): List<Place?> {
+    fun addInfo(place: Place): List<Place?> {
         val listCityInfo = getMyListCityObject()
         if (listCityInfo.contains(place)) {
             return listCityInfo

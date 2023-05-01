@@ -9,7 +9,7 @@
             android:id="@+id/today_titleCity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/today_title_city"
+            android:text="@string/title_tom_city_region"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="16sp"
@@ -17,18 +17,7 @@
             android:layout_marginStart="25dp"
             android:textColor="#230EA5"
             />
-        <TextView
-            android:id="@+id/today_titleRegion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/today_title_region"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/today_titleCity"
-            android:textSize="16sp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="60dp"
-            android:textColor="#230EA5"
-            />
+
         <TextView
             android:id="@+id/today_title"
             android:layout_width="wrap_content"
