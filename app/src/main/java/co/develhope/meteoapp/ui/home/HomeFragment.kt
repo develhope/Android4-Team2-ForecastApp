@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +20,7 @@ import co.develhope.meteoapp.ui.home.adapter.HomeScreenParts
 import co.develhope.meteoapp.ui.home.adapter.HomeTitle
 import co.develhope.meteoapp.ui.utils.firstAccess
 import co.develhope.meteoapp.ui.utils.updateWidget
+import com.github.matteobattilana.weather.PrecipType
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.threeten.bp.OffsetDateTime
@@ -49,14 +50,17 @@ class HomeFragment : Fragment() {
             window.decorView.setSystemUiVisibility(0)
 
         }
-
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.recyclerViewHomeFrag.layoutManager = layoutManager
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(emptyList()) {}
-        observeViewModel()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            observeViewModel()
+        }
         viewModel.retrieveForecastInfo()
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun observeViewModel() {
         lifecycleScope.launch {
             viewModel.homeStateLiveData.collect {
@@ -79,6 +83,7 @@ class HomeFragment : Fragment() {
     }
 
 
+    @RequiresApi(Build.VERSION_CODES.S)
     private fun createUI(cardList: List<HomeCardInfo>) {
         val listToShow = createHomeScreenItems(cardList)
         binding.recyclerViewHomeFrag.adapter = HomeFragmentAdapter(listToShow) {
@@ -121,6 +126,7 @@ class HomeFragment : Fragment() {
         return list
     }
 
+    @RequiresApi(Build.VERSION_CODES.S)
     override fun onResume() {
         super.onResume()
         updateWidget(

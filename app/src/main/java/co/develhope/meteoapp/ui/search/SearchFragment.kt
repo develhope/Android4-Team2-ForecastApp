@@ -69,125 +69,138 @@ class SearchFragment : Fragment() {
         }
 
         binding.btnGeoLoc.setOnClickListener {
-            context?.let { it1 -> viewModel.getGeoLocation(it1) }
-            if (context?.let { it1 -> isLocationEnabledGeo(it1) } == true){
+            try {
+                context?.let { it1 -> viewModel.getGeoLocation(it1) }
+                if (context?.let { it1 -> isLocationEnabledGeo(it1) } == true){
+                    findNavController().navigate(R.id.navigation_home)
+                }
+            }catch (e:Exception){
+                Log.d("GEOLOCAL","ERROR : ${e.cause},${e.message}")
+                findNavController().navigate(R.id.navigation_error)
+            }
+        }
+            binding.recyclerViewSearchFrag.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            binding.recyclerViewSearchFrag.setHasFixedSize(true)
+            binding.recyclerViewSearchFrag.adapter =
+                SearchFragmentAdapter(viewModel.getCityList()) {}
+            addCard(viewModel.getCityList())
+            searchingCity()
+
+            observerViewModel()
+        }
+
+        override fun onResume() {
+            super.onResume()
+            isMicEnabled()
+            isGeoEnabled()
+        }
+
+        private fun speechToText() {
+            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intent.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
+            intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla adesso")
+            try {
+                startActivityForResult(
+                    intent,
+                    REQUEST_CODE_SPEECH_INPUT
+                )
+            } catch (e: java.lang.Exception) {
+                Log.d("Speech", "Error : ${e.message},${e.cause}")
+            }
+        }
+
+        @Deprecated("Deprecated in Java")
+        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+            super.onActivityResult(requestCode, resultCode, data)
+            if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
+                if (resultCode == Activity.RESULT_OK && data != null) {
+                    val res: ArrayList<String> =
+                        data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
+                    binding.SearchBarSearchFrag.setQuery(Objects.requireNonNull(res)[0], false)
+                }
+            }
+        }
+
+        private fun searchingCity() {
+            binding.SearchBarSearchFrag.setOnQueryTextListener(object :
+                SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(text: String?): Boolean {
+                    Log.d("ERRORE IN SEARCH", "QUI POTREBBE ESSERE L'ERRORE")
+                    binding.tvRecentSearch.visibility = View.GONE
+                    viewModel.sendingCity(SearchEvents.CitySearched(text.toString()))
+                    observerViewModel()
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    val trimmedQuery = newText?.trim()
+                    if (!trimmedQuery.isNullOrEmpty()) {
+                        binding.tvRecentSearch.visibility = View.GONE
+                        viewModel.sendingCity(SearchEvents.CitySearched(trimmedQuery))
+                        observerViewModel()
+                    }
+                    return false
+                }
+            })
+        }
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
+
+        private fun createUISearch(list: List<Place?>) {
+            val newlist = ArrayList(list)
+            binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(newlist) {
+                viewModel.prefsSett(it)
                 findNavController().navigate(R.id.navigation_home)
             }
         }
 
-        binding.recyclerViewSearchFrag.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        binding.recyclerViewSearchFrag.setHasFixedSize(true)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(viewModel.getCityList()) {}
-        addCard(viewModel.getCityList())
-        searchingCity()
-
-        observerViewModel()
-    }
-
-    override fun onResume() {
-        super.onResume()
-        isMicEnabled()
-        isGeoEnabled()
-    }
-    private fun speechToText() {
-        val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-        intent.putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-        )
-        intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Parla adesso")
-        try {
-            startActivityForResult(
-                intent,
-                REQUEST_CODE_SPEECH_INPUT
-            )
-        } catch (e: java.lang.Exception) {
-            Log.d("Speech", "Error : ${e.message},${e.cause}")
-        }
-    }
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                val res: ArrayList<String> =
-                    data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) as ArrayList<String>
-                binding.SearchBarSearchFrag.setQuery(Objects.requireNonNull(res)[0], false)
-            }
-        }
-    }
-
-    private fun searchingCity() {
-        binding.SearchBarSearchFrag.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(text: String?): Boolean {
-                Log.d("ERRORE IN SEARCH","QUI POTREBBE ESSERE L'ERRORE")
-                binding.tvRecentSearch.visibility = View.GONE
-                viewModel.sendingCity(SearchEvents.CitySearched(text.toString()))
-                observerViewModel()
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                val trimmedQuery = newText?.trim()
-                if (!trimmedQuery.isNullOrEmpty()) {
-                    binding.tvRecentSearch.visibility = View.GONE
-                    viewModel.sendingCity(SearchEvents.CitySearched(trimmedQuery))
-                    observerViewModel()
-                }
-                return false
-            }
-        })
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun createUISearch(list: List<Place?>) {
-        val newlist = ArrayList(list)
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(newlist) {
-            viewModel.prefsSett(it)
-            findNavController().navigate(R.id.navigation_home)
-        }
-    }
-
-    fun observerViewModel() {
-        lifecycleScope.launch {
-            viewModel.searchStateLiveData.collect{
-                when (it) {
-                    is SearchState.Success -> createUISearch(it.list)
-                    is SearchState.Error -> view?.let { it1 -> co.develhope.meteoapp.ui.utils.error(it1) }
+        fun observerViewModel() {
+            lifecycleScope.launch {
+                viewModel.searchStateLiveData.collect {
+                    when (it) {
+                        is SearchState.Success -> createUISearch(it.list)
+                        is SearchState.Error -> view?.let { it1 ->
+                            co.develhope.meteoapp.ui.utils.error(
+                                it1
+                            )
+                        }
+                    }
                 }
             }
         }
-    }
 
 
-    private fun addCard(list: MutableList<Place?>) {
-        list.reverse()
-        binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
-            viewModel.getCityObj(it)
-            findNavController().navigate(R.id.navigation_home)
+        private fun addCard(list: MutableList<Place?>) {
+            list.reverse()
+            binding.recyclerViewSearchFrag.adapter = SearchFragmentAdapter(list) {
+                viewModel.getCityObj(it)
+                findNavController().navigate(R.id.navigation_home)
+            }
         }
-    }
 
-    private fun isMicEnabled() {
-        val settingsSpeech = viewModel.settingsMicrophone()
-        if (settingsSpeech) {
-            binding.btnToSpeech.visibility = View.VISIBLE
-        } else {
-            binding.btnToSpeech.visibility = View.GONE
+        private fun isMicEnabled() {
+            val settingsSpeech = viewModel.settingsMicrophone()
+            if (settingsSpeech) {
+                binding.btnToSpeech.visibility = View.VISIBLE
+            } else {
+                binding.btnToSpeech.visibility = View.GONE
+            }
+        }
+
+        private fun isGeoEnabled() {
+            val settingsGeo = viewModel.settingsGeo()
+            if (settingsGeo) {
+                binding.btnGeoLoc.visibility = View.VISIBLE
+            } else {
+                binding.btnGeoLoc.visibility = View.GONE
+            }
         }
     }
-    private fun isGeoEnabled(){
-        val settingsGeo = viewModel.settingsGeo()
-        if (settingsGeo){
-            binding.btnGeoLoc.visibility = View.VISIBLE
-        }else{
-            binding.btnGeoLoc.visibility = View.GONE
-        }
-    }
-}

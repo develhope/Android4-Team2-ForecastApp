@@ -12,6 +12,6 @@ fun weatherIcon(weather: Weather): Int {
             Weather.WINDY -> R.drawable.suncloud
             Weather.CLOUDY -> R.drawable.suncloud
             Weather.NIGHT -> R.drawable.moon
-            Weather.UNKNOWN -> R.drawable.suncloud // Da sostituire con un icona che indica che non c'è il dato
+            Weather.UNKNOWN -> R.drawable.rainsun // Da sostituire con un icona che indica che non c'è il dato
         }
     }

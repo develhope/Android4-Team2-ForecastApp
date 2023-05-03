@@ -7,6 +7,13 @@
     android:background="@drawable/home_bg"
     tools:context=".ui.home.HomeFragment">
 
+    <com.github.matteobattilana.weather.WeatherView
+        android:id="@+id/WeatherView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewHomeFrag"
         android:layout_width="match_parent"

@@ -95,4 +95,5 @@
     <string name="settingsimage">settingsImage</string>
     <string name="settingsTitle">Settings</string>
     <string name="geoLocalTest">Geolocalisation permission</string>
+    <string name="refresh">refresh</string>
 </resources>

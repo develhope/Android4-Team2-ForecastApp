@@ -3,13 +3,16 @@ package co.develhope.meteoapp.ui.home.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import co.develhope.meteoapp.R
 import co.develhope.meteoapp.databinding.HomeFragmentCardBinding
 import co.develhope.meteoapp.databinding.HomeFragmentNextdaysBinding
 import co.develhope.meteoapp.databinding.HomeFragmentTitleBinding
 import co.develhope.meteoapp.networking.domainmodel.HomeCardInfo
+import co.develhope.meteoapp.networking.domainmodel.Weather
 import co.develhope.meteoapp.ui.utils.weatherIcon
+import com.github.matteobattilana.weather.PrecipType
 import org.threeten.bp.OffsetDateTime
 import org.threeten.bp.ZoneOffset
 import org.threeten.bp.format.DateTimeFormatter
@@ -100,6 +103,15 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val o
             //FINISH FORMAT DATE TIME
 
             cardBinding.weatherImgHome.setImageResource(weatherIcon(card.cardInfo.weather))
+            //ANIM FOR RAIN
+            if (card.cardInfo.weather == Weather.RAINY || card.cardInfo.weather == Weather.HEAVYRAIN){
+                cardBinding.WeatherView.setWeatherData(PrecipType.RAIN)
+            }else if(card.cardInfo.weather == Weather.CLOUDY){
+                cardBinding.WeatherView.setWeatherData(PrecipType.SNOW)
+            }else{
+                cardBinding.WeatherView.setWeatherData(PrecipType.CLEAR)
+            }
+
             "${card.cardInfo.rainFall} mm".also { cardBinding.rainfallNum.text = it }
             "${card.cardInfo.wind}kmh".also { cardBinding.windNum.text = it }
             //CLICK TO SWITCH FRAGMENT --- TRY SEALED CLASS(EVENTS)
@@ -108,7 +120,6 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val o
             }
 
         }
-
     }
 
     class NextDaysHolder(private val nextdaysBinding: HomeFragmentNextdaysBinding) :
