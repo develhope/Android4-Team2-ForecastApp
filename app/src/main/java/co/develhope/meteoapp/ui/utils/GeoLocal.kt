@@ -86,7 +86,7 @@ class GeoLocal(context: Context, val prefs: PrefsInterface) {
 
     private fun getCityName(lat: Double, long: Double, context: Context): String {
         val cityName: String
-        val geocoder = Geocoder(context, Locale.ENGLISH)
+        val geocoder = Geocoder(context, Locale.getDefault())
         val address = geocoder.getFromLocation(lat, long, 1)
         cityName = address?.get(0)?.locality ?: "-"
         return cityName
@@ -94,7 +94,7 @@ class GeoLocal(context: Context, val prefs: PrefsInterface) {
 
     private fun getCountryName(lat: Double, long: Double, context: Context): String {
         val countryName: String
-        val geocoder = Geocoder(context, Locale.ENGLISH)
+        val geocoder = Geocoder(context, Locale.getDefault())
         val address = geocoder.getFromLocation(lat, long, 1)
         countryName = address?.get(0)?.countryName ?: "-"
         return countryName
