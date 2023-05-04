@@ -106,7 +106,7 @@ class HomeFragmentAdapter(private val list: List<HomeScreenParts>, private val o
             //ANIM FOR RAIN
             if (card.cardInfo.weather == Weather.RAINY || card.cardInfo.weather == Weather.HEAVYRAIN){
                 cardBinding.WeatherView.setWeatherData(PrecipType.RAIN)
-            }else if(card.cardInfo.weather == Weather.CLOUDY){
+            }else if(card.cardInfo.weather == Weather.FOGGY){
                 cardBinding.WeatherView.setWeatherData(PrecipType.SNOW)
             }else{
                 cardBinding.WeatherView.setWeatherData(PrecipType.CLEAR)
